@@ -1,0 +1,7 @@
+# Temp files
+*~
+*.sw[a-p]
+
+# Amps
+/jira-run-pom.xml
+/target
