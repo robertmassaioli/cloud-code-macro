@@ -31,6 +31,27 @@ define(["../lib/URI"], function(URI) {
             key: queryParams["profile_user_key"],
             name: queryParams["profile_user_name"]
         };
+
+        // Confluence Page Context Items
+        pageContext.macro = {
+           id: queryParams["macro_id"],
+           body: queryParams["macro_body"],
+           truncated: queryParams["macro_truncated"]
+        };
+        pageContext.page = {
+           id: parseInt(queryParams["page_id"]),
+           title: queryParams["page_title"],
+           type: queryParams["page_type"],
+           version: parseInt(queryParams["page_version"])
+        };
+        pageContext.space = {
+           id: parseInt(queryParams["space_id"]),
+           key: queryParams["space_key"]
+        };
+        pageContext.output = {
+           type: queryParams["output_type"]
+        };
+
         pageContext.productBaseUrl = queryParams['xdm_e'] + queryParams['cp']; 
 
         return pageContext;

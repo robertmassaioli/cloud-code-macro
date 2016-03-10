@@ -11,6 +11,11 @@
       <script src="//aui-cdn.atlassian.com/aui-adg/5.9.4/js/aui-experimental.js"></script>
       <script src="//aui-cdn.atlassian.com/aui-adg/5.9.4/js/aui-soy.js"></script>
 
+      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/default.min.css">
+      <!--
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/highlight.min.js"></script>
+      -->
+
       <link rel="stylesheet" type="text/css" href="/static/css/all.css">
       <script src="/static/js/app/paste-code-macro.js" type="text/javascript"></script>
       <script type="text/javascript">require(['app/paste-code-macro']);</script>
@@ -32,10 +37,7 @@
    </head>
    <body class="issue-entity-properties">
       <section id="content" class="ac-content">
-         <pre><code>
-            var hello = "you";
-            hello.lift = 5;
-         </code></pre>
+         <pre><code id="code-preview"></code></pre>
       </section>
    </body>
 </html>
