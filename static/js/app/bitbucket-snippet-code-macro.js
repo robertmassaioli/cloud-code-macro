@@ -18,7 +18,7 @@ define(['../helpers/PageContext', '../helpers/MustacheLoader', '../lib/highlight
    var apiRequest = AJS.$.ajax({
       url: apiUrl,
       type: 'GET',
-      cache: false,
+      cache: true,
       dataType: 'json',
       crossDomain: true,
       xhrFields: {
@@ -39,7 +39,7 @@ define(['../helpers/PageContext', '../helpers/MustacheLoader', '../lib/highlight
          var rawDataRequest = AJS.$.ajax({
             url: thisFile.links.self.href,
             type: 'GET',
-            cache: false,
+            cache: true,
             dataType: 'text',
             crossDomain: true,
             xhrFields: {
