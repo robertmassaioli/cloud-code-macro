@@ -3,6 +3,15 @@ var _ = require('lodash');
 module.exports = function(grunt) {
    var expressRoot = 'index.js';
 
+   var toName = function(s) {
+      return { name: s };
+   };
+
+   var jsModules = [
+      'app/paste-code-macro',
+      'app/gist-code-macro'
+   ];
+
    var buildJsOptions = {
       optimize: 'none',
       appDir: 'static/js',
@@ -22,9 +31,7 @@ module.exports = function(grunt) {
          }
       },
       wrapShim: true,
-      modules: [{
-         name: 'app/paste-code-macro'
-      }]
+      modules: _.map(jsModules, toName)
    };
 
    var prodJsOptions = _.merge({}, buildJsOptions, {

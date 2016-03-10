@@ -87,6 +87,40 @@ app.get('/atlassian-connect.json', function(req, res) {
       scopes: ["read"],
       modules: {
          dynamicContentMacros: [{
+            key: 'gist-code-macro',
+            name: {
+               value: 'Github Gist macro'
+            },
+            url: '/macro/gist-code-macro?gistUrl={gistUrl}',
+            documentation: {
+               url: '/docs/gist-code-macro'
+            },
+            categories: [
+               'development',
+               'external-content'
+            ],
+            outputType: 'block',
+            bodyType: 'none',
+            aliases: [ 'gist' ],
+            featured: false,
+            parameters: [{
+               identifier: 'gistUrl',
+               name: {
+                  value: 'Gist url'
+               },
+               type: 'string',
+               required: true,
+               multiple: false,
+               hidden: true
+            }],
+            autoconvert: {
+               urlParameter: 'gistUrl',
+               matchers: [{
+                  pattern: 'https://gist.github.com/{}/{}'
+               }]
+            },
+            hidden: true
+         }, {
             key: 'paste-code-macro',
             name: {
                value: 'Better Code Block'
@@ -286,6 +320,12 @@ app.get('/atlassian-connect.json', function(req, res) {
 
 app.get('/macro/paste-code-macro', function(req, res) {
    res.render('paste-code-macro');
+});
+
+app.get('/macro/gist-code-macro', function(req, res) {
+   res.render('gist-code-macro', {
+       gistUrl: req.query.gistUrl + '.js'
+   });
 });
 
 var server = app.listen(serverPort, function () {
