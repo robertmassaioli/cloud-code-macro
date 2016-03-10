@@ -31,6 +31,17 @@ module.exports = function(grunt) {
       optimize: 'uglify2'
    });
 
+   var buildCssOptions = {
+      files: {
+         "static-css/all.css": "static/less/all.less"
+      }
+   };
+
+   var prodCssOptions = _.merge({}, buildCssOptions, {
+      options: {
+         compress: true
+      }
+   });
 
    grunt.initConfig({
       express: {
@@ -50,6 +61,10 @@ module.exports = function(grunt) {
          prod: {
             options: prodJsOptions
          }
+      },
+      less: {
+         compile: buildCssOptions,
+         prod: prodCssOptions
       },
       jshint: {
          files: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js'],
@@ -97,7 +112,7 @@ module.exports = function(grunt) {
 
    grunt.registerTask('default', [
       'requirejs:compile', 
-      //'less:compile', 
+      'less:compile', 
       'express:dev', 
       'watch'
    ]);
