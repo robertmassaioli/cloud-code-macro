@@ -1,0 +1,20 @@
+{
+  "name": "cloud-code-macro",
+  "version": "1.0.0",
+  "description": "Better Code Macro for Confluence Cloud",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/robertmassaioli/cloud-code-macro.git"
+  },
+  "keywords": [
+    "atlassian",
+    "connect"
+  ],
+  "author": "Robert Massaioli",
+  "license": "MIT",
+  "homepage": "https://bitbucket.org/robertmassaioli/cloud-code-macro#readme"
+}
