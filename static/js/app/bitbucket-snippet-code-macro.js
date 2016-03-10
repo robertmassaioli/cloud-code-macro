@@ -2,10 +2,11 @@ define(['../helpers/PageContext', '../helpers/MustacheLoader', '../lib/highlight
    var pageContext = PC.load();
    var templates = ML.load();
 
+   // Get the snippet url
    var rawSnippetUrl = AJS.$("meta[name='snippet-url']").attr('content');
    var snippetUrl = URI(rawSnippetUrl);
-   console.log("Snippet url: " + snippetUrl);
 
+   // Generate the api url for this snippet
    var apiUrl = snippetUrl.segmentCoded([
       '!api',
       '2.0',
@@ -13,7 +14,6 @@ define(['../helpers/PageContext', '../helpers/MustacheLoader', '../lib/highlight
       snippetUrl.segmentCoded(1),
       snippetUrl.segmentCoded(2)
    ]);
-   console.log("Api url: " + apiUrl);
 
    var apiRequest = AJS.$.ajax({
       url: apiUrl,
@@ -29,12 +29,10 @@ define(['../helpers/PageContext', '../helpers/MustacheLoader', '../lib/highlight
    var allJs = $.getScript(pageContext.productBaseUrl + '/atlassian-connect/all.js');
 
    apiRequest.done(function(data) {
-      console.log(data);
-      // TODO for each of the files download the raw content and setup a highlightjs block
       var rawRequests = [];
       var rawData = [];
+      // Request all of the contents of all of the files and save their data
       AJS.$.each(_.allKeys(data.files), function(i, filename) {
-         console.log(data.files[filename]);
          var thisFile = data.files[filename];
          var rawDataRequest = AJS.$.ajax({
             url: thisFile.links.self.href,
@@ -58,8 +56,8 @@ define(['../helpers/PageContext', '../helpers/MustacheLoader', '../lib/highlight
          });
       });
 
+      // Write out the contents of all of the files once you recieve them
       AJS.$.when.apply(AJS.$, rawRequests).done(function() {
-         console.log(rawData);
          AJS.$("#content").append(templates.render('bitbucket-snippet-files', {
             files: rawData
          }));
