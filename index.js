@@ -87,9 +87,49 @@ app.get('/atlassian-connect.json', function(req, res) {
       scopes: ["read"],
       modules: {
          dynamicContentMacros: [{
+            key: 'bitbucket-snippet-code-macro',
+            name: {
+               value: 'Bitbucket snippet macro'
+            },
+            url: '/macro/bitbucket-snippet-code-macro?snippetUrl={snippetUrl}',
+            documentation: {
+               url: '/docs/bitbucket-snippet-code-macro'
+            },
+            categories: [
+               'development',
+               'external-content'
+            ],
+            outputType: 'block',
+            bodyType: 'none',
+            aliases: [
+               'snippet',
+               'bbsnippet',
+               'bitbucket',
+            ],
+            featured: false,
+            parameters: [{
+               identifier: 'snippetUrl',
+               name: {
+                  value: 'Snippet url'
+               },
+               type: 'string',
+               required: true,
+               multiple: false,
+               hidden: true
+            }],
+            autoconvert: {
+               urlParameter: 'snippetUrl',
+               matchers: [{
+                  pattern: 'https://bitbucket.org/snippets/{}/{}'
+               }, {
+                  pattern: 'https://bitbucket.org/snippets/{}/{}/{}'
+               }]
+            },
+            hidden: true
+         }, {
             key: 'gist-code-macro',
             name: {
-               value: 'Github Gist macro'
+               value: 'GitHub gist macro'
             },
             url: '/macro/gist-code-macro?gistUrl={gistUrl}',
             documentation: {
@@ -325,6 +365,12 @@ app.get('/macro/paste-code-macro', function(req, res) {
 app.get('/macro/gist-code-macro', function(req, res) {
    res.render('gist-code-macro', {
        gistUrl: req.query.gistUrl + '.js'
+   });
+});
+
+app.get('/macro/bitbucket-snippet-code-macro', function(req, res) {
+   res.render('bitbucket-snippet-code-macro', {
+       snippetUrl: req.query.snippetUrl
    });
 });
 

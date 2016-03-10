@@ -9,7 +9,8 @@ module.exports = function(grunt) {
 
    var jsModules = [
       'app/paste-code-macro',
-      'app/gist-code-macro'
+      'app/gist-code-macro',
+      'app/bitbucket-snippet-code-macro'
    ];
 
    var buildJsOptions = {
