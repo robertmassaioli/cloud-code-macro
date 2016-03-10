@@ -1,5 +1,36 @@
+var _ = require('lodash');
+
 module.exports = function(grunt) {
    var expressRoot = 'index.js';
+
+   var buildJsOptions = {
+      optimize: 'none',
+      appDir: 'static/js',
+      baseUrl: '.',
+      dir: 'static-js',
+      paths: {
+         underscore: 'lib/underscore'
+      },
+      shim: {
+         'jquery': {
+            deps: [],
+            exports: '$'
+         },
+         'aui': {
+            'deps': ['jquery'],
+            'exports': 'AJS'
+         }
+      },
+      wrapShim: true,
+      modules: [{
+         name: 'app/paste-code-macro'
+      }]
+   };
+
+   var prodJsOptions = _.merge({}, buildJsOptions, {
+      optimize: 'uglify2'
+   });
+
 
    grunt.initConfig({
       express: {
@@ -10,6 +41,14 @@ module.exports = function(grunt) {
             options: {
                script: expressRoot
             }
+         }
+      },
+      requirejs: {
+         compile: {
+            options: buildJsOptions
+         },
+         prod: {
+            options: prodJsOptions
          }
       },
       jshint: {
@@ -57,7 +96,7 @@ module.exports = function(grunt) {
    grunt.loadNpmTasks('grunt-contrib-watch');
 
    grunt.registerTask('default', [
-      //'requirejs:compile', 
+      'requirejs:compile', 
       //'less:compile', 
       'express:dev', 
       'watch'

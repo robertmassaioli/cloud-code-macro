@@ -26,6 +26,7 @@
     "grunt-contrib-less": "^1.2.0",
     "grunt-contrib-requirejs": "^1.0.0",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-express-server": "^0.5.2"
+    "grunt-express-server": "^0.5.2",
+    "lodash": "^4.6.1"
   }
 }
