@@ -17,11 +17,6 @@ define(['../helpers/PageContext', '../helpers/MustacheLoader', '../lib/highlight
       });
    };
 
-   AJS.$("#copy-to-clipboard").tooltip({
-       gravity: 'n',
-       trigger: 'manual'
-   });
-   
    $.getScript(pageContext.productBaseUrl + '/atlassian-connect/all.js', function() {
       AP.require('request', function(request) {
          request({
@@ -50,6 +45,11 @@ define(['../helpers/PageContext', '../helpers/MustacheLoader', '../lib/highlight
                AJS.$("#content").append(templates.render('paste', pasteData));
 
                // Setup the clipboard
+               AJS.$("#copy-to-clipboard").tooltip({
+                   gravity: 'n',
+                   trigger: 'manual'
+               });
+   
                var clipboard = new Clipboard('#copy-to-clipboard');
 
                clipboard.on('success', function(e) {
