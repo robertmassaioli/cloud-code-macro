@@ -1,5 +1,10 @@
-define(['../helpers/PageContext', '../lib/highlight', '../lib/clipboard'], function(PC, highlight, Clipboard) {
+define(['../helpers/PageContext', '../helpers/MustacheLoader', '../lib/highlight', '../lib/clipboard'], function(PC, ML, highlight, Clipboard) {
    var pageContext = PC.load();
+   var templates = ML.load();
+
+   function isBlank(str) {
+       return (!str || /^\s*$/.test(str));
+   }
 
    var convertThemeName = function(themeName) {
       return themeName.replace(' ', '-').toLowerCase();
@@ -26,8 +31,23 @@ define(['../helpers/PageContext', '../lib/highlight', '../lib/clipboard'], funct
                var macro = JSON.parse(response);
 
                // Put the body in the code block
-               var codeBlock = AJS.$("#code-preview");
-               codeBlock.text(macro.body);
+               var pasteData = {
+                  contents: macro.body
+               };
+
+               // Optionally set the title
+               var title = macro.parameters.title ? macro.parameters.title.value : '';
+               if(!isBlank(title)) {
+                  pasteData.title = title;
+               }
+
+               // Override the language if required
+               macro.parameters = macro.parameters || {};
+               if(macro.parameters.language) {
+                  pasteData.language = macro.parameters.language.value;
+               }
+
+               AJS.$("#content").append(templates.render('paste', pasteData));
 
                // Setup the clipboard
                var clipboard = new Clipboard('#copy-to-clipboard');
@@ -43,12 +63,6 @@ define(['../helpers/PageContext', '../lib/highlight', '../lib/clipboard'], funct
                       copyButton.blur();
                    }, 3000);
                });
-
-               // Override the language if required
-               macro.parameters = macro.parameters || {};
-               if(macro.parameters.language) {
-                  codeBlock.addClass(macro.parameters.language.value);
-               }
 
                // Set the theme
                selectTheme('Default'); // Need to do this first for some reason

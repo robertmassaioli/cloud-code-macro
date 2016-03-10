@@ -354,6 +354,16 @@ app.get('/atlassian-connect.json', function(req, res) {
                ],
                hidden: false
             }, {
+               identifier: 'title',
+               name: {
+                  value: 'Title'
+               },
+               description: {
+                  value: 'An optional title for your code black.'
+               },
+               type: 'string',
+               required: false,
+            }, {
                identifier: 'theme',
                name: {
                   value: 'Theme'
@@ -364,7 +374,7 @@ app.get('/atlassian-connect.json', function(req, res) {
                type: 'enum',
                required: true,
                values: _.map(avaliableStyles, prettyStyleName),
-               defaultValue: 'github-gist'
+               defaultValue: prettyStyleName('github-gist')
             }],
          }]
       }

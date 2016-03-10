@@ -21,24 +21,21 @@
       <script type="text/javascript">require(['app/paste-code-macro']);</script>
 
       {{=<% %>=}}
-      <script id="property-panel" type="x-tmpl-mustache">
-         <div class="panel panel-default property" data-property-key="{{key}}">
-            <div class="panel-heading">
-               <button class="aui-button delete-button"><span class="aui-icon aui-icon-small aui-iconfont-delete"></span></button>
-               <h3 class="panel-title">{{key}}</h3>
-            </div>
-            <div class="panel-body">
-               <div class="editor"></div>
-            </div>
-            <div class="status hidden"></div>
+      <script id="paste" type="x-tmpl-mustache">
+      <div class="paste">
+         {{#title}}
+         <div class="heading"><span class="title">{{title}}</span></div>
+         {{/title}}
+         <div class="contents">
+            <button id="copy-to-clipboard" class="aui-button aui-button-subtle" data-clipboard-target="#code-preview" title="Copied!"><span class="aui-icon aui-icon-small aui-iconfont-copy-clipboard ">Copy </span> Copy to clipboard</button>
+            <pre><code id="code-preview {{language}}">{{contents}}</code></pre>
          </div>
+      </div>
       </script>
       <%={{ }}=%>
    </head>
    <body class="paste-code-macro">
       <section id="content" class="ac-content">
-         <button id="copy-to-clipboard" class="aui-button aui-button-subtle" data-clipboard-target="#code-preview" title="Copied!"><span class="aui-icon aui-icon-small aui-iconfont-copy-clipboard ">Copy </span> Copy to clipboard</button>
-         <pre><code id="code-preview"></code></pre>
       </section>
    </body>
 </html>
