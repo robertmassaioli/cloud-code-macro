@@ -16,5 +16,8 @@
   ],
   "author": "Robert Massaioli",
   "license": "MIT",
-  "homepage": "https://bitbucket.org/robertmassaioli/cloud-code-macro#readme"
+  "homepage": "https://bitbucket.org/robertmassaioli/cloud-code-macro#readme",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
 }

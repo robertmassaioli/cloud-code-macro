@@ -5,3 +5,6 @@
 # Amps
 /jira-run-pom.xml
 /target
+
+# Node
+/node_modules
