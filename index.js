@@ -400,6 +400,10 @@ app.get('/macro/bitbucket-snippet-code-macro', function(req, res) {
    });
 });
 
+app.get('/rest/heartbeat', function(req, res) {
+   res.sendStatus(200);
+});
+
 var prettyStyleName = function(s) {
    var upperLocations = [];
    var currentLocation = 0;
