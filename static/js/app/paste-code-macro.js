@@ -1,4 +1,4 @@
-define(['../helpers/PageContext', '../lib/highlight'], function(PC, highlight) {
+define(['../helpers/PageContext', '../lib/highlight', '../lib/clipboard'], function(PC, highlight, Clipboard) {
    var pageContext = PC.load();
 
    var convertThemeName = function(themeName) {
@@ -11,6 +11,11 @@ define(['../helpers/PageContext', '../lib/highlight'], function(PC, highlight) {
          link.disabled = (link.title != linkThemeName);
       });
    };
+
+   AJS.$("#copy-to-clipboard").tooltip({
+       gravity: 'n',
+       trigger: 'manual'
+   });
    
    $.getScript(pageContext.productBaseUrl + '/atlassian-connect/all.js', function() {
       AP.require('request', function(request) {
@@ -23,6 +28,21 @@ define(['../helpers/PageContext', '../lib/highlight'], function(PC, highlight) {
                // Put the body in the code block
                var codeBlock = AJS.$("#code-preview");
                codeBlock.text(macro.body);
+
+               // Setup the clipboard
+               var clipboard = new Clipboard('#copy-to-clipboard');
+
+               clipboard.on('success', function(e) {
+                   e.clearSelection();
+
+                   // Show the copied tooltip
+                   var copyButton = AJS.$("#copy-to-clipboard");
+                   copyButton.tooltip('show');
+                   setTimeout(function() {
+                      copyButton.tooltip('hide');
+                      copyButton.blur();
+                   }, 3000);
+               });
 
                // Override the language if required
                macro.parameters = macro.parameters || {};
