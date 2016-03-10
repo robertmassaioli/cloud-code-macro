@@ -1,5 +1,16 @@
 define(['../helpers/PageContext', '../lib/highlight'], function(PC, highlight) {
    var pageContext = PC.load();
+
+   var convertThemeName = function(themeName) {
+      return themeName.replace(' ', '-').toLowerCase();
+   };
+
+   var selectTheme = function(themeName) {
+      var linkThemeName = convertThemeName(themeName);
+      $("link[title]").each(function(i, link) {
+         link.disabled = (link.title != linkThemeName);
+      });
+   };
    
    $.getScript(pageContext.productBaseUrl + '/atlassian-connect/all.js', function() {
       AP.require('request', function(request) {
@@ -19,8 +30,14 @@ define(['../helpers/PageContext', '../lib/highlight'], function(PC, highlight) {
                   codeBlock.addClass(macro.parameters.language.value);
                }
 
+               // Set the theme
+               selectTheme('Default'); // Need to do this first for some reason
+               macro.parameters.theme = macro.parameters.theme || { value: 'Github Gist' };
+               selectTheme(macro.parameters.theme.value);
+
                // Enable the highlight and resize the iframe
                highlight.initHighlighting();
+
                AP.resize();
             }
          });
