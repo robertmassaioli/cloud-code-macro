@@ -19,6 +19,7 @@
   "homepage": "https://bitbucket.org/robertmassaioli/cloud-code-macro#readme",
   "dependencies": {
     "express": "^4.13.4",
+    "express-bunyan-logger": "^1.2.0",
     "lodash": "^4.6.1"
   },
   "devDependencies": {
