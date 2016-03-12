@@ -10,7 +10,8 @@ module.exports = function(grunt) {
    var jsModules = [
       'app/paste-code-macro',
       'app/gist-code-macro',
-      'app/bitbucket-snippet-code-macro'
+      'app/bitbucket-snippet-code-macro',
+      'app/docs'
    ];
 
    var buildJsOptions = {
@@ -19,7 +20,8 @@ module.exports = function(grunt) {
       baseUrl: '.',
       dir: 'static-js',
       paths: {
-         underscore: 'lib/underscore'
+         underscore: 'lib/underscore',
+         marked: 'lib/marked'
       },
       shim: {
          'jquery': {

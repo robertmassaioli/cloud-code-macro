@@ -2,6 +2,7 @@ var express = require('express');
 var _ = require('lodash');
 var bunyan = require('express-bunyan-logger');
 var mustacheExpress = require('mustache-express');
+const fs = require('fs');
 var app = express();
 
 // JSON Logging
@@ -69,7 +70,7 @@ app.use('/static/ace', express.static('static/ace'));
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', function(req, res) {
-  res.send('hello world');
+  res.redirect('/docs/home');
 });
 
 var pluginKey = 'com.atlassian.connect.better-code-macro' + getKeySuffixFromZone(microsZone); 
@@ -97,7 +98,7 @@ app.get('/atlassian-connect.json', function(req, res) {
             },
             url: '/macro/bitbucket-snippet-code-macro?snippetUrl={snippetUrl}',
             documentation: {
-               url: '/docs/bitbucket-snippet-code-macro'
+               url: '/docs/bitbucket-snippets'
             },
             categories: [
                'development',
@@ -418,6 +419,31 @@ app.get('/redirect/install', function(req, res) {
 
 app.get('/redirect/raise-issue', function(req, res) {
    res.redirect('https://bitbucket.org/robertmassaioli/cloud-code-macro/issues/new');
+});
+
+app.param('docsFile', function(req, res, next, docsFile) {
+   req.docsFile = docsFile;
+   next();
+});
+
+app.get('/docs/:docsFile', function(req, res) {
+   fs.readFile('docs/' + req.docsFile + '.md', function(err, data) {
+      if(err) {
+         fs.readFile('docs/not-found.md', function(err, data) {
+            if(err) {
+               res.sendStatus(404);
+            } else {
+               res.render('docs', {
+                  markdownContent: data
+               });
+            }
+         });
+      } else {
+         res.render('docs', {
+            markdownContent: data
+         });
+      }
+   });
 });
 
 var prettyStyleName = function(s) {
