@@ -28,6 +28,7 @@ var zoneFromString = function(zone) {
    switch(zone) {
       case "useast.staging.atlassian.io":
       case "uswest.staging.atlassian.io":
+      case "app.dev.atlassian.io":
          return zones.dog;
 
       case "useast.atlassian.io":
@@ -71,10 +72,12 @@ app.get('/', function(req, res) {
   res.send('hello world');
 });
 
+var pluginKey = 'com.atlassian.connect.better-code-macro' + getKeySuffixFromZone(microsZone); 
+
 app.get('/atlassian-connect.json', function(req, res) {
    res.json({
       name: 'Better Code Macro for Confluence',
-      key: 'com.atlassian.connect.better-code-macro' + getKeySuffixFromZone(microsZone),
+      key: pluginKey,
       version: "1.0",
       description: 'A better code macro for Confluence cloud.',
       vendor: {
@@ -402,6 +405,19 @@ app.get('/macro/bitbucket-snippet-code-macro', function(req, res) {
 
 app.get('/rest/heartbeat', function(req, res) {
    res.sendStatus(200);
+});
+
+/*
+    [ ("/redirect/raise-issue", SC.redirect "https://ecosystem.atlassian.net/secure/RapidBoard.jspa?rapidView=192")
+    , ("/redirect/install", SC.redirect "")
+    , ("/redirect/jira-signup", SC.redirect "https://www.atlassian.com/ondemand/signup/?product=jira-core.ondemand")
+*/
+app.get('/redirect/install', function(req, res) {
+   res.redirect('https://marketplace.atlassian.com/plugins/' + pluginKey);
+});
+
+app.get('/redirect/raise-issue', function(req, res) {
+   res.redirect('https://bitbucket.org/robertmassaioli/cloud-code-macro/issues/new');
 });
 
 var prettyStyleName = function(s) {
