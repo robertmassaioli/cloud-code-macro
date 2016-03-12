@@ -3,6 +3,7 @@ var _ = require('lodash');
 var bunyan = require('express-bunyan-logger');
 var mustacheExpress = require('mustache-express');
 const fs = require('fs');
+const sanitize = require("sanitize-filename");
 var app = express();
 
 // JSON Logging
@@ -422,7 +423,7 @@ app.get('/redirect/raise-issue', function(req, res) {
 });
 
 app.param('docsFile', function(req, res, next, docsFile) {
-   req.docsFile = docsFile;
+   req.docsFile = sanitize(docsFile);
    next();
 });
 

@@ -21,7 +21,8 @@
     "express": "^4.13.4",
     "express-bunyan-logger": "^1.2.0",
     "lodash": "^4.6.1",
-    "mustache-express": "^1.2.2"
+    "mustache-express": "^1.2.2",
+    "sanitize-filename": "^1.5.3"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
