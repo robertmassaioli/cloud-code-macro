@@ -376,7 +376,7 @@ app.get('/atlassian-connect.json', function(req, res) {
                   value: 'Choose the theme for your code.'
                },
                type: 'enum',
-               required: true,
+               required: false,
                values: _.map(avaliableStyles, prettyStyleName),
                defaultValue: prettyStyleName('github-gist')
             }],
