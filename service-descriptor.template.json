@@ -9,7 +9,11 @@
       "min": 1
    },
    "notifications": {
-      "email": "rmassioli@atlassian.com"
+      "email": "rmassioli@atlassian.com",
+      "pagerduty": {
+         "cloudwatch": "https://events.pagerduty.com/integration/81b318b251424cf2bbbd41f9db531d8d/enqueue",
+         "apiKey": "81b318b251424cf2bbbd41f9db531d8d"
+      }
    },
    "links": {
       "binary": {
