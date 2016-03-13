@@ -5,13 +5,13 @@ has all of the same features plus some more.
 
 ## Better syntax highlighting
 
-The default code block macro supports a meager X languages, whereas the Better Code Macro supports
+The default code block macro supports a meager 19 languages, whereas the Better Code Macro supports
 149 unique languages! It contains support for all of the common languages that you might expect plus
 other more niche languages too.
 
 ## Better theme support
 
-The default code block macro supports only X themes, wheras the Better Code Macro supports 71 unique
+The default code block macro supports only 8 themes, wheras the Better Code Macro supports 71 unique
 themes. Even beter than that, the Better Code Macro does not suffer from [a bug in the default code
 block macro][1] that prevents you from using more than one theme on a page.
 
