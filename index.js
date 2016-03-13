@@ -177,7 +177,7 @@ app.get('/atlassian-connect.json', function(req, res) {
             },
             // TODO icon support
             documentation: {
-               url: '/docs/paste-code-macro.html'
+               url: '/docs/paste-code-macro'
             },
             // TODO use external content for the snippets and gist macros
             categories: [
