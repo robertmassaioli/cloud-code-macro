@@ -18,6 +18,10 @@ var extendLogger = function(req, res) {
       extra.userKey = req.query.user_key;
    }
 
+   if(req.query.xdm_e) {
+      extra.cloudInstance = req.query.xdm_e;
+   }
+
    return extra
 };
 
