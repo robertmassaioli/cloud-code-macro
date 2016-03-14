@@ -7,8 +7,26 @@ const sanitize = require("sanitize-filename");
 var app = express();
 
 // JSON Logging
-app.use(bunyan());
-app.use(bunyan.errorLogger());
+var extendLogger = function(req, res) {
+   var extra = {};
+
+   if(req.query.user_id) {
+      extra.userId = req.query.user_id;
+   }
+
+   if(req.query.user_key) {
+      extra.userKey = req.query.user_key;
+   }
+
+   return extra
+};
+
+app.use(bunyan({
+   includesFn: extendLogger
+}));
+app.use(bunyan.errorLogger({
+   includesFn: extendLogger
+}));
 
 // Register '.mustache' extension with The Mustache Express
 app.engine('mustache', mustacheExpress());
