@@ -120,6 +120,11 @@ app.get('/atlassian-connect.json', function(req, res) {
                value: 'Bitbucket snippet macro'
             },
             url: '/macro/bitbucket-snippet-code-macro?snippetUrl={snippetUrl}',
+            icon: {
+               width: 80,
+               height: 80,
+               url: '/static/images/bitbucket/bitbucket-logo-80px.png'
+            },
             documentation: {
                url: '/docs/bitbucket-snippets'
             },
@@ -160,6 +165,11 @@ app.get('/atlassian-connect.json', function(req, res) {
                value: 'GitHub gist macro'
             },
             url: '/macro/gist-code-macro?gistUrl={gistUrl}',
+            icon: {
+               width: 80,
+               height: 80,
+               url: '/static/images/github/GitHub-Mark-80px.png'
+            },
             documentation: {
                url: '/docs/gist-code-macro'
             },
@@ -197,7 +207,11 @@ app.get('/atlassian-connect.json', function(req, res) {
             description: {
                value: 'Better macro to format blocks of source code or markup.'
             },
-            // TODO icon support
+            icon: {
+               width: 80,
+               height: 80,
+               url: '/static/images/cloud-code-macro-paste-icon.png'
+            },
             documentation: {
                url: '/docs/paste-code-macro'
             },
