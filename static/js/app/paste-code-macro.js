@@ -36,11 +36,10 @@ define(['../helpers/PageContext', '../helpers/MustacheLoader', '../lib/highlight
                   pasteData.title = title;
                }
 
-               // Override the language if required
-               macro.parameters = macro.parameters || {};
-               if(macro.parameters.language) {
-                  pasteData.language = macro.parameters.language.value;
-               }
+               // Set the language
+               var language = pageContext.macro.language || 'bash';
+               macro.parameters.language = {value: language};
+               pasteData.language = macro.parameters.language.value;
 
                AJS.$("#content").append(templates.render('paste', pasteData));
 
@@ -49,7 +48,7 @@ define(['../helpers/PageContext', '../helpers/MustacheLoader', '../lib/highlight
                    gravity: 'n',
                    trigger: 'manual'
                });
-   
+
                var clipboard = new Clipboard('#copy-to-clipboard');
 
                clipboard.on('success', function(e) {
@@ -66,7 +65,8 @@ define(['../helpers/PageContext', '../helpers/MustacheLoader', '../lib/highlight
 
                // Set the theme
                selectTheme('Default'); // Need to do this first for some reason
-               macro.parameters.theme = macro.parameters.theme || { value: 'Github Gist' };
+               var theme = pageContext.macro.theme || 'Github Gist';
+               macro.parameters.theme = {value: theme};
                selectTheme(macro.parameters.theme.value);
 
                // Enable the highlight and resize the iframe
