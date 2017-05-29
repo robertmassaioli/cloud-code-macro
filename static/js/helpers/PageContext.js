@@ -36,7 +36,9 @@ define(["../lib/URI"], function(URI) {
         pageContext.macro = {
            id: queryParams["macro_id"],
            body: queryParams["macro_body"],
-           truncated: queryParams["macro_truncated"]
+           truncated: queryParams["macro_truncated"],
+           theme: queryParams["theme"],
+           language: queryParams["language"]
         };
         pageContext.page = {
            id: parseInt(queryParams["page_id"]),
