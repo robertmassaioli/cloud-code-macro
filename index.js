@@ -203,7 +203,7 @@ app.get('/atlassian-connect.json', function(req, res) {
             name: {
                value: 'Better Code Block'
             },
-            url: '/macro/paste-code-macro?page_id={page.id}&macro_id={macro.id}&page_version={page.version}&output_type={output.type}&theme={theme}&language={language}',
+            url: '/macro/paste-code-macro?page_id={page.id}&macro_id={macro.id}&page_version={page.version}&output_type={output.type}&theme={theme}&language={language}&title={title}',
             description: {
                value: 'Better macro to format blocks of source code or markup.'
             },
