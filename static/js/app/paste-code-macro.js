@@ -28,13 +28,13 @@ define(['../helpers/PageContext', '../helpers/MustacheLoader', '../lib/highlight
             };
 
             // Optionally set the title
-            var title = pageContext.macro.title || '';
+            var title = pageContext.macro.title || data.title || '';
             if(!isBlank(title)) {
                 pasteData.title = title;
             }
 
             // Set the language
-            pasteData.language = pageContext.macro.language || 'bash';
+            pasteData.language = pageContext.macro.language || data.language || 'bash';
 
             AJS.$("#content").append(templates.render('paste', pasteData));
 
@@ -60,7 +60,7 @@ define(['../helpers/PageContext', '../helpers/MustacheLoader', '../lib/highlight
 
             // Set the theme
             selectTheme('Default'); // Need to do this first for some reason
-            var theme = pageContext.macro.theme || 'Github Gist';
+            var theme = pageContext.macro.theme || data.theme || 'Github Gist';
             selectTheme(theme);
 
             // Enable the highlight and resize the iframe
