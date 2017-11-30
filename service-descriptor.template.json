@@ -2,7 +2,10 @@
 {
    "name": "Better Code Macro for Confluence",
    "description": "Atlassian Connect addon to provide a better code macro for Confluence Cloud",
-   "externalAccess": true,
+   "network": {
+      "ingress": "external",
+      "egress":  "internet-only"
+   },
    "organization": "Ecosystem Engineering",
    "owners": [ "rmassaioli@atlassian.com" ],
    "scaling": {
@@ -17,7 +20,7 @@
    },
    "links": {
       "binary": {
-         "name": "docker2.atlassian.io/atlassian/cloud-code-macro",
+         "name": "docker.atl-paas.net/atlassian/cloud-code-macro",
          "type": "docker",
          "tag": "{{RELEASE_VERSION}}"
       },
