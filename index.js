@@ -7,33 +7,19 @@ const sanitize = require("sanitize-filename");
 var app = express();
 
 // JSON Logging
-/*
-Turn off logging altogether: https://ops.internal.atlassian.com/jira/browse/HOT-85261
-var extendLogger = function(req, res) {
-   var extra = {};
-
-   if(req.query.user_id) {
-      extra.userId = req.query.user_id;
-   }
-
-   if(req.query.user_key) {
-      extra.userKey = req.query.user_key;
-   }
-
-   if(req.query.xdm_e) {
-      extra.cloudInstance = req.query.xdm_e;
-   }
-
-   return extra
-};
+var obfuscate = [
+    'req.headers.cookie',
+    'req.headers.referer',
+    'referer',
+    'msg'
+];
 
 app.use(bunyan({
-   includesFn: extendLogger
+   obfuscate: obfuscate
 }));
 app.use(bunyan.errorLogger({
-   includesFn: extendLogger
+   obfuscate: obfuscate
 }));
-*/
 
 // Register '.mustache' extension with The Mustache Express
 app.engine('mustache', mustacheExpress());
@@ -57,19 +43,19 @@ var zoneFromString = function(zone) {
         case "uswest.staging.atlassian.io":
         case "staging.public.atl-paas.net":
            return zones.dog;
-  
+
         case "useast.atlassian.io":
         case "uswest.atlassian.io":
         case "prod.public.atl-paas.net":
            return zones.prod;
-  
+
         case "domain.dev.atlassian.io":
         case "application.dev.atlassian.io":
         case "platform.dev.atlassian.io":
         case "dev.public.atl-paas.net":
            return zones.dev;
      }
-   
+
    return zones.local;
 };
 
@@ -81,7 +67,7 @@ var getKeySuffixFromZone = function(zone) {
          return '.dev';
       case zones.dog:
          return '.dog';
-      case zones.prod: 
+      case zones.prod:
          return '.prod';
    }
 
@@ -101,7 +87,7 @@ app.get('/', function(req, res) {
   res.redirect('/docs/home');
 });
 
-var pluginKey = 'com.atlassian.connect.better-code-macro' + getKeySuffixFromZone(microsZone); 
+var pluginKey = 'com.atlassian.connect.better-code-macro' + getKeySuffixFromZone(microsZone);
 
 app.get('/atlassian-connect.json', function(req, res) {
    res.json({
