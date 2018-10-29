@@ -7,6 +7,8 @@ const sanitize = require("sanitize-filename");
 var app = express();
 
 // JSON Logging
+/*
+Turn off logging altogether: https://ops.internal.atlassian.com/jira/browse/HOT-85261
 var extendLogger = function(req, res) {
    var extra = {};
 
@@ -31,6 +33,7 @@ app.use(bunyan({
 app.use(bunyan.errorLogger({
    includesFn: extendLogger
 }));
+*/
 
 // Register '.mustache' extension with The Mustache Express
 app.engine('mustache', mustacheExpress());
