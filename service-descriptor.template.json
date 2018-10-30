@@ -20,7 +20,7 @@
    },
    "links": {
       "binary": {
-         "name": "docker.atl-paas.net/atlassian/cloud-code-macro",
+         "name": "docker-proxy.services.atlassian.com/sox/atlassian/cloud-code-macro",
          "type": "docker",
          "tag": "{{RELEASE_VERSION}}"
       },
