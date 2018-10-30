@@ -38,6 +38,7 @@ pipelines:
             # set up step variables and auth data
             - export DOCKER_URL="docker-proxy.services.atlassian.com"
             - export MICROS_TOKEN="$MICROS_TOKEN:$PIPELINES_JWT_TOKEN"
+            - export MICROS_URL="wss://micros-proxy.services.atlassian.com"
             - docker login -u=sox -p=$PIPELINES_JWT_TOKEN docker-proxy.services.atlassian.com
             # download micros CLI
             - curl -O -H "Authorization:$PIPELINES_JWT_TOKEN" https://micros-proxy.services.atlassian.com/micros-stable/micros.tar.gz
@@ -62,6 +63,7 @@ pipelines:
             # set up step variables and auth data
             - export DOCKER_URL="docker-proxy.services.atlassian.com"
             - export MICROS_TOKEN="$MICROS_TOKEN:$PIPELINES_JWT_TOKEN"
+            - export MICROS_URL="wss://micros-proxy.services.atlassian.com"
             - docker login -u=sox -p=$PIPELINES_JWT_TOKEN docker-proxy.services.atlassian.com
             # download micros CLI
             - curl -O -H "Authorization:$PIPELINES_JWT_TOKEN" https://micros-proxy.services.atlassian.com/micros-stable/micros.tar.gz
