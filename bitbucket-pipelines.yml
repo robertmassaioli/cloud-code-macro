@@ -3,7 +3,7 @@
 # Only use spaces to indent your .yml configuration.
 # -----
 # You can specify a custom docker image from Docker Hub as your build environment.
-image: node:8-alpine
+image: node:8
 
 options:
   docker: true
@@ -47,7 +47,8 @@ pipelines:
             # generate the service descriptor
             - echo "RELEASE_VERSION" > "template-vars.csv"
             - echo "${BITBUCKET_BUILD_NUMBER}" >> "template-vars.csv"
-            - npm run mustang -- -t "service-descriptor-template.json" -i "template-vars.csv" > "service-descriptor.json"
+            - npm install mustang
+            - $(npm bin)/mustang -t "service-descriptor-template.json" -i "template-vars.csv" > "service-descriptor.json"
             # micros deploy the service
             - ./micros-cli service:deploy dac -f service-descriptor.json -e adev
           services:
@@ -70,7 +71,8 @@ pipelines:
             # generate the service descriptor
             - echo "RELEASE_VERSION" > "template-vars.csv"
             - echo "${BITBUCKET_BUILD_NUMBER}" >> "template-vars.csv"
-            - npm run mustang -- -t "service-descriptor-template.json" -i "template-vars.csv" > "service-descriptor.json"
+            - npm install mustang
+            - $(npm bin)/mustang -t "service-descriptor-template.json" -i "template-vars.csv" > "service-descriptor.json"
             # micros deploy the service
             - ./micros-cli service:deploy dac -f service-descriptor.json -e prod-east
           services:

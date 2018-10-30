@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:slim
 MAINTAINER rmassaioli@gmail.com
 
 # Export to PORT 8080 for Micros
