@@ -103,6 +103,9 @@ app.get('/atlassian-connect.json', function(req, res) {
       authentication: {
          type: "none"
       },
+      apiMigrations: {
+        gdpr: true
+      },
       scopes: ["read"],
       modules: {
          dynamicContentMacros: [{
