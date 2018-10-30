@@ -47,7 +47,7 @@ pipelines:
             - echo "RELEASE_VERSION" > "template-vars.csv"
             - echo "${BITBUCKET_BUILD_NUMBER}" >> "template-vars.csv"
             - npm install mustang
-            - $(npm bin)/mustang -t "service-descriptor-template.json" -i "template-vars.csv" > "service-descriptor.json"
+            - $(npm bin)/mustang -t "service-descriptor.template.json" -i "template-vars.csv" > "service-descriptor.json"
             # micros deploy the service
             - ./micros-cli service:deploy dac -f service-descriptor.json -e adev
           services:
@@ -71,7 +71,7 @@ pipelines:
             - echo "RELEASE_VERSION" > "template-vars.csv"
             - echo "${BITBUCKET_BUILD_NUMBER}" >> "template-vars.csv"
             - npm install mustang
-            - $(npm bin)/mustang -t "service-descriptor-template.json" -i "template-vars.csv" > "service-descriptor.json"
+            - $(npm bin)/mustang -t "service-descriptor.template.json" -i "template-vars.csv" > "service-descriptor.json"
             # micros deploy the service
             - ./micros-cli service:deploy dac -f service-descriptor.json -e prod-east
           services:
