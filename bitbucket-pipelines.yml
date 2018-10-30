@@ -16,7 +16,6 @@ pipelines:
           - node
         script: # Modify the commands below to build your repository.
           - npm install
-          - npm test
   branches:
     master:
       - step:
@@ -26,8 +25,8 @@ pipelines:
             - export DOCKER_URL="docker-proxy.services.atlassian.com"
             - docker login -u=sox -p=$PIPELINES_JWT_TOKEN docker-proxy.services.atlassian.com
             # build base image (node@alpine + python dependencies + hugo)
-            - docker build --tag="docker.atl-paas.net/sox/atlassian/cloud-code-macro:${BITBUCKET_BUILD_NUMBER}" .
-            - docker push "docker.atl-paas.net/sox/atlassian/cloud-code-macro:${BITBUCKET_BUILD_NUMBER}"
+            - docker build --tag="${DOCKER_URL}/sox/atlassian/cloud-code-macro:${BITBUCKET_BUILD_NUMBER}" .
+            - docker push "${DOCKER_URL}/sox/atlassian/cloud-code-macro:${BITBUCKET_BUILD_NUMBER}"
           services:
             - docker
           caches:
