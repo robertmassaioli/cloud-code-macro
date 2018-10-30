@@ -50,7 +50,7 @@ pipelines:
             - npm install mustang
             - $(npm bin)/mustang -t "service-descriptor.template.json" -i "template-vars.csv" > "service-descriptor.json"
             # micros deploy the service
-            - ./micros-cli service:deploy dac -f service-descriptor.json -e adev
+            - ./micros-cli service:deploy cloud-code-macro -f service-descriptor.json -e adev
           services:
             - docker
           caches:
@@ -75,7 +75,7 @@ pipelines:
             - npm install mustang
             - $(npm bin)/mustang -t "service-descriptor.template.json" -i "template-vars.csv" > "service-descriptor.json"
             # micros deploy the service
-            - ./micros-cli service:deploy dac -f service-descriptor.json -e prod-east
+            - ./micros-cli service:deploy cloud-code-macro -f service-descriptor.json -e prod-east
           services:
             - docker
           caches:
