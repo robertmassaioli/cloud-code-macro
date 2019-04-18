@@ -424,14 +424,24 @@ app.get('/macro/paste-code-macro', function(req, res) {
 });
 
 app.get('/macro/gist-code-macro', function(req, res) {
+   var gistUrl = new URL(req.query.gistUrl || '');
+   if (gistUrl.hostname !== 'gist.github.com') {
+      gistUrl = 'https://gist.github.com/robertmassaioli/ef414358f703318cf24616513aad185b';
+   }
+
    res.render('gist-code-macro', {
-       gistUrl: req.query.gistUrl + '.js'
+       gistUrl: gistUrl + '.js'
    });
 });
 
 app.get('/macro/bitbucket-snippet-code-macro', function(req, res) {
+   var snippetUrl = new URL(req.query.snippetUrl || '');
+   if (snippetUrl.hostname !== 'bitbucket.org') {
+      snippetUrl = 'https://bitbucket.org/snippets/atlassian/AeBxKn';
+   }
+
    res.render('bitbucket-snippet-code-macro', {
-       snippetUrl: req.query.snippetUrl
+       snippetUrl: snippetUrl
    });
 });
 
