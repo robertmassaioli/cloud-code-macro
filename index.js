@@ -425,7 +425,7 @@ app.get('/macro/paste-code-macro', function(req, res) {
 
 app.get('/macro/gist-code-macro', function(req, res) {
    var gistUrl = new URL(req.query.gistUrl || '');
-   if (gistUrl.hostname !== 'gist.github.com') {
+   if (gistUrl.protocol === 'https:' && gistUrl.hostname !== 'gist.github.com') {
       gistUrl = 'https://gist.github.com/robertmassaioli/ef414358f703318cf24616513aad185b';
    }
 
@@ -436,7 +436,7 @@ app.get('/macro/gist-code-macro', function(req, res) {
 
 app.get('/macro/bitbucket-snippet-code-macro', function(req, res) {
    var snippetUrl = new URL(req.query.snippetUrl || '');
-   if (snippetUrl.hostname !== 'bitbucket.org') {
+   if (snippetUrl.protocol === 'https:' && snippetUrl.hostname !== 'bitbucket.org') {
       snippetUrl = 'https://bitbucket.org/snippets/atlassian/AeBxKn';
    }
 
