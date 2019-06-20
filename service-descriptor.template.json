@@ -30,6 +30,25 @@
       "source": {
          "url": "https://bitbucket.org/robertmassaioli/cloud-code-macro"
       }
+   },
+   "alarms": {
+      "overrides": {
+         "WebServerDiskSpaceUtilizationAlarmHigh": {
+            "Priority": "Low"
+         },
+         "WebServerInstanceVolumeSpaceUtilizationAlarmHigh": {
+            "Priority": "Low"
+         },
+         "HighSeverityAlarmWhenTooManyBackend5xxErrors": {
+            "Priority": "Low"
+         },
+         "HighSeverityAlarmWhenTooManyELB5xxErrors": {
+            "Priority": "Low"
+         },
+         "HealthyHostCount": {
+            "Priority": "Low"
+         }
+      }
    }
 }
 {{/.}}
