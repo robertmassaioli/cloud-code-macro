@@ -39,20 +39,13 @@ var zones = {
 
 var zoneFromString = function(zone) {
     switch(zone) {
-        case "useast.staging.atlassian.io":
-        case "uswest.staging.atlassian.io":
-        case "staging.public.atl-paas.net":
+        case "staging":
            return zones.dog;
 
-        case "useast.atlassian.io":
-        case "uswest.atlassian.io":
-        case "prod.public.atl-paas.net":
+        case "prod":
            return zones.prod;
 
-        case "domain.dev.atlassian.io":
-        case "application.dev.atlassian.io":
-        case "platform.dev.atlassian.io":
-        case "dev.public.atl-paas.net":
+        case "dev":
            return zones.dev;
      }
 
@@ -74,7 +67,7 @@ var getKeySuffixFromZone = function(zone) {
    return '';
 };
 
-var microsZone = zoneFromString(process.env.ZONE);
+var microsZone = zoneFromString(process.env.MICROS_ENVTYPE);
 
 // Register static variables
 app.use('/static/images', express.static('static/images'));
