@@ -3,7 +3,6 @@
    "name": "Better Code Macro for Confluence",
    "description": "Atlassian Connect addon to provide a better code macro for Confluence Cloud",
    "network": {
-      "ingress": "external",
       "egress":  "internet-only"
    },
    "resources": [{
