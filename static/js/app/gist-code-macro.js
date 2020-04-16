@@ -1,7 +1,7 @@
 define(['../helpers/PageContext'], function(PC) {
    var pageContext = PC.load();
-   
-   $.getScript(pageContext.productBaseUrl + '/atlassian-connect/all.js', function() {
+
+   $.getScript('https://connect-cdn.atl-paas.net/all.js', function() {
       AP.resize();
    });
 });

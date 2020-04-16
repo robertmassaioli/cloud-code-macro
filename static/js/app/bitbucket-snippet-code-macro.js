@@ -26,7 +26,7 @@ define(['../helpers/PageContext', '../helpers/MustacheLoader', '../lib/highlight
       }
    });
 
-   var allJs = $.getScript(pageContext.productBaseUrl + '/atlassian-connect/all.js');
+   var allJs = $.getScript('https://connect-cdn.atl-paas.net/all.js');
 
    apiRequest.done(function(data) {
       var rawRequests = [];
