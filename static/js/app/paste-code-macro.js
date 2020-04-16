@@ -17,7 +17,7 @@ define(['../helpers/PageContext', '../helpers/MustacheLoader', '../lib/highlight
       });
    };
 
-   $.getScript(pageContext.productBaseUrl + '/atlassian-connect/all.js', function() {
+   $.getScript('https://connect-cdn.atl-paas.net/all.js', function() {
       AP.confluence.getMacroBody(function(body){
          console.log(body);
          AP.confluence.getMacroData(function(data) {
