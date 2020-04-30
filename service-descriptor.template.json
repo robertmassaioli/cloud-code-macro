@@ -4,7 +4,7 @@
    "description": "Atlassian Connect addon to provide a better code macro for Confluence Cloud",
    "computeClassification": {
       "dataType": [
-         "None"
+         "Atlassian/Static"
       ]
    },
    "network": {
