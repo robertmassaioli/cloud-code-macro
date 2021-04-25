@@ -1,9 +1,4 @@
-FROM node:slim
-MAINTAINER rmassaioli@gmail.com
-
-# Export to PORT 8080 for Micros
-ENV PORT 8080
-EXPOSE 8080
+FROM node:slim as base
 
 # Adding in the required files
 ADD . /service
@@ -12,4 +7,12 @@ RUN ["npm", "install"]
 RUN ["npm", "install", "-g", "grunt-cli"]
 RUN ["grunt", "requirejs:prod", "less:prod"]
 
-CMD ["node", "index.js"]
+FROM gcr.io/distroless/nodejs:14
+
+COPY --from=base /service /service
+
+# Export to PORT 8080 for Micros
+ENV PORT 8080
+EXPOSE 8080
+
+CMD ["/service/index.js"]
