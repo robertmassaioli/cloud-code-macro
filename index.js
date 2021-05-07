@@ -1,6 +1,6 @@
 var express = require('express');
 var _ = require('lodash');
-var bunyan = require('express-bunyan-logger');
+var ExpressPinoLogger = require('express-pino-logger');
 var mustacheExpress = require('mustache-express');
 const fs = require('fs');
 const sanitize = require("sanitize-filename");
@@ -14,12 +14,11 @@ var obfuscate = [
     'msg'
 ];
 
-app.use(bunyan({
-   obfuscate: obfuscate
-}));
-app.use(bunyan.errorLogger({
-   obfuscate: obfuscate
-}));
+const pino = ExpressPinoLogger({
+   redact: obfuscate
+});
+
+app.use(pino);
 
 // Register '.mustache' extension with The Mustache Express
 app.engine('mustache', mustacheExpress());
