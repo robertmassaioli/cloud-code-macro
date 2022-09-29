@@ -7,7 +7,7 @@ RUN ["npm", "install"]
 RUN ["npm", "install", "-g", "grunt-cli"]
 RUN ["grunt", "requirejs:prod", "less:prod"]
 
-FROM gcr.io/distroless/nodejs:14
+FROM docker.atl-paas.net/golden-images/node:14-alpine
 
 COPY --from=base /service /service
 
