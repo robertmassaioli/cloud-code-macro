@@ -1,4 +1,4 @@
-FROM node:slim as base
+FROM node:14-slim as base
 
 # Adding in the required files
 ADD . /service
@@ -7,7 +7,7 @@ RUN ["npm", "install"]
 RUN ["npm", "install", "-g", "grunt-cli"]
 RUN ["grunt", "requirejs:prod", "less:prod"]
 
-FROM gcr.io/distroless/nodejs14-debian11
+FROM docker.atl-paas.net/sox/micros-node-14:1.0.1
 
 COPY --from=base /service /service
 
