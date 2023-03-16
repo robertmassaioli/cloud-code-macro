@@ -85,7 +85,7 @@ app.get('/atlassian-connect.json', function(req, res) {
    res.json({
       name: 'Better Code Macro for Confluence',
       key: pluginKey,
-      version: "1.0",
+      version: "1.1",
       description: 'A better code macro for Confluence cloud.',
       vendor: {
          name: 'Atlassian',
