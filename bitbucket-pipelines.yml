@@ -16,6 +16,19 @@ pipelines:
           - node
         script: # Modify the commands below to build your repository.
           - npm install
+    - step:
+        name: Build docker image
+        script:
+          # Used for accessing packages.atlassian.com
+          - pipe: docker://atlassian/artifactory-sidekick:latest
+          - source .artifactory/activate.sh
+          # build base image (node@alpine + python dependencies + hugo)
+          - docker build --tag="cloud-code-macro-test:${BITBUCKET_BUILD_NUMBER}" .
+          # don't push it, this is just to test the build
+        services:
+          - docker
+        caches:
+          - docker
   branches:
     master:
       - step:
