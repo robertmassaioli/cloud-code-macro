@@ -580,3 +580,5 @@ var server = app.listen(serverPort, function () {
 
    console.log('Example app listening at http://%s:%s', host, port);
 });
+
+module.exports = app;
