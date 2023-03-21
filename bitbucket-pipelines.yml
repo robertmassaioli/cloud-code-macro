@@ -30,6 +30,18 @@ pipelines:
           - docker
         caches:
           - docker
+    - step:
+        name: Test Service Descriptor Generation
+        script:
+          # generate the service descriptor
+          - echo "RELEASE_VERSION" > "template-vars.csv"
+          - echo "${BITBUCKET_BUILD_NUMBER}" >> "template-vars.csv"
+          - npm install mustang
+          - npm run mustang
+        services:
+          - docker
+        caches:
+          - docker
   branches:
     master:
       - step:
@@ -67,7 +79,7 @@ pipelines:
             - echo "RELEASE_VERSION" > "template-vars.csv"
             - echo "${BITBUCKET_BUILD_NUMBER}" >> "template-vars.csv"
             - npm install mustang
-            - $(npm bin)/mustang -t "service-descriptor.template.json" -i "template-vars.csv" > "service-descriptor.json"
+            - npm run mustang
             # micros deploy the service
             - ./atlas micros service deploy -s cloud-code-macro -f service-descriptor.json -e adev
           services:
@@ -92,7 +104,7 @@ pipelines:
             - echo "RELEASE_VERSION" > "template-vars.csv"
             - echo "${BITBUCKET_BUILD_NUMBER}" >> "template-vars.csv"
             - npm install mustang
-            - $(npm bin)/mustang -t "service-descriptor.template.json" -i "template-vars.csv" > "service-descriptor.json"
+            - npm run mustang
             # micros deploy the service
             - ./atlas micros service deploy -s cloud-code-macro -f service-descriptor.json -e prod-east
           services:
