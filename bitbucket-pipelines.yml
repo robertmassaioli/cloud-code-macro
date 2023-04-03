@@ -37,7 +37,7 @@ pipelines:
           - echo "RELEASE_VERSION" > "template-vars.csv"
           - echo "${BITBUCKET_BUILD_NUMBER}" >> "template-vars.csv"
           - npm install mustang
-          - npm run pipeline:mustang > "service-descriptor.json"
+          - npm run pipeline:mustang
         services:
           - docker
         caches:
@@ -79,7 +79,7 @@ pipelines:
             - echo "RELEASE_VERSION" > "template-vars.csv"
             - echo "${BITBUCKET_BUILD_NUMBER}" >> "template-vars.csv"
             - npm install mustang
-            - npm run pipeline:mustang > "service-descriptor.json"
+            - npm run pipeline:mustang
             # micros deploy the service
             - ./atlas micros service deploy -s cloud-code-macro -f service-descriptor.json -e adev
           services:
@@ -104,7 +104,7 @@ pipelines:
             - echo "RELEASE_VERSION" > "template-vars.csv"
             - echo "${BITBUCKET_BUILD_NUMBER}" >> "template-vars.csv"
             - npm install mustang
-            - npm run pipeline:mustang > "service-descriptor.json"
+            - npm run pipeline:mustang
             # micros deploy the service
             - ./atlas micros service deploy -s cloud-code-macro -f service-descriptor.json -e prod-east
           services:

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "test": "jest --forceExit",
-    "pipeline:mustang": "mustang -t service-descriptor.template.json -i template-vars.csv"
+    "pipeline:mustang": "mustang -t service-descriptor.template.json -i template-vars.csv -o service-descriptor.json"
   },
   "repository": {
     "type": "git",
