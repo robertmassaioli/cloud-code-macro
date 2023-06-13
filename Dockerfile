@@ -10,7 +10,7 @@ RUN ["grunt", "requirejs:prod", "less:prod"]
 # https://jira.atlassian.com/browse/BCLOUD-17319
 RUN chown -R root:root /service
 
-FROM docker.atl-paas.net/sox/micros-node-18:1.0.4
+FROM docker.atl-paas.net/sox/micros-node-18:1.0.6
 
 COPY --from=base /service /opt/service
 
