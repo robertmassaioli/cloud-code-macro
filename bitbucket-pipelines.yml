@@ -24,6 +24,7 @@ pipelines:
           - pipe: docker://atlassian/artifactory-sidekick:latest
           - source .artifactory/activate.sh
           # build base image (node@alpine + python dependencies + hugo)
+          - cd remotes/connect
           - docker build --tag="cloud-code-macro-test:${BITBUCKET_BUILD_NUMBER}" .
           # don't push it, this is just to test the build
         services:
@@ -34,6 +35,7 @@ pipelines:
         name: Test Service Descriptor Generation
         script:
           # generate the service descriptor
+          - cd remotes/connect
           - echo "RELEASE_VERSION" > "template-vars.csv"
           - echo "${BITBUCKET_BUILD_NUMBER}" >> "template-vars.csv"
           - npm install mustang
@@ -56,6 +58,7 @@ pipelines:
             - export DOCKER_URL="docker-proxy.services.atlassian.com"
             - docker login -u=sox -p=$PIPELINES_JWT_TOKEN docker-proxy.services.atlassian.com
             # build base image (node@alpine + python dependencies + hugo)
+            - cd remotes/connect
             - docker build --tag="${DOCKER_URL}/sox/atlassian/cloud-code-macro:${BITBUCKET_BUILD_NUMBER}" .
             - docker push "${DOCKER_URL}/sox/atlassian/cloud-code-macro:${BITBUCKET_BUILD_NUMBER}"
           services:
@@ -72,6 +75,7 @@ pipelines:
             - export MICROS_URL="wss://micros-proxy.services.atlassian.com"
             - docker login -u=sox -p=$PIPELINES_JWT_TOKEN docker-proxy.services.atlassian.com
             # Download and extract Atlas CLI
+            - cd remotes/connect
             - curl -fL https://statlas.prod.atl-paas.net/atlas-cli/linux/atlas-latest-linux-amd64.tar.gz | tar -xzp atlas
             # Install the Micros plugin
             - ./atlas plugin install -n micros
@@ -97,6 +101,7 @@ pipelines:
             - export MICROS_URL="wss://micros-proxy.services.atlassian.com"
             - docker login -u=sox -p=$PIPELINES_JWT_TOKEN docker-proxy.services.atlassian.com
             # Download and extract Atlas CLI
+            - cd remotes/connect
             - curl -fL https://statlas.prod.atl-paas.net/atlas-cli/linux/atlas-latest-linux-amd64.tar.gz | tar -xzp atlas
             # Install the Micros plugin
             - ./atlas plugin install -n micros
