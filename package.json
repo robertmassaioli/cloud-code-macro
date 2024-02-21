@@ -1,0 +1,30 @@
+{
+  "name": "confluence-macro-custom-ui",
+  "version": "1.0.40",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "npm-run-all": "^4.1.5"
+  },
+  "dependencies": {
+    "@forge/resolver": "1.5.28"
+  },
+  "scripts": {
+    "manifest:local": "dhall-to-yaml-ng --file manifest.local.dhall --output manifest.yml",
+    "manifest:dev": "dhall-to-yaml-ng --file manifest.dev.dhall --output manifest.yml",
+    "manifest:stg": "dhall-to-yaml-ng --file manifest.stg.dhall --output manifest.yml",
+    "manifest:prod": "dhall-to-yaml-ng --file manifest.prod.dhall --output manifest.yml",
+    "deploy-only:local": "forge deploy -e local",
+    "deploy-only:dev": "forge deploy -e development",
+    "deploy-only:stg": "forge deploy -e staging",
+    "deploy-only:prod": "forge deploy -e production",
+    "deploy:local": "run-s manifest:local deploy-only:local",
+    "deploy:dev": "run-s manifest:dev deploy-only:dev",
+    "deploy:stg": "run-s manifest:stg deploy-only:stg",
+    "deploy:prod": "run-s manifest:prod deploy-only:prod",
+    "deploy": "run-s deploy:local"
+  }
+}
