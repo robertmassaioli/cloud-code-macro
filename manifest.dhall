@@ -1,8 +1,8 @@
 { app =
-  { connect =
-    { remote = "connect"
-    }
+  { connect.remote = "connect"
   , id = "ari:cloud:ecosystem::app/16f5ff69-5686-4ac9-a89e-47ba12f0ef7c"
+  , runtime.name = "nodejs18.x"
+  , features.autoUserConsent = True
   }
 , connectModules.`confluence:dynamicContentMacros`
   =
@@ -360,14 +360,21 @@
 , modules =
   { function = [ { handler = "index.handler", key = "resolver" } ]
   , macro =
-    [ { description = "Inserts Hello world!"
-      , key = "test-app-hello-world"
+    [ { description = "Add a code editor experience to your confluence page."
+      , key = "in-page-editor"
       , resolver.function = "resolver"
       , resource = "main"
-      , title = "Test App"
+      , title = "Code Editor"
       }
     ]
   }
-, permissions.scopes = [ "read:connect-confluence" ]
-, resources = [ { key = "main", path = "static/hello-world/build" } ]
+, permissions =
+  { scopes = [ "read:connect-confluence", "read:page:confluence", "write:page:confluence" ]
+  , content.styles = [ "unsafe-inline" ]
+  , external =
+    { scripts = [ "cdn.jsdelivr.net" ]
+    , styles = [ "cdn.jsdelivr.net" ]
+    }
+  }
+, resources = [ { key = "main", path = "static/hello-world/build", tunnel.port = 3001 } ]
 }
