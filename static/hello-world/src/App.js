@@ -22,49 +22,107 @@ function getBodyId(macroId) {
   return `cloud-code-macro.${macroId}.body`;
 }
 
+function useEffectAsync(callback, context) {
+  useEffect(() => {
+    (async () => {
+      await callback();
+    })();
+  }, context);
+}
+
 function App() {
   const [data, setData] = useState(null);
   const [context, setContext] = useState(null);
 
-  useEffect(async () => {
+  useEffectAsync(async () => {
     setContext(await view.getContext());
-  }, []);
+  }, [])
 
-  useEffect(() => {
-    invoke('getText', { example: 'my-invoke-variable' }).then(setData);
-  }, []);
+  useEffectAsync(async () => {
+    if (isPresent(context)) {
+      const response = await requestConfluence(`/wiki/api/v2/pages/${context.extension.content.id}/properties?key=${encodeURIComponent(getBodyId(context.localId))}`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+
+      let gotResults = false;
+      if (response.ok) {
+        const responsePayload = await response.json();
+        console.log(responsePayload);
+        if (responsePayload.results.length === 1) {
+          const property = responsePayload.results[0];
+          console.log(property);
+          setData(property);
+          gotResults = true;
+        }
+      }
+
+      if (!gotResults) {
+        console.log(`No body found for macro ${context.localId}...setting to default.`);
+        setData({
+          value: {
+            data: `// Start writing your text here`
+          }
+        });
+      }
+    }
+  }, [context]);
 
   if (!isPresent(context)) {
-    return <Container>Loading...</Container>;
+    return <Container>Loading context...</Container>;
   }
 
-  console.log(context);
+  if (!isPresent(data)) {
+    return <Container>Loading data...</Container>;
+  }
 
   const macroId = context.localId;
   const pageId = context.extension.content.id;
 
   const onUpdate = (value) => {
-    console.log(`Value changed to`, value);
-    const response = requestConfluence(`/wiki/api/v2/pages/${pageId}/properties`, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        key: getBodyId(macroId),
-        value: {
-          data: value
-        }
-      })
-    });
+    //console.log(`Value changed to`, value);
+    if (isPresent(data.id)) {
+      requestConfluence(`/wiki/api/v2/pages/${pageId}/properties/${data.id}`, {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          key: getBodyId(macroId),
+          version: {
+            number: data.version.number + 1
+          },
+          value: {
+            data: value
+          }
+        })
+      }).then(response => response.json()).then(property => setData(property));
+    } else {
+      requestConfluence(`/wiki/api/v2/pages/${pageId}/properties`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          key: getBodyId(macroId),
+          value: {
+            data: value
+          }
+        })
+      }).then(response => response.json()).then(property => setData(property));
+    }
   };
 
   const debouncedOnUpdate = debounce(2000, onUpdate);
 
   return (
     <Container>
-      <Editor height="600px" defaultLanguage="javascript" defaultValue="// your code here" onChange={debouncedOnUpdate} />
+      <Editor height="600px" defaultLanguage="javascript" defaultValue={data.value.data} onChange={debouncedOnUpdate} />
     </Container>
   );
 }
