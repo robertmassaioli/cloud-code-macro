@@ -101,6 +101,7 @@ function App() {
           }
         })
       }).then(response => response.json()).then(property => setData(property));
+      //todo: what happens if concurrent editing happens? How do I should those errors to the user and put them back in a position such that they keep writing?
     } else {
       requestConfluence(`/wiki/api/v2/pages/${pageId}/properties`, {
         method: 'POST',

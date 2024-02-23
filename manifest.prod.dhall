@@ -1,4 +1,5 @@
-./manifest.dhall /\ {
-  app.connect.key = "com.not-atlassian.connect.better-code-macro.prod",
-  remotes = [ { baseUrl = "https://cloud-code-macro.services.atlassian.com", key = "connect" } ]
-}
+./manifest.dhall
+  { connectKey = "com.atlassian.connect.better-code-macro.prod"
+  , baseUrl = "https://cloud-code-macro.services.atlassian.com"
+  , macroKeySuffix = None Text
+  }

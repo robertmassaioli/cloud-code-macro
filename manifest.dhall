@@ -1,5 +1,15 @@
-{ app =
-  { connect.remote = "connect"
+let default = https://prelude.dhall-lang.org/Optional/default
+
+let Config : Type =
+  { connectKey: Text
+  , baseUrl: Text
+  , macroKeySuffix: Optional Text
+  }
+in \(config: Config) -> { app =
+  { connect =
+    { remote = "connect"
+    , key = config.connectKey
+    }
   , id = "ari:cloud:ecosystem::app/16f5ff69-5686-4ac9-a89e-47ba12f0ef7c"
   , runtime.name = "nodejs18.x"
   , features.autoUserConsent = True
@@ -25,7 +35,7 @@
       , url = "/static/images/bitbucket/bitbucket-logo-80px.png"
       , width = 80
       }
-    , key = "bitbucket-snippet-code-macro"
+    , key = "bitbucket-snippet-code-macro" ++ (default Text "" config.macroKeySuffix)
     , name.value = "Bitbucket snippet macro"
     , outputType = "block"
     , parameters =
@@ -58,7 +68,7 @@
       , url = "/static/images/github/GitHub-Mark-80px.png"
       , width = 80
       }
-    , key = "gist-code-macro"
+    , key = "gist-code-macro" ++ (default Text "" config.macroKeySuffix)
     , name.value = "GitHub gist macro"
     , outputType = "block"
     , parameters =
@@ -90,7 +100,7 @@
       , url = "/static/images/cloud-code-macro-paste-icon.png"
       , width = 80
       }
-    , key = "paste-code-macro"
+    , key = "paste-code-macro" ++ (default Text "" config.macroKeySuffix)
     , name.value = "Better Code Block"
     , outputType = "block"
     , parameters =
@@ -361,7 +371,7 @@
   { function = [ { handler = "index.handler", key = "resolver" } ]
   , macro =
     [ { description = "Add a code editor experience to your confluence page."
-      , key = "in-page-editor"
+      , key = "in-page-editor" ++ (default Text "" config.macroKeySuffix)
       , resolver.function = "resolver"
       , resource = "main"
       , title = "Code Editor"
@@ -377,4 +387,5 @@
     }
   }
 , resources = [ { key = "main", path = "static/hello-world/build", tunnel.port = 3001 } ]
+, remotes = [ { baseUrl = config.baseUrl, key = "connect" } ]
 }
