@@ -10,7 +10,7 @@ in \(config: Config) -> { app =
     { remote = "connect"
     , key = config.connectKey
     }
-  , id = "ari:cloud:ecosystem::app/16f5ff69-5686-4ac9-a89e-47ba12f0ef7c"
+  , id = "ari:cloud:ecosystem::app/1f719b35-249b-4ec7-80c5-de810567f87c"
   , runtime.name = "nodejs18.x"
   , features.autoUserConsent = True
   }
