@@ -368,13 +368,21 @@ in \(config: Config) -> { app =
     }
   ]
 , modules =
-  { function = [ { handler = "index.handler", key = "resolver" } ]
+  { function =
+    [ { handler = "index.handler"
+      , key = "resolver"
+      }
+    , { handler = "index.config"
+      , key = "in-page-editor-config"
+      }
+    ]
   , macro =
     [ { description = "Add a code editor experience to your confluence page."
       , key = "in-page-editor" ++ (default Text "" config.macroKeySuffix)
       , resolver.function = "resolver"
       , resource = "main"
       , title = "Code Editor"
+      , config.function = "in-page-editor-config"
       }
     ]
   }

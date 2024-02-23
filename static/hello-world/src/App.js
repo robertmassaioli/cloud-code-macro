@@ -81,6 +81,7 @@ function App() {
 
   const macroId = context.localId;
   const pageId = context.extension.content.id;
+  const { language } = context.extension.config;
 
   const onUpdate = (value) => {
     //console.log(`Value changed to`, value);
@@ -123,7 +124,7 @@ function App() {
 
   return (
     <Container>
-      <Editor height="600px" defaultLanguage="javascript" defaultValue={data.value.data} onChange={debouncedOnUpdate} />
+      <Editor height="600px" defaultLanguage={language} defaultValue={data.value.data} onChange={debouncedOnUpdate} />
     </Container>
   );
 }
