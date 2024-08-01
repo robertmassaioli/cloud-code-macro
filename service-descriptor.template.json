@@ -28,6 +28,7 @@
          }
       },
       "prod": {
+         "organization": "Ecosystem - COGS",
          "config": {
             "environmentVariables": {
                "HOST_URL": "https://cloud-code-macro.services.atlassian.com"
