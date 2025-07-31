@@ -1,0 +1,8 @@
+# https://hello.atlassian.net/wiki/spaces/AENG/pages/2921890839/Procedure+use+CODEOWNERS+file#How-to-configure-CODEOWNERS
+# Choose the right reviewer assignment strategy for your team.
+# Teams are defined in .bitbucket/teams.yml
+
+* @teams/one-cloud-build:all
+# * @workspace-group/eng-ecosystem-onecloud-build:all
+# * @teams/one-cloud-build:random(2)        # choose 2 random reviewers from `one-cloud-build`
+# * @teams/one-cloud-build:least_busy(2)    # use this syntax for picking reviewers who are not occupied

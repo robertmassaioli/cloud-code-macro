@@ -1,0 +1,171 @@
+openapi: 3.0.0
+info:
+  title: Better Code Macro Service
+  description: API for Better Code Macro service
+  version: 1.0.0
+paths:
+  /:
+    get:
+      summary: Redirect to the home documentation
+      responses:
+        '302':
+          description: Redirects to /docs/home
+          headers:
+            Location:
+              schema:
+                type: string
+                example: /docs/home
+  /atlassian-connect.json:
+    get:
+      summary: Retrieve the atlassian-connect descriptor
+      responses:
+        '200':
+          description: Descriptor content
+          content:
+            application/json:
+              schema:
+                type: object
+  /macro/paste-code-macro:
+    get:
+      summary: Render the paste code macro
+      parameters:
+        - name: page_id
+          in: query
+          schema:
+            type: string
+          required: false
+          description: Page ID
+        - name: macro_id
+          in: query
+          schema:
+            type: string
+          required: false
+          description: Macro ID
+        - name: page_version
+          in: query
+          schema:
+            type: string
+          required: false
+          description: Page version
+        - name: output_type
+          in: query
+          schema:
+            type: string
+          required: false
+          description: Output type
+        - name: theme
+          in: query
+          schema:
+            type: string
+          required: false
+          description: Theme
+        - name: language
+          in: query
+          schema:
+            type: string
+          required: false
+          description: Language
+        - name: title
+          in: query
+          schema:
+            type: string
+          required: false
+          description: Title
+      responses:
+        '200':
+          description: Macro rendered
+          content:
+            text/html:
+              schema:
+                type: string
+  /macro/gist-code-macro:
+    get:
+      summary: Render the GitHub gist macro
+      parameters:
+        - name: gistUrl
+          in: query
+          schema:
+            type: string
+          required: false
+          description: URL of the GitHub gist
+      responses:
+        '200':
+          description: Gist macro rendered
+          content:
+            text/html:
+              schema:
+                type: string
+  /macro/bitbucket-snippet-code-macro:
+    get:
+      summary: Render the Bitbucket snippet macro
+      parameters:
+        - name: snippetUrl
+          in: query
+          schema:
+            type: string
+          required: false
+          description: URL of the Bitbucket snippet
+      responses:
+        '200':
+          description: Bitbucket snippet macro rendered
+          content:
+            text/html:
+              schema:
+                type: string
+  /rest/heartbeat:
+    get:
+      summary: Healthcheck endpoint
+      responses:
+        '200':
+          description: Service is up and running
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: OK
+  /redirect/install:
+    get:
+      summary: Redirect to install page
+      responses:
+        '302':
+          description: Redirects to the marketplace installation page
+          headers:
+            Location:
+              schema:
+                type: string
+                example: https://marketplace.atlassian.com/plugins/com.atlassian.connect.better-code-macro
+  /redirect/raise-issue:
+    get:
+      summary: Redirect to issue creation page
+      responses:
+        '302':
+          description: Redirects to the issue creation page on Bitbucket
+          headers:
+            Location:
+              schema:
+                type: string
+                example: https://bitbucket.org/robertmassaioli/cloud-code-macro/issues/new
+  /docs/{docsFile}:
+    get:
+      summary: Retrieve documentation file
+      parameters:
+        - name: docsFile
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the documentation file
+      responses:
+        '200':
+          description: Documentation file retrieved
+          content:
+            text/html:
+              schema:
+                type: string
+        '404':
+          description: Documentation file not found
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "File not found"

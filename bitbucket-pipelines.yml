@@ -65,8 +65,7 @@ pipelines:
                 COMPLIANT: "true"
             - source .artifactory/activate.sh
             # set up step variables and auth data
-            - export DOCKER_URL="docker-proxy.services.atlassian.com"
-            - docker login -u=sox -p=$PIPELINES_JWT_TOKEN docker-proxy.services.atlassian.com
+            - export DOCKER_URL="docker.atl-paas.net"
             # build base image (node@alpine + python dependencies + hugo)
             - cd remotes/connect
             - docker build --tag="${DOCKER_URL}/sox/atlassian/cloud-code-macro:${BITBUCKET_BUILD_NUMBER}" .
@@ -80,10 +79,8 @@ pipelines:
           deployment: staging
           script:
             # set up step variables and auth data
-            - export DOCKER_URL="docker-proxy.services.atlassian.com"
             - export MICROS_TOKEN="$MICROS_TOKEN:$PIPELINES_JWT_TOKEN"
             - export MICROS_URL="wss://micros-proxy.services.atlassian.com"
-            - docker login -u=sox -p=$PIPELINES_JWT_TOKEN docker-proxy.services.atlassian.com
             # Download and extract Atlas CLI
             - cd remotes/connect
             - curl -fL https://statlas.prod.atl-paas.net/atlas-cli/linux/atlas-latest-linux-amd64.tar.gz | tar -xzp atlas
@@ -106,10 +103,8 @@ pipelines:
           trigger: manual
           script:
             # set up step variables and auth data
-            - export DOCKER_URL="docker-proxy.services.atlassian.com"
             - export MICROS_TOKEN="$MICROS_TOKEN:$PIPELINES_JWT_TOKEN"
             - export MICROS_URL="wss://micros-proxy.services.atlassian.com"
-            - docker login -u=sox -p=$PIPELINES_JWT_TOKEN docker-proxy.services.atlassian.com
             # Download and extract Atlas CLI
             - cd remotes/connect
             - curl -fL https://statlas.prod.atl-paas.net/atlas-cli/linux/atlas-latest-linux-amd64.tar.gz | tar -xzp atlas
