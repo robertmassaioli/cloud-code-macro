@@ -378,14 +378,14 @@ in \(config: Config) -> { app =
       , key = "in-page-editor" ++ (default Text "" config.macroKeySuffix)
       , resource = "main"
       , title = "Code Editor"
-      , config.resource = "main"
+      , config = True
       , autoconvert = None { matchers : List { pattern : Text } }
       }
     , { key = "bitbucket-snippet-forge-macro"
       , title = "Bitbucket Snippet (Forge)"
       , description = "Display Bitbucket code snippets in Confluence"
       , resource = "bitbucket-snippet"
-      , config.resource = "bitbucket-snippet"
+      , config = True
       , autoconvert = Some
         { matchers =
           [ { pattern = "https://bitbucket.org/snippets/*/*" }

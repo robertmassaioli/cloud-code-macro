@@ -6,9 +6,11 @@
   "dependencies": {
     "@atlaskit/css-reset": "^6.6.2",
     "@atlaskit/section-message": "^6.4.19",
+    "@craco/craco": "^7.1.0",
     "@forge/bridge": "3.3.0",
     "@forge/ui": "^1.11.0",
     "@monaco-editor/react": "^4.6.0",
+    "buffer": "^6.0.3",
     "react": "^16",
     "react-dom": "^16",
     "styled-components": "^6.1.8",
@@ -19,8 +21,8 @@
     "react-scripts": "^5.0.1"
   },
   "scripts": {
-    "start": "BROWSER=none HOST=::1 PORT=3001 react-scripts start",
-    "build": "react-scripts build",
+    "start": "BROWSER=none HOST=::1 PORT=3001 craco start",
+    "build": "craco build",
     "eject": "react-scripts eject"
   },
   "browserslist": {
