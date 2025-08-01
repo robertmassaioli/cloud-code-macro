@@ -417,7 +417,7 @@ in \(config: Config) -> { app =
   }
 , resources = 
   [ { key = "main", path = "static/hello-world/build", tunnel.port = 3001 }
-  , { key = "bitbucket-snippet", path = "static/bitbucket-snippet/build" }
+  , { key = "bitbucket-snippet", path = "static/bitbucket-snippet/build", tunnel.port = 3002 }
   ]
 , remotes = [ { baseUrl = config.baseUrl, key = "connect" } ]
 }
