@@ -375,6 +375,12 @@ in \(config: Config) -> { app =
     , { handler = "index.config"
       , key = "in-page-editor-config"
       }
+    , { handler = "index.handler"
+      , key = "fetchSnippetData"
+      }
+    , { handler = "index.bitbucketSnippetConfig"
+      , key = "bitbucketSnippetConfig"
+      }
     ]
   , macro =
     [ { description = "Add a code editor experience to your confluence page."
