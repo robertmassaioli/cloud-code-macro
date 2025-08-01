@@ -11,37 +11,49 @@ options:
 
 pipelines:
   default:
-    - step:
-        caches:
-          - node
-        script: # Modify the commands below to build your repository.
-          - npm install
-          - npm run test
-    - step:
-        name: Build docker image
-        script:
-          # Used for accessing packages.atlassian.com
-          - pipe: docker://atlassian/artifactory-sidekick:latest
-          - source .artifactory/activate.sh
-          # build base image (node@alpine + python dependencies + hugo)
-          - docker build --tag="cloud-code-macro-test:${BITBUCKET_BUILD_NUMBER}" .
-          # don't push it, this is just to test the build
-        services:
-          - docker
-        caches:
-          - docker
-    - step:
-        name: Test Service Descriptor Generation
-        script:
-          # generate the service descriptor
-          - echo "RELEASE_VERSION" > "template-vars.csv"
-          - echo "${BITBUCKET_BUILD_NUMBER}" >> "template-vars.csv"
-          - npm install mustang
-          - npm run pipeline:mustang
-        services:
-          - docker
-        caches:
-          - docker
+    - parallel:
+        steps:
+          - step:
+              name: Build App Root
+              caches:
+                - node
+              script: # Modify the commands below to build your repository.
+                - npm install
+          - step:
+              name: Build CustomUI
+              caches:
+                - node
+              script: # Modify the commands below to build your repository.
+                - cd static/hello-world
+                - npm install
+                - npm run build
+          - step:
+              name: Build docker image
+              script:
+                # Used for accessing packages.atlassian.com
+                - pipe: docker://atlassian/artifactory-sidekick:latest
+                - source .artifactory/activate.sh
+                # build base image (node@alpine + python dependencies + hugo)
+                - cd remotes/connect
+                - docker build --tag="cloud-code-macro-test:${BITBUCKET_BUILD_NUMBER}" .
+                # don't push it, this is just to test the build
+              services:
+                - docker
+              caches:
+                - docker
+          - step:
+              name: Test Service Descriptor Generation
+              script:
+                # generate the service descriptor
+                - cd remotes/connect
+                - echo "RELEASE_VERSION" > "template-vars.csv"
+                - echo "${BITBUCKET_BUILD_NUMBER}" >> "template-vars.csv"
+                - npm install mustang
+                - npm run pipeline:mustang
+              services:
+                - docker
+              caches:
+                - docker
   branches:
     master:
       - step:
@@ -52,9 +64,12 @@ pipelines:
               variables:
                 COMPLIANT: "true"
             - source .artifactory/activate.sh
-            # build and push image
-            - docker build --tag="docker.atl-paas.net/sox/atlassian/cloud-code-macro:${BITBUCKET_BUILD_NUMBER}" .
-            - docker push "docker.atl-paas.net/sox/atlassian/cloud-code-macro:${BITBUCKET_BUILD_NUMBER}"
+            # set up step variables and auth data
+            - export DOCKER_URL="docker.atl-paas.net"
+            # build base image (node@alpine + python dependencies + hugo)
+            - cd remotes/connect
+            - docker build --tag="${DOCKER_URL}/sox/atlassian/cloud-code-macro:${BITBUCKET_BUILD_NUMBER}" .
+            - docker push "${DOCKER_URL}/sox/atlassian/cloud-code-macro:${BITBUCKET_BUILD_NUMBER}"
           services:
             - docker
           caches:
@@ -67,6 +82,7 @@ pipelines:
             - export MICROS_TOKEN="$MICROS_TOKEN:$PIPELINES_JWT_TOKEN"
             - export MICROS_URL="wss://micros-proxy.services.atlassian.com"
             # Download and extract Atlas CLI
+            - cd remotes/connect
             - curl -fL https://statlas.prod.atl-paas.net/atlas-cli/linux/atlas-latest-linux-amd64.tar.gz | tar -xzp atlas
             # Install the Micros plugin
             - ./atlas plugin install -n micros
@@ -90,6 +106,7 @@ pipelines:
             - export MICROS_TOKEN="$MICROS_TOKEN:$PIPELINES_JWT_TOKEN"
             - export MICROS_URL="wss://micros-proxy.services.atlassian.com"
             # Download and extract Atlas CLI
+            - cd remotes/connect
             - curl -fL https://statlas.prod.atl-paas.net/atlas-cli/linux/atlas-latest-linux-amd64.tar.gz | tar -xzp atlas
             # Install the Micros plugin
             - ./atlas plugin install -n micros

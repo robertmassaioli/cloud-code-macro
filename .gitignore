@@ -1,16 +1,5 @@
-# Temp files
-*~
 *.sw[a-p]
+*~
 
-# Amps
-/jira-run-pom.xml
-/target
-/amps-standalone
-
-# Node
 /node_modules
-/package-lock.json
-
-# Built files
-/static-js
-/static-css
+manifest.yml
