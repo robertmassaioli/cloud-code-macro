@@ -14,6 +14,35 @@ in \(config: Config) -> { app =
   , runtime.name = "nodejs18.x"
   , features.autoUserConsent = True
   }
+, modules.`confluence:dynamicContentMacros` =
+  [ { key = "bitbucket-snippet-forge-macro"
+    , function = "main"
+    , title = "Bitbucket Snippet (Forge)"
+    , description = Some "Display Bitbucket code snippets in Confluence"
+    , icon = "https://bitbucket.org/favicon.ico"
+    , categories = [ "development", "external-content" ]
+    , featured = False
+    , resolver.function = "fetchSnippetData"
+    , render = "native"
+    , resource = "bitbucket-snippet"
+    , config.function = "bitbucketSnippetConfig"
+    , autoconvert = Some
+      { matchers =
+        [ { pattern = "https://bitbucket.org/snippets/{}/{}" }
+        , { pattern = "https://bitbucket.org/snippets/{}/{}/{}" }
+        ]
+      , urlParameter = "snippetUrl"
+      }
+    }
+  ]
+, resources =
+  [ { key = "bitbucket-snippet"
+    , path = "static/bitbucket-snippet"
+    }
+  , { key = "hello-world"
+    , path = "static/hello-world"
+    }
+  ]
 , connectModules.`confluence:dynamicContentMacros`
   =
   [ { aliases = [ "snippet", "bbsnippet", "bitbucket" ]

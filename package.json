@@ -14,6 +14,9 @@
     "@forge/ui": "^1.11.0"
   },
   "scripts": {
+    "build:hello-world": "cd static/hello-world && npm run build",
+    "build:bitbucket-snippet": "cd static/bitbucket-snippet && npm run build",
+    "build:all": "run-p build:hello-world build:bitbucket-snippet",
     "manifest:local": "dhall-to-yaml-ng --file manifest.local.dhall --output manifest.yml",
     "manifest:dev": "dhall-to-yaml-ng --file manifest.dev.dhall --output manifest.yml",
     "manifest:stg": "dhall-to-yaml-ng --file manifest.stg.dhall --output manifest.yml",
@@ -22,10 +25,10 @@
     "deploy-only:dev": "forge deploy -e development",
     "deploy-only:stg": "forge deploy -e staging",
     "deploy-only:prod": "forge deploy -e production",
-    "deploy:local": "run-s manifest:local deploy-only:local",
-    "deploy:dev": "run-s manifest:dev deploy-only:dev",
-    "deploy:stg": "run-s manifest:stg deploy-only:stg",
-    "deploy:prod": "run-s manifest:prod deploy-only:prod",
+    "deploy:local": "run-s build:all manifest:local deploy-only:local",
+    "deploy:dev": "run-s build:all manifest:dev deploy-only:dev",
+    "deploy:stg": "run-s build:all manifest:stg deploy-only:stg",
+    "deploy:prod": "run-s build:all manifest:prod deploy-only:prod",
     "deploy": "run-s deploy:local"
   }
 }
