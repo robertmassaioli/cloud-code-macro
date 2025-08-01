@@ -35,14 +35,6 @@ in \(config: Config) -> { app =
       }
     }
   ]
-, resources =
-  [ { key = "bitbucket-snippet"
-    , path = "static/bitbucket-snippet"
-    }
-  , { key = "hello-world"
-    , path = "static/hello-world"
-    }
-  ]
 , connectModules.`confluence:dynamicContentMacros`
   =
   [ { aliases = [ "snippet", "bbsnippet", "bitbucket" ]
@@ -423,6 +415,9 @@ in \(config: Config) -> { app =
     , styles = [ "cdn.jsdelivr.net" ]
     }
   }
-, resources = [ { key = "main", path = "static/hello-world/build", tunnel.port = 3001 } ]
+, resources = 
+  [ { key = "main", path = "static/hello-world/build", tunnel.port = 3001 }
+  , { key = "bitbucket-snippet", path = "static/bitbucket-snippet/build" }
+  ]
 , remotes = [ { baseUrl = config.baseUrl, key = "connect" } ]
 }
