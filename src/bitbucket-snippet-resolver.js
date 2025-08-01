@@ -30,7 +30,8 @@ function parseSnippetUrl(snippetUrl) {
 
 // Fetch snippet data from Bitbucket API
 resolver.define('fetchSnippetData', async (req) => {
-  const { snippetUrl } = req.payload;
+  // Get snippet URL from config (for manual entry) or autoConvertLink (for autoconvert)
+  const snippetUrl = req.payload?.snippetUrl || req.context?.extension?.config?.autoConvertLink;
   
   if (!snippetUrl) {
     throw new Error('Snippet URL is required');

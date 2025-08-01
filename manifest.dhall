@@ -389,6 +389,7 @@ in \(config: Config) -> { app =
       , resource = "main"
       , title = "Code Editor"
       , config.function = "in-page-editor-config"
+      , autoconvert = None { matchers : List { pattern : Text } }
       }
     , { key = "bitbucket-snippet-forge-macro"
       , title = "Bitbucket Snippet (Forge)"
@@ -398,10 +399,10 @@ in \(config: Config) -> { app =
       , config.function = "bitbucketSnippetConfig"
       , autoconvert = Some
         { matchers =
-          [ { pattern = "https://bitbucket.org/snippets/{}/{}" }
-          , { pattern = "https://bitbucket.org/snippets/{}/{}/{}" }
+          [ { pattern = "https://bitbucket.org/snippets/*/*" }
+          , { pattern = "https://bitbucket.org/snippets/*/*/*" }
+          , { pattern = "https://bitbucket.org/robertmassaioli/workspace/snippets/*/*" }
           ]
-        , urlParameter = "snippetUrl"
         }
       }
     ]
@@ -414,7 +415,7 @@ in \(config: Config) -> { app =
     , styles = [ "cdn.jsdelivr.net" ]
     }
   }
-, resources = 
+, resources =
   [ { key = "main", path = "static/hello-world/build", tunnel.port = 3001 }
   , { key = "bitbucket-snippet", path = "static/bitbucket-snippet/build", tunnel.port = 3002 }
   ]
