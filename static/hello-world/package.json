@@ -7,6 +7,7 @@
     "@atlaskit/css-reset": "^6.6.2",
     "@atlaskit/section-message": "^6.4.19",
     "@forge/bridge": "3.3.0",
+    "@forge/ui": "^1.11.0",
     "@monaco-editor/react": "^4.6.0",
     "react": "^16",
     "react-dom": "^16",

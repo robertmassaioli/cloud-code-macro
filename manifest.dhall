@@ -372,26 +372,20 @@ in \(config: Config) -> { app =
     [ { handler = "index.handler"
       , key = "resolver"
       }
-    , { handler = "index.config"
-      , key = "in-page-editor-config"
-      }
-    , { handler = "index.bitbucketSnippetConfig"
-      , key = "bitbucketSnippetConfig"
-      }
     ]
   , macro =
     [ { description = "Add a code editor experience to your confluence page."
       , key = "in-page-editor" ++ (default Text "" config.macroKeySuffix)
       , resource = "main"
       , title = "Code Editor"
-      , config.function = "in-page-editor-config"
+      , config.resource = "main"
       , autoconvert = None { matchers : List { pattern : Text } }
       }
     , { key = "bitbucket-snippet-forge-macro"
       , title = "Bitbucket Snippet (Forge)"
       , description = "Display Bitbucket code snippets in Confluence"
       , resource = "bitbucket-snippet"
-      , config.function = "bitbucketSnippetConfig"
+      , config.resource = "bitbucket-snippet"
       , autoconvert = Some
         { matchers =
           [ { pattern = "https://bitbucket.org/snippets/*/*" }
