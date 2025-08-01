@@ -396,6 +396,13 @@ in \(config: Config) -> { app =
       , resolver.function = "fetchSnippetData"
       , resource = "main"
       , config.function = "bitbucketSnippetConfig"
+      , autoconvert = Some
+        { matchers =
+          [ { pattern = "https://bitbucket.org/snippets/{}/{}" }
+          , { pattern = "https://bitbucket.org/snippets/{}/{}/{}" }
+          ]
+        , urlParameter = "snippetUrl"
+        }
       }
     ]
   }
