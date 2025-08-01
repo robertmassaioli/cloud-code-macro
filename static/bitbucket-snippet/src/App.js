@@ -9,7 +9,7 @@ const Container = styled.div`
 
 const FileContainer = styled.div`
   margin-bottom: 15px;
-  
+
   &:last-child {
     margin-bottom: 0;
   }
@@ -20,12 +20,12 @@ const FileHeader = styled.div`
   border: 1px solid #d1d9e0;
   background-color: #f1f3f4;
   padding: 10px;
-  
+
   a {
     color: #6b778c;
     text-decoration: none;
     font-weight: 500;
-    
+
     &:hover {
       text-decoration: underline;
     }
@@ -38,7 +38,7 @@ const FileContent = styled.div`
   border-right: 1px solid #d1d9e0;
   border-bottom: 1px solid #d1d9e0;
   padding: 10px;
-  
+
   pre {
     margin: 0;
     white-space: pre-wrap;
@@ -46,7 +46,7 @@ const FileContent = styled.div`
     font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
     font-size: 12px;
     line-height: 1.45;
-    
+
     code {
       background: transparent;
       border: none;
@@ -89,13 +89,13 @@ function parseSnippetUrl(snippetUrl) {
     if (url.hostname !== 'bitbucket.org' || !url.pathname.includes('/snippets/')) {
       throw new Error('Invalid Bitbucket snippet URL');
     }
-    
+
     const pathParts = url.pathname.split('/').filter(part => part);
     // Expected format: /snippets/{username}/{snippet_id} or /snippets/{username}/{snippet_id}/{revision}
     if (pathParts.length < 3 || pathParts[0] !== 'snippets') {
       throw new Error('Invalid snippet URL format');
     }
-    
+
     return {
       username: pathParts[1],
       snippetId: pathParts[2],
@@ -116,23 +116,23 @@ function App() {
   const fetchSnippetData = async (snippetUrl) => {
     try {
       const { username, snippetId } = parseSnippetUrl(snippetUrl);
-      
+
       // Bitbucket API v2.0 endpoint for snippets
       const apiUrl = `https://api.bitbucket.org/2.0/snippets/${username}/${snippetId}`;
-      
+
       const response = await fetch(apiUrl, {
         method: 'GET',
         headers: {
           'Accept': 'application/json'
         }
       });
-      
+
       if (!response.ok) {
         throw new Error(`Failed to fetch snippet: ${response.status} ${response.statusText}`);
       }
-      
+
       const data = await response.json();
-      
+
       // Fetch file contents for each file in the snippet
       const filesWithContent = await Promise.all(
         Object.keys(data.files || {}).map(async (filename) => {
@@ -144,7 +144,7 @@ function App() {
                 'Accept': 'text/plain'
               }
             });
-            
+
             if (fileResponse.ok) {
               const content = await fileResponse.text();
               return {
@@ -173,7 +173,7 @@ function App() {
           }
         })
       );
-      
+
       return {
         title: data.title || 'Untitled Snippet',
         description: data.description || '',
@@ -188,7 +188,7 @@ function App() {
         files: filesWithContent,
         htmlUrl: data.links?.html?.href || snippetUrl
       };
-      
+
     } catch (error) {
       console.error('Error fetching snippet data:', error);
       throw new Error(`Failed to fetch snippet: ${error.message}`);
@@ -199,8 +199,9 @@ function App() {
     const loadSnippet = async () => {
       try {
         const viewContext = await view.getContext();
+        console.log(viewContext);
         setContext(viewContext);
-        
+
         // Get snippet URL from config (manual entry) or autoConvertLink (autoconvert)
         const snippetUrl = viewContext.extension?.config?.snippetUrl || viewContext.extension?.config?.autoConvertLink;
         if (!snippetUrl) {
@@ -251,7 +252,7 @@ function App() {
       {snippetData.title && (
         <SnippetTitle>{snippetData.title}</SnippetTitle>
       )}
-      
+
       {snippetData.owner && (
         <SnippetMeta>
           By {snippetData.owner.displayName} (@{snippetData.owner.username})
@@ -260,7 +261,7 @@ function App() {
           )}
         </SnippetMeta>
       )}
-      
+
       {snippetData.files && snippetData.files.map((file, index) => (
         <FileContainer key={index}>
           <FileHeader>
