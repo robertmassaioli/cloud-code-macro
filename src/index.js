@@ -3,21 +3,18 @@ import Resolver from '@forge/resolver';
 import { MONACO_LANGUAGES } from '../static/hello-world/src/languages';
 import { handler as bitbucketSnippetHandler } from './bitbucket-snippet-resolver';
 
-const resolver = new Resolver();
+// Main resolver for the existing code editor functionality
+const mainResolver = new Resolver();
 
-resolver.define('getText', (req) => {
+mainResolver.define('getText', (req) => {
   console.log(req);
 
   return 'Hello, world!';
 });
 
-// Merge the bitbucket snippet resolver handlers
-const combinedHandlers = {
-  ...resolver.getDefinitions(),
-  ...bitbucketSnippetHandler
-};
-
-export const handler = combinedHandlers;
+// Export separate handlers for different functions
+export const handler = mainResolver.getDefinitions();
+export const fetchSnippetData = bitbucketSnippetHandler.fetchSnippetData;
 
 const Config = () => {
   return (

@@ -375,7 +375,7 @@ in \(config: Config) -> { app =
     , { handler = "index.config"
       , key = "in-page-editor-config"
       }
-    , { handler = "index.handler"
+    , { handler = "index.fetchSnippetData"
       , key = "fetchSnippetData"
       }
     , { handler = "index.bitbucketSnippetConfig"
