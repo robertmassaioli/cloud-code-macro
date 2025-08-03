@@ -394,6 +394,19 @@ in \(config: Config) -> { app =
           ]
         }
       }
+    , { key = "gist-code-forge-macro"
+      , title = "GitHub Gist (Forge)"
+      , description = "Display GitHub gists in Confluence"
+      , resource = "gist-code-macro"
+      , config = True
+      , categories = Some [ "development", "external-content" ]
+      , featured = Some False
+      , autoconvert = Some
+        { matchers =
+          [ { pattern = "https://gist.github.com/*/*" }
+          ]
+        }
+      }
     ]
   }
 , permissions =
@@ -407,6 +420,7 @@ in \(config: Config) -> { app =
 , resources =
   [ { key = "main", path = "static/hello-world/build", tunnel.port = 3001 }
   , { key = "bitbucket-snippet", path = "static/bitbucket-snippet/build", tunnel.port = 3002 }
+  , { key = "gist-code-macro", path = "static/gist-code-macro/build", tunnel.port = 3003 }
   ]
 , remotes = [ { baseUrl = config.baseUrl, key = "connect" } ]
 }
