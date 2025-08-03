@@ -379,6 +379,8 @@ in \(config: Config) -> { app =
       , resource = "main"
       , title = "Code Editor"
       , config = True
+      , categories = Some [ "development", "formatting" ]
+      , featured = Some False
       , autoconvert = None { matchers : List { pattern : Text } }
       }
     , { key = "bitbucket-snippet-forge-macro"
