@@ -386,6 +386,8 @@ in \(config: Config) -> { app =
       , description = "Display Bitbucket code snippets in Confluence"
       , resource = "bitbucket-snippet"
       , config = True
+      , categories = Some [ "external-content", "development" ]
+      , featured = Some False
       , autoconvert = Some
         { matchers =
           [ { pattern = "https://bitbucket.org/snippets/*/*" }
@@ -399,13 +401,22 @@ in \(config: Config) -> { app =
       , description = "Display GitHub gists in Confluence"
       , resource = "gist-code-macro"
       , config = True
-      , categories = Some [ "development", "external-content" ]
+      , categories = Some [ "external-content", "development" ]
       , featured = Some False
       , autoconvert = Some
         { matchers =
           [ { pattern = "https://gist.github.com/*/*" }
           ]
         }
+      }
+    , { key = "paste-code-forge-macro"
+      , title = "Better Code Block (Forge)"
+      , description = Some "Better macro to format blocks of source code or markup."
+      , resource = "paste-code-macro"
+      , config = True
+      , categories = Some [ "formatting", "development" ]
+      , featured = Some True
+      , autoconvert = None { matchers : List { pattern : Text } }
       }
     ]
   }
@@ -421,6 +432,7 @@ in \(config: Config) -> { app =
   [ { key = "main", path = "static/hello-world/build", tunnel.port = 3001 }
   , { key = "bitbucket-snippet", path = "static/bitbucket-snippet/build", tunnel.port = 3002 }
   , { key = "gist-code-macro", path = "static/gist-code-macro/build", tunnel.port = 3003 }
+  , { key = "paste-code-macro", path = "static/paste-code-macro/build", tunnel.port = 3004 }
   ]
 , remotes = [ { baseUrl = config.baseUrl, key = "connect" } ]
 }
