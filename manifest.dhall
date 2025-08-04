@@ -374,22 +374,24 @@ in \(config: Config) -> { app =
       }
     ]
   , macro =
-    [ { description = "Add a code editor experience to your confluence page."
+    [ { description = Some "Add a code editor experience to your confluence page."
       , key = "in-page-editor" ++ (default Text "" config.macroKeySuffix)
       , resource = "main"
       , title = "Code Editor"
       , config = True
       , categories = Some [ "development", "formatting" ]
       , featured = Some False
+      , bodied = Some False
       , autoconvert = None { matchers : List { pattern : Text } }
       }
     , { key = "bitbucket-snippet-forge-macro"
       , title = "Bitbucket Snippet (Forge)"
-      , description = "Display Bitbucket code snippets in Confluence"
+      , description = Some "Display Bitbucket code snippets in Confluence"
       , resource = "bitbucket-snippet"
       , config = True
       , categories = Some [ "external-content", "development" ]
       , featured = Some False
+      , bodied = Some False
       , autoconvert = Some
         { matchers =
           [ { pattern = "https://bitbucket.org/snippets/*/*" }
@@ -400,11 +402,12 @@ in \(config: Config) -> { app =
       }
     , { key = "gist-code-forge-macro"
       , title = "GitHub Gist (Forge)"
-      , description = "Display GitHub gists in Confluence"
+      , description = Some "Display GitHub gists in Confluence"
       , resource = "gist-code-macro"
       , config = True
       , categories = Some [ "external-content", "development" ]
       , featured = Some False
+      , bodied = Some False
       , autoconvert = Some
         { matchers =
           [ { pattern = "https://gist.github.com/*/*" }
@@ -418,6 +421,7 @@ in \(config: Config) -> { app =
       , config = True
       , categories = Some [ "formatting", "development" ]
       , featured = Some True
+      , bodied = Some True
       , autoconvert = None { matchers : List { pattern : Text } }
       }
     ]

@@ -52,10 +52,16 @@ function App() {
         setConfig(macroConfig);
 
         // Get macro body content (the code to display)
-        // In Forge, we'll need to get this from the macro body
-        // For now, we'll use a placeholder or config value
-        const codeContent = macroConfig.codeContent || '// No code content provided\n// Please configure the macro';
-        setMacroBody(codeContent);
+        // In Forge, get the macro body using view.getMacroBody()
+        try {
+          const macroBody = await view.getMacroBody();
+          const codeContent = macroBody || '// No code content provided\n// Please add code to the macro body';
+          setMacroBody(codeContent);
+        } catch (err) {
+          console.warn('Could not get macro body, using placeholder:', err);
+          const codeContent = '// No code content provided\n// Please add code to the macro body';
+          setMacroBody(codeContent);
+        }
 
       } catch (err) {
         console.error('Error loading macro data:', err);
