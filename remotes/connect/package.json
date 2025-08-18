@@ -40,6 +40,7 @@
     "supertest": "^6.3.3"
   },
   "resolutions": {
-    "bson": "^1.1.4"
+    "bson": "^1.1.4",
+    "tough-cookie": "^4.1.3"
   }
 }
