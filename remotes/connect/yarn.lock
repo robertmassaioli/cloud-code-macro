@@ -320,6 +320,25 @@
   resolved "https://packages.atlassian.com/api/npm/npm-remote/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@hapi/boom@^10.0.1":
+  version "10.0.1"
+  resolved "https://packages.atlassian.com/api/npm/npm-remote/@hapi/boom/-/boom-10.0.1.tgz#ebb14688275ae150aa6af788dbe482e6a6062685"
+  integrity sha512-ERcCZaEjdH3OgSJlyjVk8pHIFeus91CjKP3v+MpgBNp5IvGzP2l/bRiD78nqYcKPaZdbKkK5vDBVPd2ohHBlsA==
+  dependencies:
+    "@hapi/hoek" "^11.0.2"
+
+"@hapi/cryptiles@^6.0.1":
+  version "6.0.1"
+  resolved "https://packages.atlassian.com/api/npm/npm-remote/@hapi/cryptiles/-/cryptiles-6.0.1.tgz#7868a9d4233567ed66f0a9caf85fdcc56e980621"
+  integrity sha512-9GM9ECEHfR8lk5ASOKG4+4ZsEzFqLfhiryIJ2ISePVB92OHLp/yne4m+zn7z9dgvM98TLpiFebjDFQ0UHcqxXQ==
+  dependencies:
+    "@hapi/boom" "^10.0.1"
+
+"@hapi/hoek@^11.0.2":
+  version "11.0.7"
+  resolved "https://packages.atlassian.com/api/npm/npm-remote/@hapi/hoek/-/hoek-11.0.7.tgz#56a920793e0a42d10e530da9a64cc0d3919c4002"
+  integrity sha512-HV5undWkKzcB4RZUusqOpcgxOaq6VOAH7zhhIr2g3G8NF/MlFO75SjOr2NfuSx0Mh40+1FqCkagKLJRykUWoFQ==
+
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
   resolved "https://packages.atlassian.com/api/npm/npm-remote/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz"
