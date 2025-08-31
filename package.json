@@ -13,6 +13,11 @@
     "@forge/resolver": "1.5.28",
     "@forge/ui": "^1.11.0"
   },
+  "overrides": {
+    "@forge/ui":{
+      "sha.js":"^2.4.12"
+    }
+  },
   "scripts": {
     "manifest:local": "dhall-to-yaml-ng --file manifest.local.dhall --output manifest.yml",
     "manifest:dev": "dhall-to-yaml-ng --file manifest.dev.dhall --output manifest.yml",
