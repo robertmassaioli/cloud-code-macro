@@ -40,15 +40,17 @@
     "requirejs": "^2.3.7",
     "supertest": "^6.3.3"
   },
-  "resolutions": {
-    "bson": "^1.1.4",
-    "tough-cookie": "^4.1.3"
-  },
   "overrides": {
     "mustang":{
       "request":{
         "hawk":{
           "cryptiles":"^4.1.2"
+        },
+        "tough-cookie": "^4.1.3"
+      },
+      "mongodb":{
+        "mongodb-core":{
+          "bson":"^1.1.4"
         }
       }
     }
