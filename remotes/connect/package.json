@@ -40,6 +40,9 @@
     "requirejs": "^2.3.7",
     "supertest": "^6.3.3"
   },
+  "resolutions": {
+    "tough-cookie": "^4.1.3"
+  },
   "overrides": {
     "mustang":{
       "request":{
