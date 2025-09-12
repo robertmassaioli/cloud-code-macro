@@ -382,7 +382,7 @@ in \(config: Config) -> { app =
       , categories = Some [ "development", "formatting" ]
       , featured = Some False
       , bodied = Some False
-      , autoconvert = None { matchers : List { pattern : Text } }
+      , autoConvert = None { matchers : List { pattern : Text } }
       }
     , { key = "bitbucket-snippet-forge-macro"
       , title = "Bitbucket Snippet (Forge)"
@@ -392,7 +392,7 @@ in \(config: Config) -> { app =
       , categories = Some [ "external-content", "development" ]
       , featured = Some False
       , bodied = Some False
-      , autoconvert = Some
+      , autoConvert = Some
         { matchers =
           [ { pattern = "https://bitbucket.org/snippets/*/*" }
           , { pattern = "https://bitbucket.org/snippets/*/*/*" }
@@ -408,7 +408,7 @@ in \(config: Config) -> { app =
       , categories = Some [ "external-content", "development" ]
       , featured = Some False
       , bodied = Some False
-      , autoconvert = Some
+      , autoConvert = Some
         { matchers =
           [ { pattern = "https://gist.github.com/*/*" }
           ]
@@ -422,7 +422,7 @@ in \(config: Config) -> { app =
       , categories = Some [ "formatting", "development" ]
       , featured = Some True
       , bodied = Some True
-      , autoconvert = None { matchers : List { pattern : Text } }
+      , autoConvert = None { matchers : List { pattern : Text } }
       }
     ]
   }
