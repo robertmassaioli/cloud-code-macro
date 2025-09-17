@@ -1,70 +1,49 @@
 import React, { useState, useEffect } from 'react';
-import { view } from '@forge/bridge';
+import { view, useConfig } from '@forge/react';
 
 function App() {
   const [gistUrl, setGistUrl] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const context = useConfig();
 
-  useEffect(() => {
-    const loadGist = async () => {
-      try {
-        const context = await view.getContext();
-        
-        // Get gist URL from config (manual entry) or autoConvertLink (autoconvert)
-        const url = context.extension?.config?.gistUrl || context.extension?.config?.autoConvertLink;
-        
-        if (!url) {
-          throw new Error('No gist URL provided');
-        }
+  console.log("context", context)
 
-        setGistUrl(url);
-      } catch (err) {
-        console.error('Error loading gist:', err);
-        setError(err.message || 'Failed to load gist');
-      } finally {
-        setLoading(false);
-      }
-    };
+  if(context) {
+    const url = context?.extension?.config?.gistUrl || context.extension?.config?.autoConvertLink;
 
-    loadGist();
-  }, []);
-
-  useEffect(() => {
-    if (gistUrl && !loading && !error) {
-      // Create and inject the GitHub gist script
-      const script = document.createElement('script');
-      script.src = gistUrl;
-      script.async = true;
-      
-      // Clear any existing gist content
-      const container = document.getElementById('gist-container');
-      if (container) {
-        container.innerHTML = '';
-        container.appendChild(script);
-      }
+    if (!url) {
+      throw new Error('No gist URL provided');
     }
-  }, [gistUrl, loading, error]);
 
-  if (loading) {
     return (
-      <div style={{ padding: '20px', textAlign: 'center' }}>
-        Loading GitHub gist...
+    <div style={{ padding: '10px' }}>
+      <div id="gist-container">{url}
+        {/* GitHub gist will be injected here */}
       </div>
-    );
+    </div>
+  );
   }
 
-  if (error) {
-    return (
-      <div style={{ padding: '20px', color: 'red' }}>
-        Error: {error}
-      </div>
-    );
-  }
+  // useEffect(() => {
+  //   if (gistUrl && !loading && !error) {
+  //     // Create and inject the GitHub gist script
+  //     const script = document.createElement('script');
+  //     script.src = gistUrl;
+  //     script.async = true;
+
+  //     // Clear any existing gist content
+  //     const container = document.getElementById('gist-container');
+  //     if (container) {
+  //       container.innerHTML = '';
+  //       container.appendChild(script);
+  //     }
+  //   }
+  // }, [gistUrl, loading, error]);
 
   return (
     <div style={{ padding: '10px' }}>
-      <div id="gist-container">
+      <div id="gist-container">Could not load the URL.
         {/* GitHub gist will be injected here */}
       </div>
     </div>

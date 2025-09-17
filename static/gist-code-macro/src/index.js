@@ -1,5 +1,6 @@
 import React from 'react';
-import { ForgeReconciler } from '@forge/bridge';
+import ReactDOM from 'react-dom';
+import ForgeReconciler from '@forge/react';
 import ForgeUI, { Form, TextField } from '@forge/ui';
 import App from './App';
 
@@ -10,15 +11,15 @@ const Config = () => {
 
   return (
     <Form onSubmit={onSubmit}>
-      <TextField 
-        name="gistUrl" 
-        label="Gist URL" 
+      <TextField
+        name="gistUrl"
+        label="Gist URL"
         placeholder="https://gist.github.com/username/gist_id"
       />
     </Form>
   );
 };
 
-ForgeReconciler.render(<App />);
+ReactDOM.render(<App />, document.getElementById("root"));
 
 ForgeReconciler.addConfig(<Config />);
