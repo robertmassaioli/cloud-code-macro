@@ -1,49 +1,39 @@
 import React, { useState, useEffect } from 'react';
-import { view, useConfig } from '@forge/react';
+import { view } from "@forge/bridge";
+import { useConfig } from '@forge/react';
 
 function App() {
-  const [gistUrl, setGistUrl] = useState('');
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const context = useConfig();
+  const [context, setContext] = useState(null);
+
+  useEffect(() => {
+    view.getContext().then((value) => {
+      setContext(value)
+    });
+  }, [view.getContext]);
 
   console.log("context", context)
 
-  if(context) {
-    const url = context?.extension?.config?.gistUrl || context.extension?.config?.autoConvertLink;
+  const url = context?.extension?.config?.gistUrl || context?.extension?.autoConvertLink;
 
-    if (!url) {
-      throw new Error('No gist URL provided');
+  useEffect(() => {
+    if (url) {
+      // Create and inject the GitHub gist script
+      const script = document.createElement('script');
+      script.src = url;
+      script.async = true;
+
+      // Clear any existing gist content
+      const container = document.getElementById('gist-container');
+      if (container) {
+        container.innerHTML = '';
+        container.appendChild(script);
+      }
     }
-
-    return (
-    <div style={{ padding: '10px' }}>
-      <div id="gist-container">{url}
-        {/* GitHub gist will be injected here */}
-      </div>
-    </div>
-  );
-  }
-
-  // useEffect(() => {
-  //   if (gistUrl && !loading && !error) {
-  //     // Create and inject the GitHub gist script
-  //     const script = document.createElement('script');
-  //     script.src = gistUrl;
-  //     script.async = true;
-
-  //     // Clear any existing gist content
-  //     const container = document.getElementById('gist-container');
-  //     if (container) {
-  //       container.innerHTML = '';
-  //       container.appendChild(script);
-  //     }
-  //   }
-  // }, [gistUrl, loading, error]);
+  }, [url]);
 
   return (
     <div style={{ padding: '10px' }}>
-      <div id="gist-container">Could not load the URL.
+      <div id="gist-container">{url}
         {/* GitHub gist will be injected here */}
       </div>
     </div>
