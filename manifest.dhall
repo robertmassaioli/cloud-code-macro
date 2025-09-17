@@ -431,7 +431,7 @@ in \(config: Config) -> { app =
   , content.styles = [ "unsafe-inline" ]
   , external =
     { scripts = [ "cdn.jsdelivr.net", "gist.github.com" ]
-    , styles = [ "cdn.jsdelivr.net" ]
+    , styles = [ "cdn.jsdelivr.net", "github.githubassets.com" ]
     }
   }
 , resources =

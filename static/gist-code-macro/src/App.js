@@ -20,18 +20,42 @@ function App() {
       // Ensure the URL ends with .js for the gist script
       const scriptUrl = url.endsWith('.js') ? url : `${url}.js`;
 
-      // Create and inject the GitHub gist script
-      const script = document.createElement('script');
-      script.src = scriptUrl;
-      script.async = true;
-
-      //<script src="https://gist.github.com/katagaki/e36a856aabf03dde2a66e7b20421701f.js"></script>
-
-      // Clear any existing gist content
       const container = document.getElementById('gist-container');
       if (container) {
+        // Clear any existing gist content
         container.innerHTML = '';
-        container.appendChild(script);
+        
+        // Override document.write to capture gist output
+        const originalWrite = document.write;
+        const originalWriteln = document.writeln;
+        
+        document.write = function(content) {
+          container.innerHTML += content;
+        };
+        
+        document.writeln = function(content) {
+          container.innerHTML += content + '\n';
+        };
+
+        // Create and inject the GitHub gist script
+        const script = document.createElement('script');
+        script.src = scriptUrl;
+        script.async = true;
+        
+        script.onload = () => {
+          // Restore original document.write methods
+          document.write = originalWrite;
+          document.writeln = originalWriteln;
+        };
+        
+        script.onerror = () => {
+          // Restore original document.write methods on error
+          document.write = originalWrite;
+          document.writeln = originalWriteln;
+          container.innerHTML = '<div style="color: red; padding: 10px;">Error loading gist</div>';
+        };
+
+        document.head.appendChild(script);
       }
     }
   }, [url]);
