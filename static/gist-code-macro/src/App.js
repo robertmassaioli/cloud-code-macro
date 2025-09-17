@@ -17,10 +17,15 @@ function App() {
 
   useEffect(() => {
     if (url) {
+      // Ensure the URL ends with .js for the gist script
+      const scriptUrl = url.endsWith('.js') ? url : `${url}.js`;
+
       // Create and inject the GitHub gist script
       const script = document.createElement('script');
-      script.src = url;
+      script.src = scriptUrl;
       script.async = true;
+
+      //<script src="https://gist.github.com/katagaki/e36a856aabf03dde2a66e7b20421701f.js"></script>
 
       // Clear any existing gist content
       const container = document.getElementById('gist-container');

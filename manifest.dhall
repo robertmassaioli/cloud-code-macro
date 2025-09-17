@@ -430,7 +430,7 @@ in \(config: Config) -> { app =
   { scopes = [ "read:connect-confluence", "read:page:confluence", "write:page:confluence" ]
   , content.styles = [ "unsafe-inline" ]
   , external =
-    { scripts = [ "cdn.jsdelivr.net" ]
+    { scripts = [ "cdn.jsdelivr.net", "gist.github.com" ]
     , styles = [ "cdn.jsdelivr.net" ]
     }
   }
