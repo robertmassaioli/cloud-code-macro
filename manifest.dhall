@@ -12,7 +12,6 @@ in \(config: Config) -> { app =
     }
   , id = "ari:cloud:ecosystem::app/1f719b35-249b-4ec7-80c5-de810567f87c"
   , runtime.name = "nodejs20.x"
-  , features.autoUserConsent = True
   }
 , connectModules.`confluence:dynamicContentMacros`
   =
@@ -430,8 +429,14 @@ in \(config: Config) -> { app =
   { scopes = [ "read:connect-confluence", "read:page:confluence", "write:page:confluence" ]
   , content.styles = [ "unsafe-inline" ]
   , external =
-    { scripts = [ "cdn.jsdelivr.net", "gist.github.com" ]
-    , styles = [ "cdn.jsdelivr.net", "github.githubassets.com" ]
+    { scripts = 
+      [ { address = "cdn.jsdelivr.net", inScopeEUD = False }
+      , { address = "gist.github.com", inScopeEUD = False }
+      ]
+    , styles = 
+      [ { address = "cdn.jsdelivr.net", inScopeEUD = False }
+      , { address = "github.githubassets.com", inScopeEUD = False }
+      ]
     }
   }
 , resources =
