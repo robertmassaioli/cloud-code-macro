@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { view } from '@forge/bridge';
-import { useConfig } from '@forge/react';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -68,7 +67,7 @@ const ErrorContainer = styled.div`
   border-radius: 6px;
   background-color: #ffeef0;
   color: #d73a49;
-  
+
   strong {
     font-weight: 600;
   }
@@ -96,15 +95,34 @@ function parseSnippetUrl(snippetUrl) {
     }
 
     const pathParts = url.pathname.split('/').filter(part => part);
-    // Expected format: /snippets/{username}/{snippet_id} or /snippets/{username}/{snippet_id}/{revision}
-    if (pathParts.length < 3 || pathParts[0] !== 'snippets') {
+
+    // Handle both URL formats:
+    // Old format: /snippets/{workspace}/{encoded_id}
+    // New format: /{workspace}/workspace/snippets/{encoded_id}/{title}
+
+    let workspace, encoded_id, revision = null;
+
+    if (pathParts[0] === 'snippets') {
+      // Old format: /snippets/{workspace}/{encoded_id}
+      if (pathParts.length < 3) {
+        throw new Error('Invalid snippet URL format');
+      }
+      workspace = pathParts[1];
+      encoded_id = pathParts[2];
+      revision = pathParts[3] || null;
+    } else if (pathParts.length >= 4 && pathParts[1] === 'workspace' && pathParts[2] === 'snippets') {
+      // New format: /{workspace}/workspace/snippets/{encoded_id}/{title}
+      workspace = pathParts[0];
+      encoded_id = pathParts[3];
+      revision = pathParts[4] || null;
+    } else {
       throw new Error('Invalid snippet URL format');
     }
 
     return {
-      username: pathParts[1],
-      snippetId: pathParts[2],
-      revision: pathParts[3] || null
+      workspace,
+      encoded_id,
+      revision
     };
   } catch (error) {
     console.error('Error parsing snippet URL:', error);
@@ -120,10 +138,10 @@ function App() {
 
   const fetchSnippetData = async (snippetUrl) => {
     try {
-      const { username, snippetId } = parseSnippetUrl(snippetUrl);
+      const { workspace, encoded_id } = parseSnippetUrl(snippetUrl);
 
       // Bitbucket API v2.0 endpoint for snippets
-      const apiUrl = `https://api.bitbucket.org/2.0/snippets/${username}/${snippetId}`;
+      const apiUrl = `https://api.bitbucket.org/2.0/snippets/${workspace}/${encoded_id}`;
 
       const response = await fetch(apiUrl, {
         method: 'GET',

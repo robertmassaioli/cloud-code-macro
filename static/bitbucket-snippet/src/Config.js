@@ -12,7 +12,7 @@ const Config = () => {
         id="snippetUrl"
         name="snippetUrl"
         type="text"
-        placeholder="https://bitbucket.org/snippets/username/snippet_id"
+        placeholder="https://bitbucket.org/atlassianlabs/workspace/snippets/TRpq/untitled-snippet"
         style={{ 
           width: '100%', 
           padding: '8px', 
