@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { view } from '@forge/bridge';
+import { useConfig } from '@forge/react';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -62,11 +63,15 @@ const LoadingContainer = styled.div`
 `;
 
 const ErrorContainer = styled.div`
-  padding: 20px;
-  background-color: #ffebe6;
-  border: 1px solid #ff8f73;
-  border-radius: 3px;
-  color: #bf2600;
+  padding: 16px;
+  border: 1px solid #d73a49;
+  border-radius: 6px;
+  background-color: #ffeef0;
+  color: #d73a49;
+  
+  strong {
+    font-weight: 600;
+  }
 `;
 
 const SnippetTitle = styled.h3`
@@ -196,19 +201,25 @@ function App() {
   };
 
   useEffect(() => {
+    view.getContext().then((value) => {
+      setContext(value)
+    });
+  }, [view.getContext]);
+
+  console.log("context", context)
+
+  const url = (context?.extension?.config?.snippetUrl && context?.extension?.config?.snippetUrl.trim()) || context?.extension?.autoConvertLink;
+
+  useEffect(() => {
     const loadSnippet = async () => {
+      if (!url) {
+        setError('No snippet URL provided');
+        setLoading(false);
+        return;
+      }
+
       try {
-        const viewContext = await view.getContext();
-        console.log(viewContext);
-        setContext(viewContext);
-
-        // Get snippet URL from config (manual entry) or autoConvertLink (autoconvert)
-        const snippetUrl = viewContext.extension?.config?.snippetUrl || viewContext.extension?.config?.autoConvertLink;
-        if (!snippetUrl) {
-          throw new Error('No snippet URL provided');
-        }
-
-        const data = await fetchSnippetData(snippetUrl);
+        const data = await fetchSnippetData(url);
         setSnippetData(data);
       } catch (err) {
         console.error('Error loading snippet:', err);
@@ -218,8 +229,12 @@ function App() {
       }
     };
 
-    loadSnippet();
-  }, []);
+    if (url) {
+      loadSnippet();
+    } else {
+      setLoading(false);
+    }
+  }, [url]);
 
   if (loading) {
     return (
