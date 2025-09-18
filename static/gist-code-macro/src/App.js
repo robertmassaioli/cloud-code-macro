@@ -13,7 +13,7 @@ function App() {
 
   console.log("context", context)
 
-  const url = context?.extension?.config?.gistUrl || context?.extension?.autoConvertLink;
+  const url = (context?.extension?.config?.gistUrl && context?.extension?.config?.gistUrl.trim()) || context?.extension?.autoConvertLink;
 
   useEffect(() => {
     if (url) {
