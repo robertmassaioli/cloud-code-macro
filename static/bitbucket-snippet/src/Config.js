@@ -1,25 +1,13 @@
-import React from 'react';
+import React from "react";
+import { Label, Textfield } from "@forge/react";
 
 const Config = () => {
-  const onSubmit = async (formData) => {
-    return formData;
-  };
-
   return (
     <>
-      <label htmlFor="snippetUrl">Snippet URL</label>
-      <input
-        id="snippetUrl"
+      <Label>Snippet URL</Label>
+      <Textfield
         name="snippetUrl"
-        type="text"
-        placeholder="https://bitbucket.org/atlassianlabs/workspace/snippets/TRpq/untitled-snippet"
-        style={{ 
-          width: '100%', 
-          padding: '8px', 
-          margin: '4px 0',
-          border: '1px solid #ccc',
-          borderRadius: '4px'
-        }}
+        placeholder="https://bitbucket.org/{workspace}/workspace/snippets/{snippet_id}/title"
       />
     </>
   );

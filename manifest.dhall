@@ -429,14 +429,19 @@ in \(config: Config) -> { app =
   { scopes = [ "read:connect-confluence", "read:page:confluence", "write:page:confluence" ]
   , content.styles = [ "unsafe-inline" ]
   , external =
-    { scripts = 
+    { scripts =
       [ { address = "cdn.jsdelivr.net", inScopeEUD = False }
       , { address = "gist.github.com", inScopeEUD = False }
       ]
-    , styles = 
+    , styles =
       [ { address = "cdn.jsdelivr.net", inScopeEUD = False }
       , { address = "github.githubassets.com", inScopeEUD = False }
       ]
+    , fetch =
+      { client =
+        [ { address = "api.bitbucket.org", inScopeEUD = False }
+        ]
+      }
     }
   }
 , resources =

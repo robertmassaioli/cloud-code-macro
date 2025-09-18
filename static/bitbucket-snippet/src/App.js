@@ -214,7 +214,7 @@ function App() {
 
     } catch (error) {
       console.error('Error fetching snippet data:', error);
-      throw new Error(`Failed to fetch snippet: ${error.message}`);
+      //throw new Error(`Failed to fetch snippet: ${error.message}`);
     }
   };
 
