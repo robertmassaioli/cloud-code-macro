@@ -1,0 +1,41 @@
+{
+  "name": "confluence-macro-custom-ui",
+  "version": "1.0.40",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "npm-run-all": "^4.1.5"
+  },
+  "dependencies": {
+    "@forge/resolver": "1.5.28",
+    "@forge/ui": "^1.11.0"
+  },
+  "scripts": {
+    "build:hello-world": "cd static/hello-world && npm run build",
+    "build:bitbucket-snippet": "cd static/bitbucket-snippet && npm run build",
+    "build:gist-code-macro": "cd static/gist-code-macro && npm run build",
+    "build:paste-code-macro": "cd static/paste-code-macro && npm run build",
+    "build:all": "run-p build:hello-world build:bitbucket-snippet build:gist-code-macro build:paste-code-macro",
+    "start:hello-world": "cd static/hello-world && npm start",
+    "start:bitbucket-snippet": "cd static/bitbucket-snippet && npm start",
+    "start:gist-code-macro": "cd static/gist-code-macro && npm start",
+    "start:paste-code-macro": "cd static/paste-code-macro && npm start",
+    "start:all": "run-p start:hello-world start:bitbucket-snippet start:gist-code-macro start:paste-code-macro",
+    "manifest:local": "dhall-to-yaml-ng --file manifest.local.dhall --output manifest.yml",
+    "manifest:dev": "dhall-to-yaml-ng --file manifest.dev.dhall --output manifest.yml",
+    "manifest:stg": "dhall-to-yaml-ng --file manifest.stg.dhall --output manifest.yml",
+    "manifest:prod": "dhall-to-yaml-ng --file manifest.prod.dhall --output manifest.yml",
+    "deploy-only:local": "forge deploy -e local",
+    "deploy-only:dev": "forge deploy -e development",
+    "deploy-only:stg": "forge deploy -e staging",
+    "deploy-only:prod": "forge deploy -e production",
+    "deploy:local": "run-s build:all manifest:local deploy-only:local",
+    "deploy:dev": "run-s build:all manifest:dev deploy-only:dev",
+    "deploy:stg": "run-s build:all manifest:stg deploy-only:stg",
+    "deploy:prod": "run-s build:all manifest:prod deploy-only:prod",
+    "deploy": "run-s deploy:local"
+  }
+}
