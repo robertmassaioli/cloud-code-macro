@@ -432,6 +432,7 @@ in \(config: Config) -> { app =
     { scripts =
       [ { address = "cdn.jsdelivr.net", inScopeEUD = False }
       , { address = "gist.github.com", inScopeEUD = False }
+      , { address = "bitbucket.org", inScopeEUD = False }
       ]
     , styles =
       [ { address = "cdn.jsdelivr.net", inScopeEUD = False }
@@ -440,6 +441,7 @@ in \(config: Config) -> { app =
     , fetch =
       { client =
         [ { address = "api.bitbucket.org", inScopeEUD = False }
+        , { address = "bitbucket.org", inScopeEUD = False }
         ]
       }
     }

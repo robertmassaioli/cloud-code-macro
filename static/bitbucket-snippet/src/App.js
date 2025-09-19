@@ -135,19 +135,24 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [context, setContext] = useState(null);
+  const [fileLoadingProgress, setFileLoadingProgress] = useState({ loaded: 0, total: 0 });
 
   const fetchSnippetData = async (snippetUrl) => {
     try {
       const { workspace, encoded_id } = parseSnippetUrl(snippetUrl);
 
-      // Bitbucket API v2.0 endpoint for snippets
-      const apiUrl = `https://api.bitbucket.org/2.0/snippets/${workspace}/${encoded_id}`;
+      // Generate the api url using the same structure as the original connect version
+      const url = new URL(snippetUrl);
+      const apiUrl = `${url.origin}/!api/2.0/snippets/${workspace}/${encoded_id}`;
+
+      console.log('Fetching snippet metadata from:', apiUrl);
 
       const response = await fetch(apiUrl, {
         method: 'GET',
         headers: {
           'Accept': 'application/json'
-        }
+        },
+        credentials: 'omit' // Similar to withCredentials: false in original
       });
 
       if (!response.ok) {
@@ -155,47 +160,105 @@ function App() {
       }
 
       const data = await response.json();
+      console.log('Snippet metadata received:', data);
 
-      // Fetch file contents for each file in the snippet
-      const filesWithContent = await Promise.all(
-        Object.keys(data.files || {}).map(async (filename) => {
-          const file = data.files[filename];
-          try {
-            const fileResponse = await fetch(file.links.self.href, {
-              method: 'GET',
-              headers: {
-                'Accept': 'text/plain'
-              }
-            });
+      // Following the pattern from the original implementation:
+      // Request all of the contents of all of the files and save their data
+      const fileKeys = Object.keys(data.files || {});
+      console.log('Found files:', fileKeys);
+      
+      // Update progress tracking
+      setFileLoadingProgress({ loaded: 0, total: fileKeys.length });
+      
+      const rawRequests = [];
+      const rawData = [];
 
-            if (fileResponse.ok) {
-              const content = await fileResponse.text();
-              return {
-                filename,
-                content,
-                htmlUrl: file.links.html.href,
-                size: file.size
-              };
-            } else {
-              console.warn(`Failed to fetch content for file ${filename}`);
-              return {
-                filename,
-                content: '// Failed to load file content',
-                htmlUrl: file.links.html.href,
-                size: file.size
-              };
-            }
-          } catch (error) {
-            console.error(`Error fetching file ${filename}:`, error);
-            return {
-              filename,
-              content: '// Error loading file content',
-              htmlUrl: file.links.html.href,
-              size: file.size || 0
+      // Create individual requests for each file, similar to original implementation
+      fileKeys.forEach((filename, i) => {
+        const thisFile = data.files[filename];
+        console.log(`Fetching content for file ${i + 1}/${fileKeys.length}: ${filename}`);
+        
+        const rawDataRequest = fetch(thisFile.links.self.href, {
+          method: 'GET',
+          headers: {
+            'Accept': 'text/plain'
+          },
+          credentials: 'omit'
+        }).then(async (fileResponse) => {
+          if (fileResponse.ok) {
+            const rawFileContents = await fileResponse.text();
+            console.log(`Successfully loaded content for ${filename} (${rawFileContents.length} characters)`);
+            
+            // Store data in the same structure as original
+            rawData[i] = {
+              filename: filename,
+              htmlHref: thisFile.links.html.href,
+              contents: rawFileContents,
+              size: thisFile.size
             };
+            
+            // Update progress
+            setFileLoadingProgress(prev => ({ 
+              loaded: prev.loaded + 1, 
+              total: prev.total 
+            }));
+            
+            return rawData[i];
+          } else {
+            console.warn(`Failed to fetch content for file ${filename}: ${fileResponse.status}`);
+            rawData[i] = {
+              filename: filename,
+              htmlHref: thisFile.links.html.href,
+              contents: '// Failed to load file content',
+              size: thisFile.size || 0
+            };
+            
+            // Update progress even for failed files
+            setFileLoadingProgress(prev => ({ 
+              loaded: prev.loaded + 1, 
+              total: prev.total 
+            }));
+            
+            return rawData[i];
           }
-        })
-      );
+        }).catch(error => {
+          console.error(`Error fetching file ${filename}:`, error);
+          rawData[i] = {
+            filename: filename,
+            htmlHref: thisFile.links.html.href,
+            contents: '// Error loading file content',
+            size: thisFile.size || 0
+          };
+          
+          // Update progress even for errored files
+          setFileLoadingProgress(prev => ({ 
+            loaded: prev.loaded + 1, 
+            total: prev.total 
+          }));
+          
+          return rawData[i];
+        });
+
+        rawRequests.push(rawDataRequest);
+      });
+
+      // Wait for all file requests to complete (similar to $.when.apply in original)
+      console.log('Waiting for all file content requests to complete...');
+      await Promise.all(rawRequests);
+      
+      console.log('All file contents loaded. Processing results...');
+      
+      // Filter out any undefined entries and sort by original order
+      const filesWithContent = rawData
+        .filter(item => item !== undefined)
+        .map(item => ({
+          filename: item.filename,
+          content: item.contents,
+          htmlUrl: item.htmlHref,
+          size: item.size
+        }));
+
+      console.log(`Successfully processed ${filesWithContent.length} files`);
 
       return {
         title: data.title || 'Untitled Snippet',
@@ -214,7 +277,7 @@ function App() {
 
     } catch (error) {
       console.error('Error fetching snippet data:', error);
-      //throw new Error(`Failed to fetch snippet: ${error.message}`);
+      throw new Error(`Failed to fetch snippet: ${error.message}`);
     }
   };
 
@@ -257,7 +320,18 @@ function App() {
   if (loading) {
     return (
       <Container>
-        <LoadingContainer>Loading snippet...</LoadingContainer>
+        <LoadingContainer>
+          {fileLoadingProgress.total > 0 ? (
+            <>
+              Loading snippet files... ({fileLoadingProgress.loaded}/{fileLoadingProgress.total})
+              <div style={{ marginTop: '8px', fontSize: '11px' }}>
+                Fetching individual file contents from Bitbucket API
+              </div>
+            </>
+          ) : (
+            'Loading snippet...'
+          )}
+        </LoadingContainer>
       </Container>
     );
   }
@@ -295,18 +369,30 @@ function App() {
         </SnippetMeta>
       )}
 
-      {snippetData.files && snippetData.files.map((file, index) => (
-        <FileContainer key={index}>
-          <FileHeader>
-            <a href={file.htmlUrl} target="_blank" rel="noopener noreferrer">
-              {file.filename}
-            </a>
-          </FileHeader>
-          <FileContent>
-            <pre><code>{file.content}</code></pre>
-          </FileContent>
-        </FileContainer>
-      ))}
+      {snippetData.files && snippetData.files.length > 0 && (
+        <>
+          {snippetData.files.map((file, index) => (
+            <FileContainer key={index}>
+              <FileHeader>
+                <a href={file.htmlUrl} target="_blank" rel="noopener noreferrer">
+                  {file.filename}
+                </a>
+                {file.size && (
+                  <span style={{ float: 'right', fontSize: '11px', color: '#6b778c' }}>
+                    {file.size} bytes
+                  </span>
+                )}
+              </FileHeader>
+              <FileContent>
+                <pre><code>{file.content}</code></pre>
+              </FileContent>
+            </FileContainer>
+          ))}
+          <div style={{ marginTop: '10px', fontSize: '12px', color: '#6b778c', textAlign: 'center' }}>
+            Displayed {snippetData.files.length} file{snippetData.files.length !== 1 ? 's' : ''} from snippet
+          </div>
+        </>
+      )}
     </Container>
   );
 }
