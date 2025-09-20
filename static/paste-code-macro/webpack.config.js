@@ -14,7 +14,7 @@ module.exports = (env, argv) => {
       path: path.resolve(__dirname, 'build'),
       filename: isProduction ? 'static/js/[name].[contenthash:8].js' : 'static/js/bundle.js',
       chunkFilename: isProduction ? 'static/js/[name].[contenthash:8].chunk.js' : 'static/js/[name].chunk.js',
-      publicPath: './',
+      publicPath: isProduction ? './' : '/',
       clean: true,
     },
     
@@ -82,6 +82,11 @@ module.exports = (env, argv) => {
       port: 3004,
       hot: true,
       historyApiFallback: true,
+      open: false,
+      compress: true,
+      static: {
+        directory: path.join(__dirname, 'public'),
+      },
     },
     
     optimization: {
