@@ -25,7 +25,7 @@
   },
   "scripts": {
     "start": "webpack serve --mode development --port 3003",
-    "build": "webpack --mode development",
+    "build": "webpack --mode production",
     "test": "echo \"No tests specified\" && exit 0"
   },
   "eslintConfig": {
