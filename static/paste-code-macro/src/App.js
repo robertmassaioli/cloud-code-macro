@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { view, useConfig } from '@forge/bridge';
+import { view } from '@forge/bridge';
+import { useConfig } from '@forge/react';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css'; // Default theme
 
