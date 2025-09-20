@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { view } from '@forge/bridge';
+import { view, useConfig } from '@forge/bridge';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css'; // Default theme
 
 function App() {
-  const [config, setConfig] = useState({});
+  // Use Forge UI Kit hook to get macro configuration
+  // https://developer.atlassian.com/platform/forge/ui-kit/hooks/use-config/
+  const config = useConfig() || {};
   const [macroBody, setMacroBody] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -45,12 +47,6 @@ function App() {
   useEffect(() => {
     const loadMacroData = async () => {
       try {
-        const context = await view.getContext();
-        
-        // Get configuration from context
-        const macroConfig = context.extension?.config || {};
-        setConfig(macroConfig);
-
         // Get macro body content (the code to display)
         // In Forge, get the macro body using view.getMacroBody()
         try {
