@@ -385,19 +385,13 @@ in \(config: Config) -> { app =
       }
     , { key = "bitbucket-snippet-forge-macro"
       , title = "Bitbucket Snippet (Forge)"
-      , description = Some "Display Bitbucket code snippets in Confluence"
+      , description = Some "DEPRECATED: Bitbucket Snippet macro is no longer supported due to technical limitations"
       , resource = "bitbucket-snippet"
       , config = True
       , categories = Some [ "external-content", "development" ]
       , featured = Some False
       , bodied = Some False
-      , autoConvert = Some
-        { matchers =
-          [ { pattern = "https://bitbucket.org/snippets/*/*" }
-          , { pattern = "https://bitbucket.org/snippets/*/*/*" }
-          , { pattern = "https://bitbucket.org/*/workspace/snippets/*/*" }
-          ]
-        }
+      , autoConvert = None { matchers : List { pattern : Text } }
       }
     , { key = "gist-code-forge-macro"
       , title = "GitHub Gist (Forge)"
