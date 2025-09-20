@@ -373,8 +373,8 @@ in \(config: Config) -> { app =
       }
     ]
   , macro =
-    [ { description = Some "Add a code editor experience to your confluence page."
-      , key = "in-page-editor" ++ (default Text "" config.macroKeySuffix)
+    [ { key = "in-page-editor" ++ (default Text "" config.macroKeySuffix)
+      , description = Some "Add a code editor experience to your confluence page."
       , resource = "main"
       , title = "Code Editor"
       , config = True
