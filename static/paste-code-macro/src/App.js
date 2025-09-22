@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { view } from '@forge/bridge';
 import { useConfig } from '@forge/react';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css'; // Default theme
@@ -46,20 +45,12 @@ function App() {
   };
 
   useEffect(() => {
-    const loadMacroData = async () => {
+    const loadMacroData = () => {
       try {
-        // Get macro body content (the code to display)
-        // In Forge, get the macro body using view.getMacroBody()
-        try {
-          const macroBody = await view.getMacroBody();
-          const codeContent = macroBody || '// No code content provided\n// Please add code to the macro body';
-          setMacroBody(codeContent);
-        } catch (err) {
-          console.warn('Could not get macro body, using placeholder:', err);
-          const codeContent = '// No code content provided\n// Please add code to the macro body';
-          setMacroBody(codeContent);
-        }
-
+        // In Forge, get the macro body content from config
+        // Priority: codeContent (new Forge macros) -> __bodyContent (migrated Connect macros) -> fallback
+        const codeContent = config.codeContent || config.__bodyContent || '// No code content provided\n// Please add code content in the macro configuration';
+        setMacroBody(codeContent);
       } catch (err) {
         console.error('Error loading macro data:', err);
         setError(err.message || 'Failed to load macro data');
@@ -69,7 +60,7 @@ function App() {
     };
 
     loadMacroData();
-  }, []);
+  }, [config]);
 
   useEffect(() => {
     // Apply syntax highlighting when content or language changes

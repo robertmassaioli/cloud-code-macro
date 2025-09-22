@@ -1,5 +1,5 @@
 import React from 'react';
-import { Label, Select, Textfield } from '@forge/react';
+import { Label, Select, Textfield, TextArea } from '@forge/react';
 import { HIGHLIGHT_LANGUAGES, HIGHLIGHT_THEMES } from './languages';
 
 const Config = () => {
@@ -16,6 +16,13 @@ const Config = () => {
 
   return (
     <>
+      <Label>Code Content</Label>
+      <TextArea 
+        name="codeContent"
+        placeholder="Paste your code here..."
+        rows={10}
+      />
+
       <Label>Language</Label>
       <Select 
         name="language" 
