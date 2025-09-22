@@ -24,7 +24,7 @@ pipelines:
               caches:
                 - node
               script: # Modify the commands below to build your repository.
-                - cd static/hello-world
+                - cd static/in-page-editor
                 - npm install
                 - npm run build
           - step:

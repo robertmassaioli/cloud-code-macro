@@ -375,7 +375,7 @@ in \(config: Config) -> { app =
   , macro =
     [ { key = "in-page-editor" ++ (default Text "" config.macroKeySuffix)
       , description = Some "Add a code editor experience to your confluence page."
-      , resource = "main"
+      , resource = "in-page-editor"
       , title = "Code Editor"
       , config = True
       , categories = Some [ "development", "formatting" ]
@@ -441,7 +441,7 @@ in \(config: Config) -> { app =
     }
   }
 , resources =
-  [ { key = "main", path = "static/hello-world/build", tunnel.port = 3001 }
+  [ { key = "in-page-editor", path = "static/in-page-editor/build", tunnel.port = 3001 }
   , { key = "bitbucket-snippet", path = "static/bitbucket-snippet/build", tunnel.port = 3002 }
   , { key = "gist-code-macro", path = "static/gist-code-macro/build", tunnel.port = 3003 }
   , { key = "paste-code-macro", path = "static/paste-code-macro/build", tunnel.port = 3004 }
