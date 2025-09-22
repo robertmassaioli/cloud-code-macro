@@ -1,30 +1,41 @@
 import React from 'react';
-import ForgeUI, { Form, Select, Option, TextField } from '@forge/ui';
+import { Label, Select, Textfield } from '@forge/react';
 import { HIGHLIGHT_LANGUAGES, HIGHLIGHT_THEMES } from './languages';
 
 const Config = () => {
-  const onSubmit = async (formData) => {
-    return formData;
-  };
+  // Transform arrays into options format for Forge UI Kit Select component
+  const languageOptions = HIGHLIGHT_LANGUAGES.map(language => ({
+    label: language,
+    value: language
+  }));
+
+  const themeOptions = HIGHLIGHT_THEMES.map(theme => ({
+    label: theme,
+    value: theme
+  }));
 
   return (
-    <Form onSubmit={onSubmit}>
-      <Select name="language" label="Language" defaultValue="javascript">
-        {HIGHLIGHT_LANGUAGES.map(language => (
-          <Option key={language} label={language} value={language} />
-        ))}
-      </Select>
-      <TextField 
+    <>
+      <Label>Language</Label>
+      <Select 
+        name="language" 
+        defaultValue="javascript"
+        options={languageOptions}
+      />
+
+      <Label>Title</Label>
+      <Textfield 
         name="title" 
-        label="Title" 
         placeholder="Optional title for your code block"
       />
-      <Select name="theme" label="Theme" defaultValue="Github Gist">
-        {HIGHLIGHT_THEMES.map(theme => (
-          <Option key={theme} label={theme} value={theme} />
-        ))}
-      </Select>
-    </Form>
+
+      <Label>Theme</Label>
+      <Select 
+        name="theme" 
+        defaultValue="Github Gist"
+        options={themeOptions}
+      />
+    </>
   );
 };
 
