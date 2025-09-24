@@ -88,8 +88,8 @@ function App() {
       codeRef.current.className = '';
       codeRef.current.removeAttribute('data-highlighted');
       
-      // Set the language class and content
-      codeRef.current.className = `language-${language}`;
+      // Set the language class and content (include hljs class for theme support)
+      codeRef.current.className = `language-${language} hljs`;
       codeRef.current.textContent = macroBody;
       
       // Configure highlight.js for this element
@@ -165,8 +165,9 @@ function App() {
             backgroundColor: '#f6f8fa',
             padding: '10px 15px',
             borderBottom: '1px solid #d1d9e0',
-            fontWeight: '600',
-            fontSize: '14px'
+            fontWeight: 'bold',
+            fontSize: '14px',
+            color: 'black'
           }}>
             {title}
           </div>
@@ -192,24 +193,24 @@ function App() {
             📋 Copy
           </button>
 
-          <pre style={{
+          <pre className="hljs" style={{
             margin: 0,
             padding: '15px',
             paddingTop: '40px', // Make room for copy button
-            overflow: 'auto',
-            backgroundColor: '#f6f8fa'
+            overflow: 'auto'
+            // backgroundColor removed to allow theme to control it
           }}>
             <code
               ref={codeRef}
-              className={`language-${language}`}
+              className={`language-${language} hljs`}
               style={{
                 fontFamily: 'SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace',
                 fontSize: '13px',
                 lineHeight: '1.45',
                 display: 'block',
                 padding: 0,
-                margin: 0,
-                background: 'transparent'
+                margin: 0
+                // background removed to allow theme to control it
               }}
             >
               {macroBody}
