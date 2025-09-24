@@ -431,6 +431,7 @@ in \(config: Config) -> { app =
     , styles =
       [ { address = "cdn.jsdelivr.net", inScopeEUD = False }
       , { address = "github.githubassets.com", inScopeEUD = False }
+      , { address = "cdnjs.cloudflare.com", inScopeEUD = False }
       ]
     , fetch =
       { client =
