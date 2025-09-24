@@ -23,27 +23,28 @@ function App() {
     existingThemes.forEach(link => link.remove());
 
     if (themeName && themeName !== 'Default') {
-      const actualThemeName = themeMapping[themeName] || 'github';
-      console.log('Loading theme:', themeName, '→', actualThemeName);
+      const themeConfig = themeMapping[themeName] || themeMapping['GitHub'];
+      console.log('Loading theme:', themeName, '→', themeConfig.themeName);
       
       const link = document.createElement('link');
       link.rel = 'stylesheet';
-      link.href = `https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/${actualThemeName}.min.css`;
-      link.setAttribute('data-theme', actualThemeName);
+      link.href = themeConfig.themeUrl;
+      link.setAttribute('data-theme', themeConfig.themeName);
       
       // Add error handling
       link.onerror = () => {
-        console.error('Failed to load theme:', actualThemeName);
-        // Fallback to github theme
-        if (actualThemeName !== 'github') {
+        console.error('Failed to load theme:', themeConfig.themeName);
+        // Fallback to GitHub theme
+        if (themeConfig.themeName !== 'github') {
+          const fallbackTheme = themeMapping['GitHub'];
           const fallbackLink = document.createElement('link');
           fallbackLink.rel = 'stylesheet';
-          fallbackLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css';
-          fallbackLink.setAttribute('data-theme', 'github');
+          fallbackLink.href = fallbackTheme.themeUrl;
+          fallbackLink.setAttribute('data-theme', fallbackTheme.themeName);
           document.head.appendChild(fallbackLink);
         }
       };
-      link.onload = () => console.log('Theme loaded successfully:', actualThemeName);
+      link.onload = () => console.log('Theme loaded successfully:', themeConfig.themeName);
       
       document.head.appendChild(link);
     }
@@ -118,7 +119,7 @@ function App() {
 
   useEffect(() => {
     // Load theme when theme changes
-    const theme = config.theme || 'Github Gist';
+    const theme = config.theme || 'GitHub';
     loadTheme(theme);
   }, [config.theme]);
 
@@ -126,7 +127,7 @@ function App() {
   useEffect(() => {
     // Load default theme if no theme specified
     if (!config.theme) {
-      loadTheme('Github Gist');
+      loadTheme('GitHub');
     }
   }, []);
 
