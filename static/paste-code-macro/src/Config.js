@@ -9,7 +9,7 @@ const Config = () => {
     value: language
   }));
 
-  const themeOptions = HIGHLIGHT_THEMES.map(theme => ({
+  const themeOptions = Object.keys(HIGHLIGHT_THEMES).map(theme => ({
     label: theme,
     value: theme
   }));

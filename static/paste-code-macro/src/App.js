@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useConfig } from '@forge/react';
 import hljs from 'highlight.js';
-import 'highlight.js/styles/github.css'; // Default theme
+import { HIGHLIGHT_THEMES } from './languages';
+// Default theme will be loaded dynamically
 
 function App() {
   // Use Forge UI Kit hook to get macro configuration
@@ -12,10 +13,8 @@ function App() {
   const [error, setError] = useState(null);
   const codeRef = useRef(null);
 
-  // Convert theme name to CSS-friendly format
-  const convertThemeName = (themeName) => {
-    return themeName.replace(/\s+/g, '-').toLowerCase();
-  };
+  // HIGHLIGHT_THEMES is now a map from human names to filenames
+  const themeMapping = HIGHLIGHT_THEMES;
 
   // Load theme CSS dynamically
   const loadTheme = (themeName) => {
@@ -24,11 +23,28 @@ function App() {
     existingThemes.forEach(link => link.remove());
 
     if (themeName && themeName !== 'Default') {
-      const themeUrl = convertThemeName(themeName);
+      const actualThemeName = themeMapping[themeName] || 'github';
+      console.log('Loading theme:', themeName, '→', actualThemeName);
+      
       const link = document.createElement('link');
       link.rel = 'stylesheet';
-      link.href = `https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/${themeUrl}.min.css`;
-      link.setAttribute('data-theme', themeUrl);
+      link.href = `https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/${actualThemeName}.min.css`;
+      link.setAttribute('data-theme', actualThemeName);
+      
+      // Add error handling
+      link.onerror = () => {
+        console.error('Failed to load theme:', actualThemeName);
+        // Fallback to github theme
+        if (actualThemeName !== 'github') {
+          const fallbackLink = document.createElement('link');
+          fallbackLink.rel = 'stylesheet';
+          fallbackLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css';
+          fallbackLink.setAttribute('data-theme', 'github');
+          document.head.appendChild(fallbackLink);
+        }
+      };
+      link.onload = () => console.log('Theme loaded successfully:', actualThemeName);
+      
       document.head.appendChild(link);
     }
   };
@@ -67,12 +83,36 @@ function App() {
     if (codeRef.current && macroBody) {
       const language = config.language || 'javascript';
       
-      // Set the language class
+      // Clear existing content and classes
+      codeRef.current.className = '';
+      codeRef.current.removeAttribute('data-highlighted');
+      
+      // Set the language class and content
       codeRef.current.className = `language-${language}`;
       codeRef.current.textContent = macroBody;
       
+      // Configure highlight.js for this element
+      hljs.configure({
+        ignoreUnescapedHTML: true,
+        classPrefix: 'hljs-'
+      });
+      
       // Apply highlighting
-      hljs.highlightElement(codeRef.current);
+      try {
+        hljs.highlightElement(codeRef.current);
+        console.log('Code highlighted successfully with language:', language);
+      } catch (error) {
+        console.error('Error highlighting code:', error);
+        // Fallback: try auto-detection
+        try {
+          const result = hljs.highlightAuto(macroBody);
+          codeRef.current.innerHTML = result.value;
+          codeRef.current.className = `hljs ${result.language ? 'language-' + result.language : ''}`;
+          console.log('Code highlighted with auto-detection:', result.language);
+        } catch (autoError) {
+          console.error('Auto-detection also failed:', autoError);
+        }
+      }
     }
   }, [macroBody, config.language]);
 
@@ -81,6 +121,14 @@ function App() {
     const theme = config.theme || 'Github Gist';
     loadTheme(theme);
   }, [config.theme]);
+
+  // Load default theme on initial render
+  useEffect(() => {
+    // Load default theme if no theme specified
+    if (!config.theme) {
+      loadTheme('Github Gist');
+    }
+  }, []);
 
   if (loading) {
     return (
@@ -102,7 +150,7 @@ function App() {
   const language = config.language || 'javascript';
 
   return (
-    <div style={{ 
+    <div style={{
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif',
       margin: '10px 0'
     }}>
@@ -122,7 +170,7 @@ function App() {
             {title}
           </div>
         )}
-        
+
         <div style={{ position: 'relative' }}>
           <button
             onClick={copyToClipboard}
@@ -142,21 +190,25 @@ function App() {
           >
             📋 Copy
           </button>
-          
-          <pre style={{ 
-            margin: 0, 
+
+          <pre style={{
+            margin: 0,
             padding: '15px',
             paddingTop: '40px', // Make room for copy button
             overflow: 'auto',
             backgroundColor: '#f6f8fa'
           }}>
-            <code 
+            <code
               ref={codeRef}
               className={`language-${language}`}
               style={{
                 fontFamily: 'SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace',
                 fontSize: '13px',
-                lineHeight: '1.45'
+                lineHeight: '1.45',
+                display: 'block',
+                padding: 0,
+                margin: 0,
+                background: 'transparent'
               }}
             >
               {macroBody}
