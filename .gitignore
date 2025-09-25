@@ -8,6 +8,7 @@ static/*/node_modules/
 # Build outputs
 static/*/build/
 build/
+uppack/
 
 # Generated files
 manifest.yml
