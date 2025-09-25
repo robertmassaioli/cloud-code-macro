@@ -156,8 +156,6 @@ function App() {
       margin: '10px 0'
     }}>
       <div style={{
-        border: '1px solid #d1d9e0',
-        borderRadius: '6px',
         overflow: 'hidden'
       }}>
         {title && (
@@ -167,13 +165,19 @@ function App() {
             borderBottom: '1px solid #d1d9e0',
             fontWeight: 'bold',
             fontSize: '14px',
-            color: 'black'
+            color: 'black',
+            borderTopLeftRadius: '6px',
+            borderTopRightRadius: '6px'
           }}>
             {title}
           </div>
         )}
 
-        <div style={{ position: 'relative' }}>
+        <div style={{ 
+          position: 'relative',
+          border: '1px solid #d1d9e0',
+          borderRadius: title ? '0 0 6px 6px' : '6px'
+        }}>
           <button
             onClick={copyToClipboard}
             style={{
@@ -195,9 +199,9 @@ function App() {
 
           <pre className="hljs" style={{
             margin: 0,
-            padding: '15px',
-            paddingTop: '40px', // Make room for copy button
-            overflow: 'auto'
+            overflow: 'auto',
+            borderBottomLeftRadius: '6px',
+            borderBottomRightRadius: '6px'
             // backgroundColor removed to allow theme to control it
           }}>
             <code
@@ -208,7 +212,7 @@ function App() {
                 fontSize: '13px',
                 lineHeight: '1.45',
                 display: 'block',
-                padding: 0,
+                padding: '10px',
                 margin: 0
                 // background removed to allow theme to control it
               }}
