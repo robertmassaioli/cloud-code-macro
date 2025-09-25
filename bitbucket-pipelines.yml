@@ -24,9 +24,8 @@ pipelines:
               caches:
                 - node
               script: # Modify the commands below to build your repository.
-                - cd static/in-page-editor
-                - npm install
-                - npm run build
+                - npm run install:all
+                - npm run build:all
           - step:
               name: Build docker image
               script:

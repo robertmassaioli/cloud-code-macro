@@ -14,6 +14,11 @@
     "@forge/ui": "^1.11.0"
   },
   "scripts": {
+    "install:in-page-editor": "cd static/in-page-editor && npm install",
+    "install:bitbucket-snippet": "cd static/bitbucket-snippet && npm install",
+    "install:gist-code-macro": "cd static/gist-code-macro && npm install",
+    "install:paste-code-macro": "cd static/paste-code-macro && npm install",
+    "install:all": "run-p install:in-page-editor install:bitbucket-snippet install:gist-code-macro install:paste-code-macro",
     "build:in-page-editor": "cd static/in-page-editor && npm run build",
     "build:bitbucket-snippet": "cd static/bitbucket-snippet && npm run build",
     "build:gist-code-macro": "cd static/gist-code-macro && npm run build",
