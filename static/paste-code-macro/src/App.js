@@ -201,7 +201,10 @@ function App() {
             margin: 0,
             overflow: 'auto',
             borderBottomLeftRadius: '6px',
-            borderBottomRightRadius: '6px'
+            borderBottomRightRadius: '6px',
+            borderTopLeftRadius: title ? '0' : '6px',
+            borderTopRightRadius: title ? '0' : '6px',
+            minHeight: '52px' // Copy button height (22px) + top padding doubled (20px) + extra spacing (10px)
             // backgroundColor removed to allow theme to control it
           }}>
             <code
