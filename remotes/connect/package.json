@@ -2,6 +2,7 @@
   "name": "cloud-code-macro",
   "version": "1.1.0",
   "description": "Better Code Macro for Confluence Cloud",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",

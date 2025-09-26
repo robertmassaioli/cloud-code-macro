@@ -1,11 +1,16 @@
-var express = require('express');
-var ExpressPinoLogger = require('express-pino-logger');
-const fs = require('fs');
-const path = require('path');
-var app = express();
+import express from 'express';
+import ExpressPinoLogger from 'express-pino-logger';
+import { promises as fs } from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const app = express();
 
 // JSON Logging
-var obfuscate = [
+const obfuscate = [
     'req.headers.cookie',
     'req.headers.referer',
     'referer',
@@ -21,32 +26,30 @@ app.use(pino);
 // Static HTML views - no template engine needed
 
 // Variables for setting up this addon
-var serverPort = process.env.PORT || 3000;
-var hostUrl = process.env.HOST_URL || "http://localhost:" + serverPort;
+const serverPort = process.env.PORT || 3000;
+const hostUrl = process.env.HOST_URL || `http://localhost:${serverPort}`;
 
-var zones = {
+const zones = {
    local: 0,
    dev: 1,
    dog: 2,
    prod: 3
 };
 
-var zoneFromString = function(zone) {
+const zoneFromString = (zone) => {
     switch(zone) {
         case "staging":
            return zones.dog;
-
         case "prod":
            return zones.prod;
-
         case "dev":
            return zones.dev;
+        default:
+           return zones.local;
      }
-
-   return zones.local;
 };
 
-var getKeySuffixFromZone = function(zone) {
+const getKeySuffixFromZone = (zone) => {
    switch(zone) {
       case zones.local:
          return '.local';
@@ -56,86 +59,77 @@ var getKeySuffixFromZone = function(zone) {
          return '.dog';
       case zones.prod:
          return '.prod';
+      default:
+         return '';
    }
-
-   return '';
 };
 
-var microsZone = zoneFromString(process.env.MICROS_ENVTYPE);
+const microsZone = zoneFromString(process.env.MICROS_ENVTYPE);
 
 // Register static assets
 app.use('/static/images', express.static('static/images'));
 
 // respond with "hello world" when a GET request is made to the homepage
-app.get('/', function(req, res) {
+app.get('/', (req, res) => {
   res.redirect('/docs/home');
 });
 
-var pluginKey = 'com.atlassian.connect.better-code-macro' + getKeySuffixFromZone(microsZone);
+const pluginKey = `com.atlassian.connect.better-code-macro${getKeySuffixFromZone(microsZone)}`;
 
-app.get('/macro/paste-code-macro', function(req, res) {
-   fs.readFile(path.join(__dirname, 'views', 'paste-code-macro.html'), 'utf8', function(err, data) {
-      if (err) {
-         res.status(500).send('Error loading page');
-      } else {
-         res.send(data);
-      }
-   });
+app.get('/macro/paste-code-macro', async (req, res) => {
+   try {
+      const data = await fs.readFile(path.join(__dirname, 'views', 'paste-code-macro.html'), 'utf8');
+      res.send(data);
+   } catch (err) {
+      res.status(500).send('Error loading page');
+   }
 });
 
-app.get('/macro/gist-code-macro', function(req, res) {
-   fs.readFile(path.join(__dirname, 'views', 'gist-code-macro.html'), 'utf8', function(err, data) {
-      if (err) {
-         res.status(500).send('Error loading page');
-      } else {
-         res.send(data);
-      }
-   });
+app.get('/macro/gist-code-macro', async (req, res) => {
+   try {
+      const data = await fs.readFile(path.join(__dirname, 'views', 'gist-code-macro.html'), 'utf8');
+      res.send(data);
+   } catch (err) {
+      res.status(500).send('Error loading page');
+   }
 });
 
-app.get('/macro/bitbucket-snippet-code-macro', function(req, res) {
-   fs.readFile(path.join(__dirname, 'views', 'bitbucket-snippet-code-macro.html'), 'utf8', function(err, data) {
-      if (err) {
-         res.status(500).send('Error loading page');
-      } else {
-         res.send(data);
-      }
-   });
+app.get('/macro/bitbucket-snippet-code-macro', async (req, res) => {
+   try {
+      const data = await fs.readFile(path.join(__dirname, 'views', 'bitbucket-snippet-code-macro.html'), 'utf8');
+      res.send(data);
+   } catch (err) {
+      res.status(500).send('Error loading page');
+   }
 });
 
-app.get('/rest/heartbeat', function(req, res) {
+app.get('/rest/heartbeat', (req, res) => {
    res.sendStatus(200);
 });
 
-/*
-    [ ("/redirect/raise-issue", SC.redirect "https://ecosystem.atlassian.net/secure/RapidBoard.jspa?rapidView=192")
-    , ("/redirect/install", SC.redirect "")
-    , ("/redirect/jira-signup", SC.redirect "https://www.atlassian.com/ondemand/signup/?product=jira-core.ondemand")
-*/
-app.get('/redirect/install', function(req, res) {
-   res.redirect('https://marketplace.atlassian.com/plugins/' + pluginKey);
+app.get('/redirect/install', (req, res) => {
+   res.redirect(`https://marketplace.atlassian.com/plugins/${pluginKey}`);
 });
 
-app.get('/redirect/raise-issue', function(req, res) {
+app.get('/redirect/raise-issue', (req, res) => {
    res.redirect('https://bitbucket.org/robertmassaioli/cloud-code-macro/issues/new');
 });
 
-app.get('/docs/:docsFile', function(req, res) {
-   fs.readFile(path.join(__dirname, 'views', 'docs.html'), 'utf8', function(err, data) {
-      if (err) {
-         res.status(500).send('Error loading page');
-      } else {
-         res.send(data);
-      }
-   });
+app.get('/docs/:docsFile', async (req, res) => {
+   try {
+      const data = await fs.readFile(path.join(__dirname, 'views', 'docs.html'), 'utf8');
+      res.send(data);
+   } catch (err) {
+      res.status(500).send('Error loading page');
+   }
 });
 
 
-var server = app.listen(serverPort, function () {
-   var host = server.address().address;
-   var port = server.address().port;
+const server = app.listen(serverPort, () => {
+   const host = server.address().address;
+   const port = server.address().port;
 
-   console.log('Example app listening at http://%s:%s', host, port);
+   console.log(`Better Code Macro deprecation service listening at http://${host}:${port}`);
 });
 
-module.exports = app;
+export default app;
