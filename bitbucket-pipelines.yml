@@ -22,24 +22,32 @@ pipelines:
           - step:
               name: Build In-Page Editor
               script:
+                - pipe: docker://atlassian/artifactory-sidekick:latest
+                - source .artifactory/activate.sh
                 - cd static/in-page-editor
                 - npm install --legacy-peer-deps
                 - npm run build
           - step:
               name: Build Bitbucket Snippet
               script:
+                - pipe: docker://atlassian/artifactory-sidekick:latest
+                - source .artifactory/activate.sh
                 - cd static/bitbucket-snippet
                 - npm install --legacy-peer-deps
                 - npm run build
           - step:
               name: Build Gist Code Macro
               script:
+                - pipe: docker://atlassian/artifactory-sidekick:latest
+                - source .artifactory/activate.sh
                 - cd static/gist-code-macro
                 - npm install --legacy-peer-deps
                 - npm run build
           - step:
               name: Build Paste Code Macro
               script:
+                - pipe: docker://atlassian/artifactory-sidekick:latest
+                - source .artifactory/activate.sh
                 - cd static/paste-code-macro
                 - npm install --legacy-peer-deps
                 - npm run build
