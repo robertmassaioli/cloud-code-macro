@@ -73,7 +73,7 @@ pipelines:
                 - echo "RELEASE_VERSION" > "template-vars.csv"
                 - echo "${BITBUCKET_BUILD_NUMBER}" >> "template-vars.csv"
                 - yarn install
-                - yarn pipeline:mustang
+                - yarn pipeline:mustache
               services:
                 - docker
               caches:

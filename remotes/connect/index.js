@@ -454,9 +454,20 @@ app.get('/redirect/raise-issue', function(req, res) {
    res.redirect('https://bitbucket.org/robertmassaioli/cloud-code-macro/issues/new');
 });
 
-app.param('docsFile', function(req, res, next, docsFile) {
-   req.docsFile = sanitize(docsFile);
-   next();
+
+const server = app.listen(serverPort, () => {
+   const address = server.address();
+   if (address) {
+      const host = address.address === '::' ? 'localhost' : address.address;
+      const port = address.port;
+      console.log(`Better Code Macro deprecation service listening at http://${host}:${port}`);
+   } else {
+      console.log(`Better Code Macro deprecation service listening on port ${serverPort}`);
+   }
+});
+
+server.on('error', (err) => {
+   console.error('Server error:', err.message);
 });
 
 app.get('/docs/:docsFile', function(req, res) {
