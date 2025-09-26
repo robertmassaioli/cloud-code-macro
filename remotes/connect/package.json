@@ -2,6 +2,7 @@
   "name": "cloud-code-macro",
   "version": "1.1.0",
   "description": "Better Code Macro for Confluence Cloud",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -21,17 +22,6 @@
   "dependencies": {
     "express": "^5.1.0",
     "express-pino-logger": "^7.0.0",
-    "lodash": "^4.17.21",
-    "mustache": "^4.2.0",
-    "mustache-express": "^1.3.2",
-    "sanitize-filename": "^1.6.3"
-  },
-  "devDependencies": {
-    "grunt": "^1.6.1",
-    "grunt-contrib-jshint": "^3.2.0",
-    "grunt-contrib-less": "^3.0.0",
-    "grunt-contrib-requirejs": "^1.0.0",
-    "grunt-contrib-watch": "^1.1.0",
-    "grunt-express-server": "^0.5.4"
+    "mustache": "^4.2.0"
   }
 }
