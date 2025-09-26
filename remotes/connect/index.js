@@ -63,11 +63,8 @@ var getKeySuffixFromZone = function(zone) {
 
 var microsZone = zoneFromString(process.env.MICROS_ENVTYPE);
 
-// Register static variables
+// Register static assets
 app.use('/static/images', express.static('static/images'));
-app.use('/static/js', express.static('static-js'));
-app.use('/static/css', express.static('static-css'));
-app.use('/static/ace', express.static('static/ace'));
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', function(req, res) {
