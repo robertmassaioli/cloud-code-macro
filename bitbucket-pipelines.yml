@@ -23,25 +23,25 @@ pipelines:
               name: Build In-Page Editor
               script:
                 - cd static/in-page-editor
-                - npm install
+                - npm install --legacy-peer-deps
                 - npm run build
           - step:
               name: Build Bitbucket Snippet
               script:
                 - cd static/bitbucket-snippet
-                - npm install
+                - npm install --legacy-peer-deps
                 - npm run build
           - step:
               name: Build Gist Code Macro
               script:
                 - cd static/gist-code-macro
-                - npm install
+                - npm install --legacy-peer-deps
                 - npm run build
           - step:
               name: Build Paste Code Macro
               script:
                 - cd static/paste-code-macro
-                - npm install
+                - npm install --legacy-peer-deps
                 - npm run build
           - step:
               name: Build docker image
