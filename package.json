@@ -19,6 +19,21 @@
     }
   },
   "scripts": {
+    "install:in-page-editor": "cd static/in-page-editor && npm install",
+    "install:bitbucket-snippet": "cd static/bitbucket-snippet && npm install",
+    "install:gist-code-macro": "cd static/gist-code-macro && npm install",
+    "install:paste-code-macro": "cd static/paste-code-macro && npm install",
+    "install:all": "run-p install:in-page-editor install:bitbucket-snippet install:gist-code-macro install:paste-code-macro",
+    "build:in-page-editor": "cd static/in-page-editor && npm run build",
+    "build:bitbucket-snippet": "cd static/bitbucket-snippet && npm run build",
+    "build:gist-code-macro": "cd static/gist-code-macro && npm run build",
+    "build:paste-code-macro": "cd static/paste-code-macro && npm run build",
+    "build:all": "run-p build:in-page-editor build:bitbucket-snippet build:gist-code-macro build:paste-code-macro",
+    "start:in-page-editor": "cd static/in-page-editor && npm start",
+    "start:bitbucket-snippet": "cd static/bitbucket-snippet && npm start",
+    "start:gist-code-macro": "cd static/gist-code-macro && npm start",
+    "start:paste-code-macro": "cd static/paste-code-macro && npm start",
+    "start:all": "run-p start:in-page-editor start:bitbucket-snippet start:gist-code-macro start:paste-code-macro",
     "manifest:local": "dhall-to-yaml-ng --file manifest.local.dhall --output manifest.yml",
     "manifest:dev": "dhall-to-yaml-ng --file manifest.dev.dhall --output manifest.yml",
     "manifest:stg": "dhall-to-yaml-ng --file manifest.stg.dhall --output manifest.yml",
@@ -27,10 +42,10 @@
     "deploy-only:dev": "forge deploy -e development",
     "deploy-only:stg": "forge deploy -e staging",
     "deploy-only:prod": "forge deploy -e production",
-    "deploy:local": "run-s manifest:local deploy-only:local",
-    "deploy:dev": "run-s manifest:dev deploy-only:dev",
-    "deploy:stg": "run-s manifest:stg deploy-only:stg",
-    "deploy:prod": "run-s manifest:prod deploy-only:prod",
+    "deploy:local": "run-s build:all manifest:local deploy-only:local",
+    "deploy:dev": "run-s build:all manifest:dev deploy-only:dev",
+    "deploy:stg": "run-s build:all manifest:stg deploy-only:stg",
+    "deploy:prod": "run-s build:all manifest:prod deploy-only:prod",
     "deploy": "run-s deploy:local"
   }
 }

@@ -3,7 +3,7 @@
 # Only use spaces to indent your .yml configuration.
 # -----
 # You can specify a custom docker image from Docker Hub as your build environment.
-image: node:18
+image: node:22
 
 options:
   docker: true
@@ -20,12 +20,36 @@ pipelines:
               script: # Modify the commands below to build your repository.
                 - npm install
           - step:
-              name: Build CustomUI
-              caches:
-                - node
-              script: # Modify the commands below to build your repository.
-                - cd static/hello-world
-                - npm install
+              name: Build In-Page Editor
+              script:
+                - pipe: docker://atlassian/artifactory-sidekick:latest
+                - source .artifactory/activate.sh
+                - cd static/in-page-editor
+                - npm install --legacy-peer-deps
+                - npm run build
+          - step:
+              name: Build Bitbucket Snippet
+              script:
+                - pipe: docker://atlassian/artifactory-sidekick:latest
+                - source .artifactory/activate.sh
+                - cd static/bitbucket-snippet
+                - npm install --legacy-peer-deps
+                - npm run build
+          - step:
+              name: Build Gist Code Macro
+              script:
+                - pipe: docker://atlassian/artifactory-sidekick:latest
+                - source .artifactory/activate.sh
+                - cd static/gist-code-macro
+                - npm install --legacy-peer-deps
+                - npm run build
+          - step:
+              name: Build Paste Code Macro
+              script:
+                - pipe: docker://atlassian/artifactory-sidekick:latest
+                - source .artifactory/activate.sh
+                - cd static/paste-code-macro
+                - npm install --legacy-peer-deps
                 - npm run build
           - step:
               name: Build docker image
@@ -48,8 +72,8 @@ pipelines:
                 - cd remotes/connect
                 - echo "RELEASE_VERSION" > "template-vars.csv"
                 - echo "${BITBUCKET_BUILD_NUMBER}" >> "template-vars.csv"
-                - npm install mustang
-                - npm run pipeline:mustang
+                - yarn install
+                - yarn pipeline:mustache
               services:
                 - docker
               caches:
@@ -89,8 +113,8 @@ pipelines:
             # generate the service descriptor
             - echo "RELEASE_VERSION" > "template-vars.csv"
             - echo "${BITBUCKET_BUILD_NUMBER}" >> "template-vars.csv"
-            - npm install mustang
-            - npm run pipeline:mustang
+            - yarn install
+            - yarn pipeline:mustang
             # micros deploy the service
             - ./atlas micros service deploy -s cloud-code-macro -f service-descriptor.json -e adev
           services:
@@ -113,8 +137,8 @@ pipelines:
             # generate the service descriptor
             - echo "RELEASE_VERSION" > "template-vars.csv"
             - echo "${BITBUCKET_BUILD_NUMBER}" >> "template-vars.csv"
-            - npm install mustang
-            - npm run pipeline:mustang
+            - yarn install
+            - yarn pipeline:mustang
             # micros deploy the service
             - ./atlas micros service deploy -s cloud-code-macro -f service-descriptor.json -e prod-east
           services:
