@@ -6,10 +6,7 @@ let Config : Type =
   , macroKeySuffix: Optional Text
   }
 in \(config: Config) -> { app =
-  { connect =
-    { key = config.connectKey
-    }
-  , id = "ari:cloud:ecosystem::app/1f719b35-249b-4ec7-80c5-de810567f87c"
+  { id = "ari:cloud:ecosystem::app/1f719b35-249b-4ec7-80c5-de810567f87c"
   , runtime.name = "nodejs20.x"
   }
 , modules =
@@ -66,7 +63,7 @@ in \(config: Config) -> { app =
     ]
   }
 , permissions =
-  { scopes = [ "read:connect-confluence", "read:page:confluence", "write:page:confluence" ]
+  { scopes = [ "read:page:confluence", "write:page:confluence" ]
   , content.styles = [ "unsafe-inline" ]
   , external =
     { scripts =
