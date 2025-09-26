@@ -14,3 +14,7 @@
 # Built files
 /static-js
 /static-css
+
+# Generated files
+service-descriptor.json
+template-vars.csv
