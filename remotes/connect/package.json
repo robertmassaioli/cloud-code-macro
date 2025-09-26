@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "pipeline:mustang": "mustang -t service-descriptor.template.json -i template-vars.csv -o service-descriptor.json"
+    "pipeline:mustache": "node -e \"const fs=require('fs'),mustache=require('mustache'),csv=fs.readFileSync('template-vars.csv','utf8').split('\\n').filter(l=>l.trim()),data={[csv[0]]:csv[1]},template=fs.readFileSync('service-descriptor.template.json','utf8'); fs.writeFileSync('service-descriptor.json',mustache.render(template,data));\""
   },
   "repository": {
     "type": "git",
@@ -20,8 +20,8 @@
   "license": "MIT",
   "homepage": "https://bitbucket.org/robertmassaioli/cloud-code-macro#readme",
   "dependencies": {
-    "express": "^4.18.2",
+    "express": "^5.1.0",
     "express-pino-logger": "^7.0.0",
-    "mustang": "^0.1.3"
+    "mustache": "^4.2.0"
   }
 }

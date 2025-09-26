@@ -106,10 +106,18 @@ app.get('/redirect/raise-issue', (req, res) => {
 
 
 const server = app.listen(serverPort, () => {
-   const host = server.address().address;
-   const port = server.address().port;
+   const address = server.address();
+   if (address) {
+      const host = address.address === '::' ? 'localhost' : address.address;
+      const port = address.port;
+      console.log(`Better Code Macro deprecation service listening at http://${host}:${port}`);
+   } else {
+      console.log(`Better Code Macro deprecation service listening on port ${serverPort}`);
+   }
+});
 
-   console.log(`Better Code Macro deprecation service listening at http://${host}:${port}`);
+server.on('error', (err) => {
+   console.error('Server error:', err.message);
 });
 
 export default app;
