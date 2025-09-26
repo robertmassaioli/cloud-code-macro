@@ -72,19 +72,12 @@ in \(config: Config) -> { app =
     { scripts =
       [ { address = "cdn.jsdelivr.net", inScopeEUD = False }
       , { address = "gist.github.com", inScopeEUD = False }
-      , { address = "bitbucket.org", inScopeEUD = False }
       ]
     , styles =
       [ { address = "cdn.jsdelivr.net", inScopeEUD = False }
       , { address = "github.githubassets.com", inScopeEUD = False }
       , { address = "cdnjs.cloudflare.com", inScopeEUD = False }
       ]
-    , fetch =
-      { client =
-        [ { address = "api.bitbucket.org", inScopeEUD = False }
-        , { address = "bitbucket.org", inScopeEUD = False }
-        ]
-      }
     }
   }
 , resources =
