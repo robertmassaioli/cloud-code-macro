@@ -6,7 +6,10 @@ let Config : Type =
   , macroKeySuffix: Optional Text
   }
 in \(config: Config) -> { app =
-  { id = "ari:cloud:ecosystem::app/1f719b35-249b-4ec7-80c5-de810567f87c"
+  { connect =
+    { key = config.connectKey
+    }
+  , id = "ari:cloud:ecosystem::app/1f719b35-249b-4ec7-80c5-de810567f87c"
   , runtime.name = "nodejs20.x"
   }
 , modules =
