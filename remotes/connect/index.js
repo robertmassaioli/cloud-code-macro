@@ -76,32 +76,21 @@ app.get('/', (req, res) => {
 
 const pluginKey = `com.atlassian.connect.better-code-macro${getKeySuffixFromZone(microsZone)}`;
 
-app.get('/macro/paste-code-macro', async (req, res) => {
+// Single deprecation page handler
+const serveDeprecationPage = async (req, res) => {
    try {
-      const data = await fs.readFile(path.join(__dirname, 'views', 'paste-code-macro.html'), 'utf8');
+      const data = await fs.readFile(path.join(__dirname, 'views', 'deprecation.html'), 'utf8');
       res.send(data);
    } catch (err) {
       res.status(500).send('Error loading page');
    }
-});
+};
 
-app.get('/macro/gist-code-macro', async (req, res) => {
-   try {
-      const data = await fs.readFile(path.join(__dirname, 'views', 'gist-code-macro.html'), 'utf8');
-      res.send(data);
-   } catch (err) {
-      res.status(500).send('Error loading page');
-   }
-});
-
-app.get('/macro/bitbucket-snippet-code-macro', async (req, res) => {
-   try {
-      const data = await fs.readFile(path.join(__dirname, 'views', 'bitbucket-snippet-code-macro.html'), 'utf8');
-      res.send(data);
-   } catch (err) {
-      res.status(500).send('Error loading page');
-   }
-});
+// All macro routes serve the same deprecation message
+app.get('/macro/paste-code-macro', serveDeprecationPage);
+app.get('/macro/gist-code-macro', serveDeprecationPage);
+app.get('/macro/bitbucket-snippet-code-macro', serveDeprecationPage);
+app.get('/docs/:docsFile', serveDeprecationPage);
 
 app.get('/rest/heartbeat', (req, res) => {
    res.sendStatus(200);
@@ -113,15 +102,6 @@ app.get('/redirect/install', (req, res) => {
 
 app.get('/redirect/raise-issue', (req, res) => {
    res.redirect('https://bitbucket.org/robertmassaioli/cloud-code-macro/issues/new');
-});
-
-app.get('/docs/:docsFile', async (req, res) => {
-   try {
-      const data = await fs.readFile(path.join(__dirname, 'views', 'docs.html'), 'utf8');
-      res.send(data);
-   } catch (err) {
-      res.status(500).send('Error loading page');
-   }
 });
 
 
