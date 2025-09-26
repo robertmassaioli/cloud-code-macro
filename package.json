@@ -13,6 +13,11 @@
     "@forge/resolver": "1.5.28",
     "@forge/ui": "^1.11.0"
   },
+  "overrides": {
+    "@forge/ui":{
+      "sha.js":"^2.4.12"
+    }
+  },
   "scripts": {
     "install:in-page-editor": "cd static/in-page-editor && npm install",
     "install:bitbucket-snippet": "cd static/bitbucket-snippet && npm install",
