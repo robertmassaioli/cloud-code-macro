@@ -4,8 +4,6 @@ FROM node:20 as base
 ADD . /service
 WORKDIR /service
 RUN ["npm", "install"]
-RUN ["npm", "install", "-g", "grunt-cli"]
-RUN ["grunt", "requirejs:prod", "less:prod"]
 
 # https://jira.atlassian.com/browse/BCLOUD-17319
 RUN chown -R root:root /service
