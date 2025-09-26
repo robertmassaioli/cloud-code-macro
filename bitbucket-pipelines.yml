@@ -20,12 +20,29 @@ pipelines:
               script: # Modify the commands below to build your repository.
                 - npm install
           - step:
-              name: Build CustomUI
-              caches:
-                - node
-              script: # Modify the commands below to build your repository.
-                - npm run install:all
-                - npm run build:all
+              name: Build In-Page Editor
+              script:
+                - cd static/in-page-editor
+                - npm install
+                - npm run build
+          - step:
+              name: Build Bitbucket Snippet
+              script:
+                - cd static/bitbucket-snippet
+                - npm install
+                - npm run build
+          - step:
+              name: Build Gist Code Macro
+              script:
+                - cd static/gist-code-macro
+                - npm install
+                - npm run build
+          - step:
+              name: Build Paste Code Macro
+              script:
+                - cd static/paste-code-macro
+                - npm install
+                - npm run build
           - step:
               name: Build docker image
               script:
