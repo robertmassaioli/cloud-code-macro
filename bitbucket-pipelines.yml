@@ -102,9 +102,6 @@ pipelines:
           name: Deploy to staging
           deployment: staging
           script:
-            # set up step variables and auth data
-            - export MICROS_TOKEN="$MICROS_TOKEN:$PIPELINES_JWT_TOKEN"
-            - export MICROS_URL="wss://micros-proxy.services.atlassian.com"
             # Download and extract Atlas CLI
             - cd remotes/connect
             - curl -fL https://statlas.prod.atl-paas.net/atlas-cli/linux/atlas-latest-linux-amd64.tar.gz | tar -xzp atlas
@@ -126,9 +123,6 @@ pipelines:
           deployment: production
           trigger: manual
           script:
-            # set up step variables and auth data
-            - export MICROS_TOKEN="$MICROS_TOKEN:$PIPELINES_JWT_TOKEN"
-            - export MICROS_URL="wss://micros-proxy.services.atlassian.com"
             # Download and extract Atlas CLI
             - cd remotes/connect
             - curl -fL https://statlas.prod.atl-paas.net/atlas-cli/linux/atlas-latest-linux-amd64.tar.gz | tar -xzp atlas
