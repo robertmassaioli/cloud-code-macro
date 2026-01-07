@@ -1,23 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "description": "Ecosystem OneCloud",
   "extends": [
-    "local>atlassian/renovate-connect-ktlo"
-  ],
-  "enabledManagers": [
-    "npm",
-    "dockerfile"
-  ],
-  "automergeSchedule": ["30 10 * * 1"],
-  "packageRules": [
-    {
-      "matchCurrentVersion": ">=1.0.0",
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
-      "automerge": true
-    },
-    {
-      "matchUpdateTypes": ["major"],
-      "labels": ["UPDATE-MAJOR"]
-    }
+    "local>atlassian/golden-renovate-config:automated"
   ]
 }
