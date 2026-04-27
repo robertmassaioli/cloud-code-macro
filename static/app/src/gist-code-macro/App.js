@@ -24,15 +24,15 @@ function App() {
       if (container) {
         // Clear any existing gist content
         container.innerHTML = '';
-        
+
         // Override document.write to capture gist output
         const originalWrite = document.write;
         const originalWriteln = document.writeln;
-        
+
         document.write = function(content) {
           container.innerHTML += content;
         };
-        
+
         document.writeln = function(content) {
           container.innerHTML += content + '\n';
         };
@@ -41,13 +41,13 @@ function App() {
         const script = document.createElement('script');
         script.src = scriptUrl;
         script.async = true;
-        
+
         script.onload = () => {
           // Restore original document.write methods
           document.write = originalWrite;
           document.writeln = originalWriteln;
         };
-        
+
         script.onerror = () => {
           // Restore original document.write methods on error
           document.write = originalWrite;

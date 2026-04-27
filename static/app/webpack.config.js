@@ -4,12 +4,12 @@ const webpack = require('webpack');
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production';
-  
+
   return {
     entry: './src/index.js',
     mode: isProduction ? 'production' : 'development',
     devtool: isProduction ? 'source-map' : 'inline-source-map',
-    
+
     output: {
       path: path.resolve(__dirname, 'build'),
       filename: isProduction ? 'static/js/[name].[contenthash:8].js' : 'static/js/bundle.js',
@@ -17,7 +17,7 @@ module.exports = (env, argv) => {
       publicPath: isProduction ? './' : '/',
       clean: true,
     },
-    
+
     module: {
       rules: [
         {
@@ -46,14 +46,14 @@ module.exports = (env, argv) => {
         }
       ]
     },
-    
+
     resolve: {
       extensions: ['.js', '.jsx'],
       fallback: {
         buffer: require.resolve('buffer/'),
       }
     },
-    
+
     plugins: [
       new HtmlWebpackPlugin({
         template: './public/index.html',
@@ -77,9 +77,9 @@ module.exports = (env, argv) => {
         'process.env.NODE_ENV': JSON.stringify(isProduction ? 'production' : 'development'),
       }),
     ],
-    
+
     devServer: {
-      port: 3004,
+      port: 3001,
       hot: true,
       historyApiFallback: true,
       open: false,
@@ -88,7 +88,7 @@ module.exports = (env, argv) => {
         directory: path.join(__dirname, 'public'),
       },
     },
-    
+
     optimization: {
       splitChunks: isProduction ? {
         chunks: 'all',

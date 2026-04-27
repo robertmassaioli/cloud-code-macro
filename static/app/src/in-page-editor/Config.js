@@ -12,8 +12,8 @@ const Config = () => {
   return (
     <>
       <Label>Language</Label>
-      <Select 
-        name="language" 
+      <Select
+        name="language"
         defaultValue="javascript"
         options={languageOptions}
       />

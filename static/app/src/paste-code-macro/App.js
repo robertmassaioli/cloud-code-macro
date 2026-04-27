@@ -25,12 +25,12 @@ function App() {
     if (themeName && themeName !== 'Default') {
       const themeConfig = themeMapping[themeName] || themeMapping['GitHub'];
       console.log('Loading theme:', themeName, '→', themeConfig.themeName);
-      
+
       const link = document.createElement('link');
       link.rel = 'stylesheet';
       link.href = themeConfig.themeUrl;
       link.setAttribute('data-theme', themeConfig.themeName);
-      
+
       // Add error handling
       link.onerror = () => {
         console.error('Failed to load theme:', themeConfig.themeName);
@@ -45,7 +45,7 @@ function App() {
         }
       };
       link.onload = () => console.log('Theme loaded successfully:', themeConfig.themeName);
-      
+
       document.head.appendChild(link);
     }
   };
@@ -54,7 +54,6 @@ function App() {
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(macroBody);
-      // Could add a toast notification here
       console.log('Code copied to clipboard');
     } catch (err) {
       console.error('Failed to copy to clipboard:', err);
@@ -83,21 +82,21 @@ function App() {
     // Apply syntax highlighting when content or language changes
     if (codeRef.current && macroBody) {
       const language = config.language || 'javascript';
-      
+
       // Clear existing content and classes
       codeRef.current.className = '';
       codeRef.current.removeAttribute('data-highlighted');
-      
+
       // Set the language class and content (include hljs class for theme support)
       codeRef.current.className = `language-${language} hljs`;
       codeRef.current.textContent = macroBody;
-      
+
       // Configure highlight.js for this element
       hljs.configure({
         ignoreUnescapedHTML: true,
         classPrefix: 'hljs-'
       });
-      
+
       // Apply highlighting
       try {
         hljs.highlightElement(codeRef.current);
@@ -125,7 +124,6 @@ function App() {
 
   // Load default theme on initial render
   useEffect(() => {
-    // Load default theme if no theme specified
     if (!config.theme) {
       loadTheme('GitHub');
     }
@@ -173,7 +171,7 @@ function App() {
           </div>
         )}
 
-        <div style={{ 
+        <div style={{
           position: 'relative',
           border: '1px solid #d1d9e0',
           borderRadius: title ? '0 0 6px 6px' : '6px'
@@ -204,8 +202,7 @@ function App() {
             borderBottomRightRadius: '6px',
             borderTopLeftRadius: title ? '0' : '6px',
             borderTopRightRadius: title ? '0' : '6px',
-            minHeight: '52px' // Copy button height (22px) + top padding doubled (20px) + extra spacing (10px)
-            // backgroundColor removed to allow theme to control it
+            minHeight: '52px'
           }}>
             <code
               ref={codeRef}
@@ -217,7 +214,6 @@ function App() {
                 display: 'block',
                 padding: '10px',
                 margin: 0
-                // background removed to allow theme to control it
               }}
             >
               {macroBody}

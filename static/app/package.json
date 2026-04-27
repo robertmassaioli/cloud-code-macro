@@ -1,14 +1,23 @@
 {
-  "name": "gist-code-macro",
+  "name": "app",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@atlaskit/css-reset": "^6.6.2",
+    "@atlaskit/section-message": "^6.4.19",
     "@forge/bridge": "^5.0.0",
     "@forge/react": "^11.3.0",
     "@forge/ui": "^1.11.0",
+    "@monaco-editor/react": "^4.6.0",
     "buffer": "^6.0.3",
+    "forge-module-router": "^1.0.0",
+    "highlight.js": "^11.9.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-is": "^18.2.0",
+    "styled-components": "^6.1.8",
+    "throttle-debounce": "^5.0.0",
+    "ts-is-present": "^1.2.2",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
@@ -24,15 +33,9 @@
     "webpack-dev-server": "^4.15.0"
   },
   "scripts": {
-    "start": "webpack serve --mode development --port 3003",
+    "start": "webpack serve --mode development --port 3001",
     "build": "webpack --mode production",
     "test": "echo \"No tests specified\" && exit 0"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [

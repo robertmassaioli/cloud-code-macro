@@ -17,28 +17,28 @@ const Config = () => {
   return (
     <>
       <Label>Code Content</Label>
-      <TextArea 
+      <TextArea
         name="codeContent"
         placeholder="Paste your code here..."
         rows={10}
       />
 
       <Label>Language</Label>
-      <Select 
-        name="language" 
+      <Select
+        name="language"
         defaultValue="javascript"
         options={languageOptions}
       />
 
       <Label>Title</Label>
-      <Textfield 
-        name="title" 
+      <Textfield
+        name="title"
         placeholder="Optional title for your code block"
       />
 
       <Label>Theme</Label>
-      <Select 
-        name="theme" 
+      <Select
+        name="theme"
         defaultValue="Github Gist"
         options={themeOptions}
       />

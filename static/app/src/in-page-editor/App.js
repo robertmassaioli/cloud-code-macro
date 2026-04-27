@@ -52,10 +52,8 @@ function App() {
     let gotResults = false;
     if (response.ok) {
       const responsePayload = await response.json();
-      //console.log(responsePayload);
       if (responsePayload.results.length === 1) {
         const property = responsePayload.results[0];
-        // console.log(property);
         setData(property);
         setShowRefresh(false);
         gotResults = true;
@@ -91,7 +89,6 @@ function App() {
   const language = context.extension?.config?.language;
 
   const onUpdate = async (value) => {
-    //console.log(`Value changed to`, value);
     if (isPresent(data.id)) {
       try {
         const response = await requestConfluence(`/wiki/api/v2/pages/${pageId}/properties/${data.id}`, {
@@ -112,7 +109,6 @@ function App() {
         });
 
         if (response.ok) {
-
           setData(await response.json());
         } else {
           console.error(`Response failed...`);
@@ -121,9 +117,6 @@ function App() {
       } catch (e) {
         console.error(e);
         setShowRefresh(true);
-        //todo: what happens if concurrent editing happens? How do I should those errors to the user and put them back in a position such that they keep writing?
-
-        // I think that we should throw up a modal asking the user to refresh
       }
     } else {
       requestConfluence(`/wiki/api/v2/pages/${pageId}/properties`, {
@@ -153,16 +146,16 @@ function App() {
           actions={[
             <SectionMessageAction href="#" onClick={() => refreshData()}>Refresh</SectionMessageAction>
           ]}>
-            <>
-              <p>
-                We're unable to save any progress at this time as the version of the data in this macro is out of sync.
-                The likely reasons for this are:
-              </p>
-              <ul>
-                <li>somebody else modifying the contents of this macro OR</li>
-                <li>you modifying this macro in another browser tab</li>
-              </ul>
-            </>
+          <>
+            <p>
+              We're unable to save any progress at this time as the version of the data in this macro is out of sync.
+              The likely reasons for this are:
+            </p>
+            <ul>
+              <li>somebody else modifying the contents of this macro OR</li>
+              <li>you modifying this macro in another browser tab</li>
+            </ul>
+          </>
         </SectionMessage>
       )}
       {!showRefresh && (

@@ -21,7 +21,7 @@ in \(config: Config) -> { app =
   , macro =
     [ { key = "in-page-editor" ++ (default Text "" config.macroKeySuffix)
       , description = Some "Add a code editor experience to your confluence page."
-      , resource = "in-page-editor"
+      , resource = "app"
       , title = "Code Editor"
       , config = True
       , categories = Some [ "development", "formatting" ]
@@ -32,7 +32,7 @@ in \(config: Config) -> { app =
     , { key = "bitbucket-snippet-code-macro" ++ (default Text "" config.macroKeySuffix)
       , title = "Bitbucket Snippet"
       , description = Some "DEPRECATED: Bitbucket Snippet macro is no longer supported due to technical limitations"
-      , resource = "bitbucket-snippet"
+      , resource = "app"
       , config = True
       , categories = Some [ "external-content", "development" ]
       , featured = Some False
@@ -42,7 +42,7 @@ in \(config: Config) -> { app =
     , { key = "gist-code-macro" ++ (default Text "" config.macroKeySuffix)
       , title = "GitHub Gist"
       , description = Some "Display GitHub gists in Confluence"
-      , resource = "gist-code-macro"
+      , resource = "app"
       , config = True
       , categories = Some [ "external-content", "development" ]
       , featured = Some False
@@ -56,7 +56,7 @@ in \(config: Config) -> { app =
     , { key = "paste-code-macro" ++ (default Text "" config.macroKeySuffix)
       , title = "Better Code Block"
       , description = Some "Better macro to format blocks of source code or markup."
-      , resource = "paste-code-macro"
+      , resource = "app"
       , config = True
       , categories = Some [ "formatting", "development" ]
       , featured = Some True
@@ -81,9 +81,6 @@ in \(config: Config) -> { app =
     }
   }
 , resources =
-  [ { key = "in-page-editor", path = "static/in-page-editor/build", tunnel.port = 3001 }
-  , { key = "bitbucket-snippet", path = "static/bitbucket-snippet/build", tunnel.port = 3002 }
-  , { key = "gist-code-macro", path = "static/gist-code-macro/build", tunnel.port = 3003 }
-  , { key = "paste-code-macro", path = "static/paste-code-macro/build", tunnel.port = 3004 }
+  [ { key = "app", path = "static/app/build", tunnel.port = 3001 }
   ]
 }
