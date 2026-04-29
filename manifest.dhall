@@ -10,7 +10,7 @@ in \(config: Config) -> { app =
     { key = config.connectKey
     }
   , id = "ari:cloud:ecosystem::app/1f719b35-249b-4ec7-80c5-de810567f87c"
-  , runtime.name = "nodejs20.x"
+  , runtime.name = "nodejs22.x"
   }
 , modules =
   { function =
