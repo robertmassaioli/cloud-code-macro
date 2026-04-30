@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ForgeReconciler, { useProductContext } from '@forge/react';
-import { ForgeContextProvider, ContextRoute } from 'forge-module-router';
+import { ForgeContextProvider, ContextRoute, createUIKitContextRoute } from 'forge-module-router';
 
 import BitbucketSnippetApp from './bitbucket-snippet/App';
 import GistCodeMacroApp from './gist-code-macro/App';
@@ -53,28 +53,33 @@ ReactDOM.render(
 // Kit components into a Forge doc sent over self.__bridge. forge-module-router's
 // ForgeContextProvider is a DOM-based component and cannot be used here.
 //
-// Instead, useProductContext() from @forge/react reads view.getContext() via
-// the same globalThis.__bridge that the reconciler uses — it is fully supported
-// inside a ForgeReconciler tree. moduleKey is a top-level field on FullContext.
-const UnifiedConfig = () => {
-  const context = useProductContext();
+// createUIKitContextRoute wraps useProductContext() and applies the same
+// environment-aware prefix-matching as <ContextRoute>, so moduleKey="paste-code-macro"
+// correctly matches "paste-code-macro-dev" in development environments.
+const { UIKitContextRoute } = createUIKitContextRoute(useProductContext, {
+  allowedModuleKeys: [
+    'in-page-editor',
+    'bitbucket-snippet-code-macro',
+    'gist-code-macro',
+    'paste-code-macro',
+  ],
+});
 
-  // context is undefined while the bridge call is in flight; return null so the
-  // Forge host renders nothing until the correct config panel is known.
-  if (!context) return null;
-
-  switch (context.moduleKey) {
-    case 'in-page-editor':
-      return <InPageEditorConfig />;
-    case 'bitbucket-snippet-code-macro':
-      return <BitbucketSnippetConfig />;
-    case 'gist-code-macro':
-      return <GistCodeMacroConfig />;
-    case 'paste-code-macro':
-      return <PasteCodeMacroConfig />;
-    default:
-      return null;
-  }
-};
+const UnifiedConfig = () => (
+  <>
+    <UIKitContextRoute moduleKey="in-page-editor">
+      <InPageEditorConfig />
+    </UIKitContextRoute>
+    <UIKitContextRoute moduleKey="bitbucket-snippet-code-macro">
+      <BitbucketSnippetConfig />
+    </UIKitContextRoute>
+    <UIKitContextRoute moduleKey="gist-code-macro">
+      <GistCodeMacroConfig />
+    </UIKitContextRoute>
+    <UIKitContextRoute moduleKey="paste-code-macro">
+      <PasteCodeMacroConfig />
+    </UIKitContextRoute>
+  </>
+);
 
 ForgeReconciler.addConfig(<UnifiedConfig />);
