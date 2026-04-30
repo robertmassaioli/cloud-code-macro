@@ -21,7 +21,15 @@ const InPageEditorApp = React.lazy(() => import('./in-page-editor/App'));
 // forge-module-router reads view.getContext() to determine which macro module
 // is active and renders only the matching <ContextRoute> branch.
 ReactDOM.render(
-  <ForgeContextProvider fallback={<div>Loading...</div>}>
+  <ForgeContextProvider
+    fallback={<div>Loading...</div>}
+    allowedModuleKeys={[
+      'in-page-editor',
+      'bitbucket-snippet-code-macro',
+      'gist-code-macro',
+      'paste-code-macro',
+    ]}
+  >
     <ContextRoute moduleKey="in-page-editor">
       <React.Suspense fallback={<div>Loading editor...</div>}>
         <InPageEditorApp />
