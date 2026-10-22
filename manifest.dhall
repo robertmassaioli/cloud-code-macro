@@ -20,13 +20,14 @@ in \(config: Config) -> { app =
     ]
   , macro =
     [ { key = "in-page-editor" ++ (default Text "" config.macroKeySuffix)
-      , description = Some "Add a code editor experience to your confluence page."
+      , description = Some "Edit code within your Confluence page"
       , resource = "app"
-      , title = "Code Editor"
+      , title = "Code editor"
       , config = True
       , categories = Some [ "development", "formatting" ]
       , featured = Some False
       , bodied = Some False
+      , hidden = None Bool
       , autoConvert = None { matchers : List { pattern : Text } }
       }
     , { key = "bitbucket-snippet-code-macro" ++ (default Text "" config.macroKeySuffix)
@@ -37,6 +38,7 @@ in \(config: Config) -> { app =
       , categories = Some [ "external-content", "development" ]
       , featured = Some False
       , bodied = Some False
+      , hidden = Some True
       , autoConvert = None { matchers : List { pattern : Text } }
       }
     , { key = "gist-code-macro" ++ (default Text "" config.macroKeySuffix)
@@ -47,6 +49,7 @@ in \(config: Config) -> { app =
       , categories = Some [ "external-content", "development" ]
       , featured = Some False
       , bodied = Some False
+      , hidden = None Bool
       , autoConvert = Some
         { matchers =
           [ { pattern = "https://gist.github.com/*/*" }
@@ -54,13 +57,14 @@ in \(config: Config) -> { app =
         }
       }
     , { key = "paste-code-macro" ++ (default Text "" config.macroKeySuffix)
-      , title = "Better Code Block"
-      , description = Some "Better macro to format blocks of source code or markup."
+      , title = "Better code block"
+      , description = Some "Format blocks of source code or markup"
       , resource = "app"
       , config = True
       , categories = Some [ "formatting", "development" ]
       , featured = Some True
       , bodied = Some True
+      , hidden = None Bool
       , autoConvert = None { matchers : List { pattern : Text } }
       }
     ]

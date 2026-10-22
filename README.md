@@ -6,10 +6,10 @@ Better Code Macro is a free Atlassian Forge app for Confluence Cloud that provid
 
 The app provides four Confluence macros:
 
-### Better Code Block
+### Better code block
 The flagship macro. A bodied macro (meaning it wraps page content) for formatting blocks of source code or markup with syntax highlighting. This is the recommended macro for pasting code directly into a Confluence page.
 
-### Code Editor
+### Code editor
 An in-page editor experience that allows authors to write and edit code directly within the Confluence editor, with a richer editing experience than the standard macro editor.
 
 ### GitHub Gist
