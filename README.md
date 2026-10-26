@@ -148,12 +148,6 @@ npm run deploy:local
 npm run deploy:dev
 ```
 
-### Deploy to staging
-
-```bash
-npm run deploy:stg
-```
-
 ### Deploy to production
 
 ```bash
@@ -169,10 +163,10 @@ If you only want to run a specific step (e.g. you've already built and just want
 npm run build:all
 
 # Generate manifest for a specific environment
-npm run manifest:dev    # or manifest:local / manifest:stg / manifest:prod
+npm run manifest:dev    # or manifest:local / manifest:prod
 
 # Deploy only (no build or manifest generation)
-npm run deploy-only:dev    # or deploy-only:local / deploy-only:stg / deploy-only:prod
+npm run deploy-only:dev    # or deploy-only:local / deploy-only:prod
 ```
 
 ### First-time installation
