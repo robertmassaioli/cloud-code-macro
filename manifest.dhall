@@ -89,7 +89,7 @@ in \(config: Config) -> { app =
   ]
 -- SPIKE (proposal 003, step 1): minimal locales to test translation loading. Replace with all 26 in step 6.
 , translations =
-  { default = "en-GB"
+  { fallback.default = "en-GB"
   , resources =
     [ { key = "en-GB", path = "locales/en-GB.json" }
     , { key = "fr-FR", path = "locales/fr-FR.json" }
