@@ -11,6 +11,7 @@ import BitbucketSnippetConfig from './bitbucket-snippet/Config';
 import GistCodeMacroConfig from './gist-code-macro/Config';
 import InPageEditorConfig from './in-page-editor/Config';
 import PasteCodeMacroConfig from './paste-code-macro/Config';
+import I18nSpike from './i18n-spike/I18nSpike';
 
 // in-page-editor is lazy-loaded because @monaco-editor/react is large.
 // This causes webpack to split Monaco into a separate chunk that is only
@@ -69,6 +70,8 @@ const UnifiedConfig = () => (
   <>
     <UIKitContextRoute moduleKey="in-page-editor">
       <InPageEditorConfig />
+      {/* SPIKE: proposal 003 step 1. Remove once the config provider is decided. */}
+      <I18nSpike />
     </UIKitContextRoute>
     <UIKitContextRoute moduleKey="bitbucket-snippet-code-macro">
       <BitbucketSnippetConfig />
