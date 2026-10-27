@@ -15,7 +15,7 @@ This proposal copies that design and adapts it to the one real difference betwee
 
 Read from its source and `AGENTS.md`:
 
-1. **One file per Forge locale.** `locales/<code>.json` for all 26 codes on the [Forge supported locale codes](https://developer.atlassian.com/platform/forge/manifest-reference/forge-supported-locale-codes/) page, nested keys (`config.time.label`), all registered under `translations.resources` in `manifest.yml` with `default: en-GB`.
+1. **One file per Forge locale.** `locales/<code>.json` for all 26 codes on the [Forge supported locale codes](https://developer.atlassian.com/platform/forge/manifest-reference/forge-supported-locale-codes/) page, nested keys (`config.time.label`), all registered under `translations.resources` in `manifest.yml` with `translations.fallback.default: en-GB`.
 2. **Manifest strings are keys.** Macro `title` and `description` use `i18n: macro.nonrepeating.title`, so Confluence's macro browser shows them translated.
 3. **Only the viewer's file is fetched.** `MacroIntlProvider` calls `i18n.getTranslations(locale)` from `@forge/bridge` and wraps children in react-intl's `IntlProvider`. It renders a `<Spinner />` while loading and falls back to showing keys if loading fails.
 4. **`resolveLocale()` bridges a platform gap.** `view.getContext()` passes unmapped locales (`en-AU`, `de-AT`, `fr-CA`) through unchanged, which would otherwise fall back to English. `resolveLocale` maps exact match, then overrides (`nb` to `no-NO`, `zh-HK` to `zh-TW`), then same language, then the default.
@@ -85,7 +85,7 @@ Keep `localised-date-time` as the source of truth for the locale list and mappin
 
 ### 4. Manifest and Dhall
 
-- Add a `translations` block to `manifest.dhall` with `default = "en-GB"` and one `resources` entry per code. Generate the 26 entries from a `List Text` of codes with `List/map`, so the codes appear once. The generated `manifest.yml` then matches the reference's shape (`key: fr-FR`, `path: locales/fr-FR.json`).
+- Add a `translations` block to `manifest.dhall` with `fallback.default = "en-GB"` (the schema requires `fallback`, and rejects a bare `default`, as `forge lint` found in the step 1 spike) and one `resources` entry per code. Generate the 26 entries from a `List Text` of codes with `List/map`, so the codes appear once. The generated `manifest.yml` then matches the reference's shape (`key: fr-FR`, `path: locales/fr-FR.json`).
 - Change each macro's `title` and `description` from `Text` to an i18n reference. Forge expects `title: { i18n: macro.codeBlock.title }`. In Dhall that means changing the macro record type for those two fields (a small `I18nText = { i18n : Text }` record), and updating the four macros. `Config` (`connectKey`, `baseUrl`, `macroKeySuffix`) is unaffected.
 - Keep `locales/*.json` at the repo root and reference them as `locales/<code>.json`, as the reference does. Forge reads these paths relative to the app root, so no build step is needed.
 
