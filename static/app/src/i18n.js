@@ -57,3 +57,11 @@ export function onIntlError(error) {
   if (error.code === 'MISSING_TRANSLATION') return;
   console.warn('[i18n]', error.message);
 }
+
+/**
+ * Wraps a react-intl `intl` object into `translate(key, params)`.
+ * Messages use ICU MessageFormat, so `{name}` placeholders, plurals and selects work.
+ */
+export function makeTranslate(intl) {
+  return (key, params) => intl.formatMessage({ id: key }, params);
+}
