@@ -13,7 +13,9 @@
  * one JSON block at the bottom that can be copied whole.
  */
 import React, { useCallback, useEffect, useState } from 'react';
-import { CodeBlock, Heading, I18nProvider, Inline, Lozenge, Stack, Text, useProductContext, useTranslation } from '@forge/react';
+// Macro config only renders a restricted component set ("Stack components are not supported in macro config"),
+// so this panel uses only Label and TextArea, which the real config panels already use.
+import { I18nProvider, Label, TextArea, useProductContext, useTranslation } from '@forge/react';
 import { i18n } from '@forge/bridge';
 import { IntlProvider, createIntl, createIntlCache, useIntl } from 'react-intl';
 import { DEFAULT_LOCALE, flattenMessages, onIntlError, resolveLocale } from '../i18n';
@@ -48,7 +50,7 @@ class Boundary extends React.Component {
   }
 
   render() {
-    return this.state.error ? <Text>Render failed: {errorText(this.state.error)}</Text> : this.props.children;
+    return this.state.error ? <Label>Render failed: {errorText(this.state.error)}</Label> : this.props.children;
   }
 }
 
@@ -63,7 +65,7 @@ function IntlProbe({ report }) {
   useEffect(() => {
     report('E1', ok, { providerLocale: intl.locale, source, hello, one, many });
   }, [report, ok, intl.locale, source, hello, one, many]);
-  return <Text>E1 IntlProvider renders: {hello} / {one} / {many} (file: {String(source)})</Text>;
+  return <Label>E1 IntlProvider renders: {hello} / {one} / {many} (file: {String(source)})</Label>;
 }
 
 // F: Forge's own provider, the fallback if E fails
@@ -75,7 +77,7 @@ function ForgeProbe({ report }) {
   useEffect(() => {
     report('F1', ok, { ready: translation.ready, locale: translation.locale, source, hello });
   }, [report, ok, translation.ready, translation.locale, source, hello]);
-  return <Text>F1 I18nProvider renders: ready={String(translation.ready)} locale={String(translation.locale)} file={source}</Text>;
+  return <Label>F1 I18nProvider renders: ready={String(translation.ready)} locale={String(translation.locale)} file={source}</Label>;
 }
 
 const LOCALE_SAMPLES = ['en-AU', 'de-AT', 'fr-CA', 'nb-NO', 'zh-HK', 'pt', 'en_US', 'xx-YY', ''];
@@ -177,14 +179,11 @@ export default function I18nSpike() {
   const reportText = JSON.stringify({ spike: 'proposal-003-step-1', startedAt, verdict, results }, null, 2);
 
   return (
-    <Stack space="space.100">
-      <Heading as="h3">i18n spike (proposal 003, step 1)</Heading>
-      <Text>Confluence reports locale: {String(contextLocale)}. Verdict: {verdict}</Text>
+    <>
+      <Label>i18n spike (proposal 003, step 1). Confluence reports locale: {String(contextLocale)}</Label>
+      <Label>VERDICT: {verdict}</Label>
       {results.map(result => (
-        <Inline key={result.id} space="space.100" alignBlock="center">
-          <Lozenge appearance={result.ok ? 'success' : 'removed'}>{result.ok ? 'PASS' : 'FAIL'}</Lozenge>
-          <Text>{result.id}: {result.detail}</Text>
-        </Inline>
+        <Label key={result.id}>{result.ok ? 'PASS' : 'FAIL'} {result.id}: {result.detail}</Label>
       ))}
       {loaded && (
         <Boundary onError={message => report('E1', false, { renderError: message })}>
@@ -198,8 +197,8 @@ export default function I18nSpike() {
           <ForgeProbe report={report} />
         </I18nProvider>
       </Boundary>
-      <Heading as="h4">Report (copy everything in this box)</Heading>
-      <CodeBlock text={reportText} language="json" />
-    </Stack>
+      <Label>Report (select all and copy)</Label>
+      <TextArea key={reportText.length} name="i18nSpikeReport" defaultValue={reportText} />
+    </>
   );
 }
