@@ -1,7 +1,0 @@
-{
-  "spike": {
-    "source": "de-DE",
-    "hello": "Hallo {name}",
-    "files": "{count, plural, one {# Datei} other {# Dateien}}"
-  }
-}
