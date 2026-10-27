@@ -1,0 +1,78 @@
+{
+  "macro": {
+    "codeEditor": {
+      "title": "Code editor",
+      "description": "Edit code within your Confluence page"
+    },
+    "bitbucketSnippet": {
+      "title": "Bitbucket Snippet",
+      "description": "DEPRECATED: Bitbucket Snippet macro is no longer supported due to technical limitations"
+    },
+    "gist": {
+      "title": "GitHub Gist",
+      "description": "Display GitHub gists in Confluence"
+    },
+    "codeBlock": {
+      "title": "Better code block",
+      "description": "Format blocks of source code or markup"
+    }
+  },
+  "config": {
+    "language": {
+      "label": "Language"
+    },
+    "codeBlock": {
+      "codeContent": {
+        "label": "Code content",
+        "placeholder": "Paste your code here..."
+      },
+      "title": {
+        "label": "Title",
+        "placeholder": "Optional title for your code block"
+      },
+      "theme": {
+        "label": "Theme"
+      }
+    },
+    "gist": {
+      "url": {
+        "label": "Gist URL"
+      }
+    },
+    "bitbucketSnippet": {
+      "url": {
+        "label": "Snippet URL"
+      }
+    }
+  },
+  "view": {
+    "codeBlock": {
+      "loading": "Loading code block...",
+      "noContent": "// No code content provided\n// Please add code content in the macro configuration",
+      "loadFailed": "Failed to load macro data",
+      "error": "Error: {error}",
+      "copy": "Copy",
+      "copyTooltip": "Copy to clipboard"
+    },
+    "codeEditor": {
+      "loadingContext": "Loading context...",
+      "loadingData": "Loading data...",
+      "refresh": "Refresh",
+      "outOfSync": {
+        "title": "Data out of sync",
+        "intro": "We're unable to save any progress at this time as the version of the data in this macro is out of sync. The likely reasons for this are:",
+        "reasonSomebodyElse": "Somebody else is modifying the contents of this macro.",
+        "reasonAnotherTab": "You are modifying this macro in another browser tab."
+      }
+    },
+    "gist": {
+      "loadError": "Error loading gist"
+    },
+    "bitbucketSnippet": {
+      "title": "Bitbucket Snippet macro no longer supported",
+      "deprecated": "This macro has been deprecated and will no longer display snippet content.",
+      "visit": "To view your snippet content, please visit the original Bitbucket page directly:",
+      "link": "View snippet on Bitbucket"
+    }
+  }
+}
