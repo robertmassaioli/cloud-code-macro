@@ -1,0 +1,7 @@
+{
+  "spike": {
+    "source": "ja-JP",
+    "hello": "こんにちは {name}",
+    "files": "{count, plural, other {#個のファイル}}"
+  }
+}
