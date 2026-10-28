@@ -1,6 +1,6 @@
 # 003: Internationalise the macros the way `localised-date-time` does
 
-- **Status:** Proposal
+- **Status:** Implemented in the pull request that adds `locales/`. One verification step is still open: a non-English viewer in a real Confluence session (step 7).
 - **Date:** 2026-10-28
 - **Scope:** Macro titles and descriptions, config panels, view-time messages, locale files, manifest, tests
 - **Reference implementation:** the sibling repository `localised-date-time` (`src/i18n.js`, `src/frontend/MacroIntlProvider.jsx`, `src/frontend/useTranslate.js`, `locales/`, `src/__tests__/locales.test.js`, and its proposal `ai-proposals/005-i18n-all-locales.md`)
@@ -94,20 +94,20 @@ Keep `localised-date-time` as the source of truth for the locale list and mappin
 Follow the reference's nesting, grouped by macro so ownership is clear:
 
 ```
-macro.codeBlock.title / .description
-macro.codeEditor.title / .description
-macro.gist.title / .description
-macro.bitbucketSnippet.title / .description
-config.codeBlock.{codeContent,language,title,theme}.{label,placeholder}
-config.gist.url.{label,placeholder}
-config.bitbucketSnippet.url.{label,placeholder}
-config.codeEditor.language.label
-view.codeBlock.{noContent,loadFailed,error,copy,copyTooltip}
-view.codeEditor.{loadingContext,loadingData,outOfSync.*,refresh}
+macro.{codeBlock,codeEditor,gist,bitbucketSnippet}.{title,description}
+config.language.label                              (shared by the code block and code editor)
+config.codeBlock.{codeContent,title}.{label,placeholder}
+config.codeBlock.theme.label
+config.gist.url.label
+config.bitbucketSnippet.url.label
+view.codeBlock.{loading,noContent,loadFailed,error,copy,copyTooltip}
+view.codeEditor.{loadingContext,loadingData,refresh}
+view.codeEditor.outOfSync.{title,intro,reasonSomebodyElse,reasonAnotherTab}
 view.gist.loadError
-view.bitbucketSnippet.{title,line1,line2,link}
-common.loading
+view.bitbucketSnippet.{title,deprecated,visit,link}
 ```
+
+34 keys per locale. The URL placeholders (`https://gist.github.com/...`) are literal examples and stay out of the locale files. The two router "Loading..." fallbacks stay English, because no locale is known when they show.
 
 Parameterise anything that interpolates (`view.codeBlock.error` takes `{error}`). Do not build sentences by concatenation, for the grammar reasons the reference documents.
 
@@ -164,13 +164,13 @@ Not covered by the spike: rendering with a non-English viewer through the React 
 | # | Step | Notes |
 |---|------|-------|
 | 1 | Spike: render a UI Kit config panel under `react-intl`'s `IntlProvider` in a `forge tunnel` session | **Done 2026-10-28.** `react-intl`'s `IntlProvider` works in config panels. See "Step 1 spike results". |
-| 2 | Add `react-intl`, `src/i18n.js`, both providers and `useTranslate` | Port from the reference |
-| 3 | Add the Jest setup and the i18n and provider tests | Needs proposal 002's test tooling item, or lands first as its start |
-| 4 | Extract strings into `locales/en-GB.json` and replace literals with `t()` across the four macros | Mechanical, one macro at a time |
-| 5 | Dhall: `translations` block and `I18nText` titles and descriptions | Regenerate `manifest.yml`, run `forge lint` |
-| 6 | Create the other 25 locale files and the locales test | Includes the size check |
-| 7 | Deploy to development, test with a non-English Confluence profile and an unmapped locale such as `en-AU` | Confirms `resolveLocale` is needed here too |
-| 8 | Docs: `AGENTS.md` and `README.md` | |
+| 2 | Add `react-intl`, `src/i18n.js`, both providers and `useTranslate` | **Done.** Added `translations.js` (`loadMessages`, which applies `resolveLocale` before `i18n.getTranslations`), `ViewIntlProvider.js`, `ConfigIntlProvider.js` and `useTranslate.js`. |
+| 3 | Add the Jest setup and the i18n and provider tests | **Done.** Jest with Babel configured inline in `static/app/package.json`, so the webpack build is unaffected. Root `npm test` runs the ai-planning check, then the app tests. |
+| 4 | Extract strings into `locales/en-GB.json` and replace literals with `t()` across the four macros | **Done.** The gist load error is now built with `textContent` instead of an HTML string. The out-of-sync bullets lost their trailing "OR" and became full sentences, which translate better. |
+| 5 | Dhall: `translations` block and `i18n` titles and descriptions | **Done.** A small `i18n` helper function replaces the planned `I18nText` record type. `forge lint` passes with only the existing `external.styles` warning. All three environment manifests generate. |
+| 6 | Create the other 25 locale files and the locales test | **Done.** 26 files. The test also checks ICU syntax and that no key is unused. Mutation checks: dropping a key, renaming a placeholder, breaking ICU syntax, mistyping a key in `src`, adding an orphan file and removing a locale from the Dhall list each made the test fail. |
+| 7 | Deploy to development, test with a non-English Confluence profile and an unmapped locale such as `en-AU` | **Deployed** (version 6.15.0). **Not yet verified in a browser:** switch a Confluence profile to a non-English language and an unmapped one, and check the macro browser, a config panel and a macro view. |
+| 8 | Docs: `AGENTS.md` and `README.md` | **Done.** |
 
 Steps 2 to 4 and 5 are independent enough to be separate PRs. Do not merge the Dhall change until the locale files exist, because Forge rejects a manifest that points at missing files.
 
@@ -191,8 +191,14 @@ Steps 2 to 4 and 5 are independent enough to be separate PRs. Do not merge the D
 
 ## Open questions
 
-1. Keep `pt-PT` in the locale list as the reference does, or follow Forge's page and omit it?
-2. Should the macros' view text be translated at all for the Custom UI macros, or only titles, descriptions and config panels? The view messages are few, so the recommendation is to translate them for consistency.
-3. Is a shared package for `i18n.js` and the locales test worth creating now, or copy for now and extract when a third app needs it?
-4. Does the Bitbucket Snippet notice justify 26 translations, or should the macro stay English-only until it is removed?
-5. Who reviews translations? The reference leaves this open too.
+Settled during implementation:
+
+1. **`pt-PT`:** kept, as in the reference app, so all 26 codes are covered.
+2. **Custom UI view text:** translated, for consistency. There are only 18 view keys.
+3. **Shared package:** not created. `i18n.js` is copied from the reference app with its origin noted in the header. Extract a package when a third app needs it.
+4. **Bitbucket Snippet notice:** translated like the rest. It can be deleted with the macro when Connect support ends.
+
+Still open:
+
+5. **Who reviews the 25 non-English files?** They are model-written in a formal-neutral register and have had no native-speaker review. The reference app has the same gap.
+6. **Splitting views from config in the bundle** (see "Step 1 spike results", finding 2) is not part of this change.
