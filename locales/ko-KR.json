@@ -1,0 +1,78 @@
+{
+  "macro": {
+    "codeEditor": {
+      "title": "코드 편집기",
+      "description": "Confluence 페이지에서 바로 코드를 편집합니다"
+    },
+    "bitbucketSnippet": {
+      "title": "Bitbucket 스니펫",
+      "description": "지원 중단: 기술적 제한으로 인해 Bitbucket 스니펫 매크로는 더 이상 지원되지 않습니다"
+    },
+    "gist": {
+      "title": "GitHub Gist",
+      "description": "Confluence에 GitHub Gist를 표시합니다"
+    },
+    "codeBlock": {
+      "title": "향상된 코드 블록",
+      "description": "소스 코드 또는 마크업 블록의 서식을 지정합니다"
+    }
+  },
+  "config": {
+    "language": {
+      "label": "언어"
+    },
+    "codeBlock": {
+      "codeContent": {
+        "label": "코드 내용",
+        "placeholder": "여기에 코드를 붙여넣으세요..."
+      },
+      "title": {
+        "label": "제목",
+        "placeholder": "코드 블록의 제목(선택 사항)"
+      },
+      "theme": {
+        "label": "테마"
+      }
+    },
+    "gist": {
+      "url": {
+        "label": "Gist URL"
+      }
+    },
+    "bitbucketSnippet": {
+      "url": {
+        "label": "스니펫 URL"
+      }
+    }
+  },
+  "view": {
+    "codeBlock": {
+      "loading": "코드 블록을 불러오는 중...",
+      "noContent": "// 코드 내용이 제공되지 않았습니다\n// 매크로 구성에서 코드를 추가하세요",
+      "loadFailed": "매크로 데이터를 불러오지 못했습니다",
+      "error": "오류: {error}",
+      "copy": "복사",
+      "copyTooltip": "클립보드에 복사"
+    },
+    "codeEditor": {
+      "loadingContext": "컨텍스트를 불러오는 중...",
+      "loadingData": "데이터를 불러오는 중...",
+      "refresh": "새로 고침",
+      "outOfSync": {
+        "title": "데이터가 동기화되지 않음",
+        "intro": "이 매크로의 데이터 버전이 동기화되지 않아 지금은 진행 상황을 저장할 수 없습니다. 다음과 같은 원인이 있을 수 있습니다.",
+        "reasonSomebodyElse": "다른 사용자가 이 매크로의 내용을 수정하고 있습니다.",
+        "reasonAnotherTab": "다른 브라우저 탭에서 이 매크로를 수정하고 있습니다."
+      }
+    },
+    "gist": {
+      "loadError": "Gist를 불러오는 중 오류가 발생했습니다"
+    },
+    "bitbucketSnippet": {
+      "title": "Bitbucket 스니펫 매크로는 더 이상 지원되지 않습니다",
+      "deprecated": "이 매크로는 지원이 중단되어 더 이상 스니펫 내용을 표시하지 않습니다.",
+      "visit": "스니펫 내용을 보려면 원래의 Bitbucket 페이지로 직접 이동하세요.",
+      "link": "Bitbucket에서 스니펫 보기"
+    }
+  }
+}

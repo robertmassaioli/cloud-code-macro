@@ -1,0 +1,78 @@
+{
+  "macro": {
+    "codeEditor": {
+      "title": "代码编辑器",
+      "description": "直接在 Confluence 页面中编辑代码"
+    },
+    "bitbucketSnippet": {
+      "title": "Bitbucket 代码片段",
+      "description": "已弃用：由于技术限制，不再支持 Bitbucket 代码片段宏"
+    },
+    "gist": {
+      "title": "GitHub Gist",
+      "description": "在 Confluence 中显示 GitHub Gist"
+    },
+    "codeBlock": {
+      "title": "更好的代码块",
+      "description": "设置源代码或标记语言代码块的格式"
+    }
+  },
+  "config": {
+    "language": {
+      "label": "语言"
+    },
+    "codeBlock": {
+      "codeContent": {
+        "label": "代码内容",
+        "placeholder": "在此粘贴您的代码..."
+      },
+      "title": {
+        "label": "标题",
+        "placeholder": "代码块的标题（可选）"
+      },
+      "theme": {
+        "label": "主题"
+      }
+    },
+    "gist": {
+      "url": {
+        "label": "Gist URL"
+      }
+    },
+    "bitbucketSnippet": {
+      "url": {
+        "label": "代码片段 URL"
+      }
+    }
+  },
+  "view": {
+    "codeBlock": {
+      "loading": "正在加载代码块...",
+      "noContent": "// 未提供代码内容\n// 请在宏配置中添加代码",
+      "loadFailed": "无法加载宏数据",
+      "error": "错误：{error}",
+      "copy": "复制",
+      "copyTooltip": "复制到剪贴板"
+    },
+    "codeEditor": {
+      "loadingContext": "正在加载上下文...",
+      "loadingData": "正在加载数据...",
+      "refresh": "刷新",
+      "outOfSync": {
+        "title": "数据不同步",
+        "intro": "由于此宏中的数据版本不同步，我们目前无法保存您的进度。可能的原因有：",
+        "reasonSomebodyElse": "其他人正在修改此宏的内容。",
+        "reasonAnotherTab": "您正在另一个浏览器标签页中修改此宏。"
+      }
+    },
+    "gist": {
+      "loadError": "加载 Gist 时出错"
+    },
+    "bitbucketSnippet": {
+      "title": "不再支持 Bitbucket 代码片段宏",
+      "deprecated": "此宏已弃用，将不再显示代码片段内容。",
+      "visit": "要查看代码片段内容，请直接访问原始 Bitbucket 页面：",
+      "link": "在 Bitbucket 中查看代码片段"
+    }
+  }
+}

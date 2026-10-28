@@ -1,0 +1,78 @@
+{
+  "macro": {
+    "codeEditor": {
+      "title": "Koodiredaktor",
+      "description": "Muutke koodi otse oma Confluence'i lehel"
+    },
+    "bitbucketSnippet": {
+      "title": "Bitbucketi koodilõik",
+      "description": "VANANENUD: makrot Bitbucketi koodilõik ei toetata tehniliste piirangute tõttu enam"
+    },
+    "gist": {
+      "title": "GitHub Gist",
+      "description": "Kuvage GitHubi gist'e Confluence'is"
+    },
+    "codeBlock": {
+      "title": "Parem koodiplokk",
+      "description": "Vormindage lähtekoodi- või märgistusplokke"
+    }
+  },
+  "config": {
+    "language": {
+      "label": "Keel"
+    },
+    "codeBlock": {
+      "codeContent": {
+        "label": "Koodi sisu",
+        "placeholder": "Kleepige oma kood siia..."
+      },
+      "title": {
+        "label": "Pealkiri",
+        "placeholder": "Koodiploki valikuline pealkiri"
+      },
+      "theme": {
+        "label": "Teema"
+      }
+    },
+    "gist": {
+      "url": {
+        "label": "Gisti URL"
+      }
+    },
+    "bitbucketSnippet": {
+      "url": {
+        "label": "Koodilõigu URL"
+      }
+    }
+  },
+  "view": {
+    "codeBlock": {
+      "loading": "Koodiploki laadimine...",
+      "noContent": "// Koodi sisu pole esitatud\n// Lisage kood makro konfiguratsioonis",
+      "loadFailed": "Makro andmete laadimine ebaõnnestus",
+      "error": "Viga: {error}",
+      "copy": "Kopeeri",
+      "copyTooltip": "Kopeeri lõikelauale"
+    },
+    "codeEditor": {
+      "loadingContext": "Konteksti laadimine...",
+      "loadingData": "Andmete laadimine...",
+      "refresh": "Värskenda",
+      "outOfSync": {
+        "title": "Andmed ei ole sünkroonis",
+        "intro": "Teie edusamme ei saa praegu salvestada, kuna selle makro andmete versioon ei ole sünkroonis. Kõige tõenäolisemad põhjused on:",
+        "reasonSomebodyElse": "Keegi teine muudab selle makro sisu.",
+        "reasonAnotherTab": "Muudate seda makrot teisel brauserilehel."
+      }
+    },
+    "gist": {
+      "loadError": "Gisti laadimisel ilmnes viga"
+    },
+    "bitbucketSnippet": {
+      "title": "Makrot Bitbucketi koodilõik ei toetata enam",
+      "deprecated": "See makro on vananenud ega kuva enam koodilõigu sisu.",
+      "visit": "Koodilõigu sisu vaatamiseks avage otse algne Bitbucketi leht:",
+      "link": "Vaata koodilõiku Bitbucketis"
+    }
+  }
+}

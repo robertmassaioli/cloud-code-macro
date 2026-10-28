@@ -1,0 +1,78 @@
+{
+  "macro": {
+    "codeEditor": {
+      "title": "Éditeur de code",
+      "description": "Modifiez du code directement dans votre page Confluence"
+    },
+    "bitbucketSnippet": {
+      "title": "Extrait Bitbucket",
+      "description": "OBSOLÈTE : la macro Extrait Bitbucket n’est plus prise en charge en raison de limitations techniques"
+    },
+    "gist": {
+      "title": "GitHub Gist",
+      "description": "Afficher des gists GitHub dans Confluence"
+    },
+    "codeBlock": {
+      "title": "Meilleur bloc de code",
+      "description": "Mettre en forme des blocs de code source ou de balisage"
+    }
+  },
+  "config": {
+    "language": {
+      "label": "Langue"
+    },
+    "codeBlock": {
+      "codeContent": {
+        "label": "Contenu du code",
+        "placeholder": "Collez votre code ici..."
+      },
+      "title": {
+        "label": "Titre",
+        "placeholder": "Titre facultatif pour votre bloc de code"
+      },
+      "theme": {
+        "label": "Thème"
+      }
+    },
+    "gist": {
+      "url": {
+        "label": "URL du gist"
+      }
+    },
+    "bitbucketSnippet": {
+      "url": {
+        "label": "URL de l’extrait"
+      }
+    }
+  },
+  "view": {
+    "codeBlock": {
+      "loading": "Chargement du bloc de code...",
+      "noContent": "// Aucun contenu de code fourni\n// Veuillez ajouter du code dans la configuration de la macro",
+      "loadFailed": "Échec du chargement des données de la macro",
+      "error": "Erreur : {error}",
+      "copy": "Copier",
+      "copyTooltip": "Copier dans le presse-papiers"
+    },
+    "codeEditor": {
+      "loadingContext": "Chargement du contexte...",
+      "loadingData": "Chargement des données...",
+      "refresh": "Actualiser",
+      "outOfSync": {
+        "title": "Données désynchronisées",
+        "intro": "Nous ne pouvons pas enregistrer votre progression pour le moment, car la version des données de cette macro est désynchronisée. Les raisons probables sont les suivantes :",
+        "reasonSomebodyElse": "Quelqu’un d’autre modifie le contenu de cette macro.",
+        "reasonAnotherTab": "Vous modifiez cette macro dans un autre onglet du navigateur."
+      }
+    },
+    "gist": {
+      "loadError": "Erreur lors du chargement du gist"
+    },
+    "bitbucketSnippet": {
+      "title": "La macro Extrait Bitbucket n’est plus prise en charge",
+      "deprecated": "Cette macro est obsolète et n’affichera plus le contenu de l’extrait.",
+      "visit": "Pour consulter le contenu de votre extrait, rendez-vous directement sur la page Bitbucket d’origine :",
+      "link": "Afficher l’extrait sur Bitbucket"
+    }
+  }
+}

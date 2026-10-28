@@ -1,0 +1,78 @@
+{
+  "macro": {
+    "codeEditor": {
+      "title": "Editor kódu",
+      "description": "Upravujte kód přímo na stránce Confluence"
+    },
+    "bitbucketSnippet": {
+      "title": "Fragment Bitbucket",
+      "description": "ZASTARALÉ: Makro Fragment Bitbucket již není podporováno z technických důvodů"
+    },
+    "gist": {
+      "title": "GitHub Gist",
+      "description": "Zobrazujte gisty z GitHubu v Confluence"
+    },
+    "codeBlock": {
+      "title": "Lepší blok kódu",
+      "description": "Formátujte bloky zdrojového kódu nebo značek"
+    }
+  },
+  "config": {
+    "language": {
+      "label": "Jazyk"
+    },
+    "codeBlock": {
+      "codeContent": {
+        "label": "Obsah kódu",
+        "placeholder": "Sem vložte svůj kód..."
+      },
+      "title": {
+        "label": "Název",
+        "placeholder": "Volitelný název bloku kódu"
+      },
+      "theme": {
+        "label": "Motiv"
+      }
+    },
+    "gist": {
+      "url": {
+        "label": "Adresa URL gistu"
+      }
+    },
+    "bitbucketSnippet": {
+      "url": {
+        "label": "Adresa URL fragmentu"
+      }
+    }
+  },
+  "view": {
+    "codeBlock": {
+      "loading": "Načítání bloku kódu...",
+      "noContent": "// Nebyl zadán žádný obsah kódu\n// Přidejte kód v konfiguraci makra",
+      "loadFailed": "Data makra se nepodařilo načíst",
+      "error": "Chyba: {error}",
+      "copy": "Kopírovat",
+      "copyTooltip": "Kopírovat do schránky"
+    },
+    "codeEditor": {
+      "loadingContext": "Načítání kontextu...",
+      "loadingData": "Načítání dat...",
+      "refresh": "Obnovit",
+      "outOfSync": {
+        "title": "Data nejsou synchronizována",
+        "intro": "Váš postup teď nelze uložit, protože verze dat v tomto makru není synchronizována. Nejpravděpodobnější příčiny jsou:",
+        "reasonSomebodyElse": "Obsah tohoto makra upravuje někdo jiný.",
+        "reasonAnotherTab": "Toto makro upravujete na jiné kartě prohlížeče."
+      }
+    },
+    "gist": {
+      "loadError": "Při načítání gistu došlo k chybě"
+    },
+    "bitbucketSnippet": {
+      "title": "Makro Fragment Bitbucket již není podporováno",
+      "deprecated": "Toto makro je zastaralé a už nebude zobrazovat obsah fragmentu.",
+      "visit": "Obsah fragmentu si zobrazíte přímo na původní stránce Bitbucketu:",
+      "link": "Zobrazit fragment v Bitbucketu"
+    }
+  }
+}

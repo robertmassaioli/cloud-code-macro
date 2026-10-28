@@ -1,0 +1,78 @@
+{
+  "macro": {
+    "codeEditor": {
+      "title": "Koderedigering",
+      "description": "Rediger kode direkte på Confluence-siden din"
+    },
+    "bitbucketSnippet": {
+      "title": "Bitbucket-snippet",
+      "description": "FORELDET: Makroen Bitbucket-snippet støttes ikke lenger på grunn av tekniske begrensninger"
+    },
+    "gist": {
+      "title": "GitHub Gist",
+      "description": "Vis GitHub-gister i Confluence"
+    },
+    "codeBlock": {
+      "title": "Bedre kodeblokk",
+      "description": "Formater blokker med kildekode eller markup"
+    }
+  },
+  "config": {
+    "language": {
+      "label": "Språk"
+    },
+    "codeBlock": {
+      "codeContent": {
+        "label": "Kodeinnhold",
+        "placeholder": "Lim inn koden din her..."
+      },
+      "title": {
+        "label": "Tittel",
+        "placeholder": "Valgfri tittel for kodeblokken"
+      },
+      "theme": {
+        "label": "Tema"
+      }
+    },
+    "gist": {
+      "url": {
+        "label": "Gist-URL"
+      }
+    },
+    "bitbucketSnippet": {
+      "url": {
+        "label": "Snippet-URL"
+      }
+    }
+  },
+  "view": {
+    "codeBlock": {
+      "loading": "Laster inn kodeblokk...",
+      "noContent": "// Ingen kodeinnhold er oppgitt\n// Legg til kode i makrokonfigurasjonen",
+      "loadFailed": "Kunne ikke laste inn makrodata",
+      "error": "Feil: {error}",
+      "copy": "Kopier",
+      "copyTooltip": "Kopier til utklippstavlen"
+    },
+    "codeEditor": {
+      "loadingContext": "Laster inn kontekst...",
+      "loadingData": "Laster inn data...",
+      "refresh": "Oppdater",
+      "outOfSync": {
+        "title": "Data er ikke synkronisert",
+        "intro": "Vi kan ikke lagre fremdriften din akkurat nå fordi versjonen av dataene i denne makroen ikke er synkronisert. De mest sannsynlige årsakene er:",
+        "reasonSomebodyElse": "Noen andre endrer innholdet i denne makroen.",
+        "reasonAnotherTab": "Du endrer denne makroen i en annen nettleserfane."
+      }
+    },
+    "gist": {
+      "loadError": "Feil ved innlasting av gisten"
+    },
+    "bitbucketSnippet": {
+      "title": "Makroen Bitbucket-snippet støttes ikke lenger",
+      "deprecated": "Denne makroen er foreldet og viser ikke lenger innholdet i snippeten.",
+      "visit": "Gå direkte til den opprinnelige Bitbucket-siden for å se innholdet i snippeten din:",
+      "link": "Se snippeten på Bitbucket"
+    }
+  }
+}
