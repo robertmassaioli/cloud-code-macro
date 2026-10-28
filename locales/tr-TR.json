@@ -1,0 +1,78 @@
+{
+  "macro": {
+    "codeEditor": {
+      "title": "Kod düzenleyici",
+      "description": "Kodu doğrudan Confluence sayfanızda düzenleyin"
+    },
+    "bitbucketSnippet": {
+      "title": "Bitbucket Snippet",
+      "description": "KULLANIMDAN KALDIRILDI: Bitbucket Snippet makrosu teknik sınırlamalar nedeniyle artık desteklenmiyor"
+    },
+    "gist": {
+      "title": "GitHub Gist",
+      "description": "GitHub gist'lerini Confluence'ta görüntüleyin"
+    },
+    "codeBlock": {
+      "title": "Daha iyi kod bloğu",
+      "description": "Kaynak kod veya biçimlendirme bloklarını biçimlendirin"
+    }
+  },
+  "config": {
+    "language": {
+      "label": "Dil"
+    },
+    "codeBlock": {
+      "codeContent": {
+        "label": "Kod içeriği",
+        "placeholder": "Kodunuzu buraya yapıştırın..."
+      },
+      "title": {
+        "label": "Başlık",
+        "placeholder": "Kod bloğunuz için isteğe bağlı başlık"
+      },
+      "theme": {
+        "label": "Tema"
+      }
+    },
+    "gist": {
+      "url": {
+        "label": "Gist URL'si"
+      }
+    },
+    "bitbucketSnippet": {
+      "url": {
+        "label": "Snippet URL'si"
+      }
+    }
+  },
+  "view": {
+    "codeBlock": {
+      "loading": "Kod bloğu yükleniyor...",
+      "noContent": "// Kod içeriği sağlanmadı\n// Lütfen makro yapılandırmasına kod ekleyin",
+      "loadFailed": "Makro verileri yüklenemedi",
+      "error": "Hata: {error}",
+      "copy": "Kopyala",
+      "copyTooltip": "Panoya kopyala"
+    },
+    "codeEditor": {
+      "loadingContext": "Bağlam yükleniyor...",
+      "loadingData": "Veriler yükleniyor...",
+      "refresh": "Yenile",
+      "outOfSync": {
+        "title": "Veriler eşzamanlı değil",
+        "intro": "Bu makrodaki verilerin sürümü eşzamanlı olmadığından ilerlemeniz şu anda kaydedilemiyor. Olası nedenler şunlardır:",
+        "reasonSomebodyElse": "Başka biri bu makronun içeriğini değiştiriyor.",
+        "reasonAnotherTab": "Bu makroyu başka bir tarayıcı sekmesinde değiştiriyorsunuz."
+      }
+    },
+    "gist": {
+      "loadError": "Gist yüklenirken hata oluştu"
+    },
+    "bitbucketSnippet": {
+      "title": "Bitbucket Snippet makrosu artık desteklenmiyor",
+      "deprecated": "Bu makro kullanımdan kaldırıldı ve artık snippet içeriğini göstermeyecek.",
+      "visit": "Snippet içeriğinizi görüntülemek için lütfen doğrudan özgün Bitbucket sayfasını ziyaret edin:",
+      "link": "Snippet'i Bitbucket'ta görüntüle"
+    }
+  }
+}

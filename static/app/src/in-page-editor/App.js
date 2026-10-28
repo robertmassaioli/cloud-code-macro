@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { debounce } from 'throttle-debounce';
 import { isPresent } from 'ts-is-present';
 import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';
+import { useTranslate } from '../useTranslate';
 
 const radius = 3;
 
@@ -32,6 +33,7 @@ function useEffectAsync(callback, context) {
 }
 
 function App() {
+  const { t } = useTranslate();
   const [data, setData] = useState(null);
   const [context, setContext] = useState(null);
   const [showRefresh, setShowRefresh] = useState(false);
@@ -77,11 +79,11 @@ function App() {
   }, [context]);
 
   if (!isPresent(context)) {
-    return <Container>Loading context...</Container>;
+    return <Container>{t('view.codeEditor.loadingContext')}</Container>;
   }
 
   if (!isPresent(data)) {
-    return <Container>Loading data...</Container>;
+    return <Container>{t('view.codeEditor.loadingData')}</Container>;
   }
 
   const macroId = context.localId;
@@ -141,19 +143,16 @@ function App() {
     <Container>
       {showRefresh && (
         <SectionMessage
-          title="Data out of sync"
+          title={t('view.codeEditor.outOfSync.title')}
           appearance="warning"
           actions={[
-            <SectionMessageAction href="#" onClick={() => refreshData()}>Refresh</SectionMessageAction>
+            <SectionMessageAction href="#" onClick={() => refreshData()}>{t('view.codeEditor.refresh')}</SectionMessageAction>
           ]}>
           <>
-            <p>
-              We're unable to save any progress at this time as the version of the data in this macro is out of sync.
-              The likely reasons for this are:
-            </p>
+            <p>{t('view.codeEditor.outOfSync.intro')}</p>
             <ul>
-              <li>somebody else modifying the contents of this macro OR</li>
-              <li>you modifying this macro in another browser tab</li>
+              <li>{t('view.codeEditor.outOfSync.reasonSomebodyElse')}</li>
+              <li>{t('view.codeEditor.outOfSync.reasonAnotherTab')}</li>
             </ul>
           </>
         </SectionMessage>

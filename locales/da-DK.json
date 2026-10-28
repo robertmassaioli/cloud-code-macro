@@ -1,0 +1,78 @@
+{
+  "macro": {
+    "codeEditor": {
+      "title": "Kodeeditor",
+      "description": "Rediger kode direkte på din Confluence-side"
+    },
+    "bitbucketSnippet": {
+      "title": "Bitbucket-snippet",
+      "description": "FORÆLDET: Makroen Bitbucket-snippet understøttes ikke længere på grund af tekniske begrænsninger"
+    },
+    "gist": {
+      "title": "GitHub Gist",
+      "description": "Vis GitHub-gists i Confluence"
+    },
+    "codeBlock": {
+      "title": "Bedre kodeblok",
+      "description": "Formatér blokke med kildekode eller markup"
+    }
+  },
+  "config": {
+    "language": {
+      "label": "Sprog"
+    },
+    "codeBlock": {
+      "codeContent": {
+        "label": "Kodeindhold",
+        "placeholder": "Indsæt din kode her..."
+      },
+      "title": {
+        "label": "Titel",
+        "placeholder": "Valgfri titel til din kodeblok"
+      },
+      "theme": {
+        "label": "Tema"
+      }
+    },
+    "gist": {
+      "url": {
+        "label": "Gist-URL"
+      }
+    },
+    "bitbucketSnippet": {
+      "url": {
+        "label": "Snippet-URL"
+      }
+    }
+  },
+  "view": {
+    "codeBlock": {
+      "loading": "Indlæser kodeblok...",
+      "noContent": "// Intet kodeindhold angivet\n// Tilføj kode i makrokonfigurationen",
+      "loadFailed": "Makrodata kunne ikke indlæses",
+      "error": "Fejl: {error}",
+      "copy": "Kopiér",
+      "copyTooltip": "Kopiér til udklipsholderen"
+    },
+    "codeEditor": {
+      "loadingContext": "Indlæser kontekst...",
+      "loadingData": "Indlæser data...",
+      "refresh": "Opdater",
+      "outOfSync": {
+        "title": "Data er ikke synkroniseret",
+        "intro": "Vi kan ikke gemme dine fremskridt lige nu, fordi versionen af dataene i denne makro ikke er synkroniseret. De mest sandsynlige årsager er:",
+        "reasonSomebodyElse": "En anden ændrer indholdet af denne makro.",
+        "reasonAnotherTab": "Du ændrer denne makro i en anden browserfane."
+      }
+    },
+    "gist": {
+      "loadError": "Fejl ved indlæsning af gist"
+    },
+    "bitbucketSnippet": {
+      "title": "Makroen Bitbucket-snippet understøttes ikke længere",
+      "deprecated": "Denne makro er forældet og viser ikke længere snippetens indhold.",
+      "visit": "Gå direkte til den oprindelige Bitbucket-side for at se indholdet af din snippet:",
+      "link": "Se snippet på Bitbucket"
+    }
+  }
+}

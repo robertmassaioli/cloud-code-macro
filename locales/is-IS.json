@@ -1,0 +1,78 @@
+{
+  "macro": {
+    "codeEditor": {
+      "title": "Kóðaritill",
+      "description": "Breyttu kóða beint á Confluence-síðunni þinni"
+    },
+    "bitbucketSnippet": {
+      "title": "Bitbucket-kóðabútur",
+      "description": "ÚRELT: Fjölvinn Bitbucket-kóðabútur er ekki lengur studdur vegna tæknilegra takmarkana"
+    },
+    "gist": {
+      "title": "GitHub Gist",
+      "description": "Birtu GitHub-gist í Confluence"
+    },
+    "codeBlock": {
+      "title": "Betri kóðablokk",
+      "description": "Sníddu blokkir með frumkóða eða markup"
+    }
+  },
+  "config": {
+    "language": {
+      "label": "Tungumál"
+    },
+    "codeBlock": {
+      "codeContent": {
+        "label": "Innihald kóða",
+        "placeholder": "Límdu kóðann þinn hér..."
+      },
+      "title": {
+        "label": "Titill",
+        "placeholder": "Valfrjáls titill fyrir kóðablokkina"
+      },
+      "theme": {
+        "label": "Þema"
+      }
+    },
+    "gist": {
+      "url": {
+        "label": "Vefslóð gists"
+      }
+    },
+    "bitbucketSnippet": {
+      "url": {
+        "label": "Vefslóð kóðabúts"
+      }
+    }
+  },
+  "view": {
+    "codeBlock": {
+      "loading": "Hleð kóðablokk...",
+      "noContent": "// Ekkert kóðainnihald tilgreint\n// Bættu kóða við í stillingum fjölvans",
+      "loadFailed": "Ekki tókst að hlaða gögnum fjölvans",
+      "error": "Villa: {error}",
+      "copy": "Afrita",
+      "copyTooltip": "Afrita á klemmuspjald"
+    },
+    "codeEditor": {
+      "loadingContext": "Hleð samhengi...",
+      "loadingData": "Hleð gögnum...",
+      "refresh": "Endurnýja",
+      "outOfSync": {
+        "title": "Gögn eru ekki samstillt",
+        "intro": "Ekki er hægt að vista framvindu þína núna vegna þess að útgáfa gagnanna í þessum fjölva er ekki samstillt. Líklegustu ástæðurnar eru:",
+        "reasonSomebodyElse": "Einhver annar er að breyta innihaldi þessa fjölva.",
+        "reasonAnotherTab": "Þú ert að breyta þessum fjölva í öðrum vafraflipa."
+      }
+    },
+    "gist": {
+      "loadError": "Villa við að hlaða gisti"
+    },
+    "bitbucketSnippet": {
+      "title": "Fjölvinn Bitbucket-kóðabútur er ekki lengur studdur",
+      "deprecated": "Þessi fjölvi er úreltur og birtir ekki lengur innihald kóðabútsins.",
+      "visit": "Til að sjá innihald kóðabútsins skaltu fara beint á upprunalegu Bitbucket-síðuna:",
+      "link": "Skoða kóðabút í Bitbucket"
+    }
+  }
+}

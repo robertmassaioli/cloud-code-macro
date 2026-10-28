@@ -2,9 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useConfig } from '@forge/react';
 import hljs from 'highlight.js';
 import { HIGHLIGHT_THEMES } from './languages';
+import { useTranslate } from '../useTranslate';
 // Default theme will be loaded dynamically
 
 function App() {
+  const { t } = useTranslate();
   // Use Forge UI Kit hook to get macro configuration
   // https://developer.atlassian.com/platform/forge/ui-kit/hooks/use-config/
   const config = useConfig() || {};
@@ -65,18 +67,18 @@ function App() {
       try {
         // In Forge, get the macro body content from config
         // Priority: codeContent (new Forge macros) -> __bodyContent (migrated Connect macros) -> fallback
-        const codeContent = config.codeContent || config.__bodyContent || '// No code content provided\n// Please add code content in the macro configuration';
+        const codeContent = config.codeContent || config.__bodyContent || t('view.codeBlock.noContent');
         setMacroBody(codeContent);
       } catch (err) {
         console.error('Error loading macro data:', err);
-        setError(err.message || 'Failed to load macro data');
+        setError(err.message || t('view.codeBlock.loadFailed'));
       } finally {
         setLoading(false);
       }
     };
 
     loadMacroData();
-  }, [config]);
+  }, [config, t]);
 
   useEffect(() => {
     // Apply syntax highlighting when content or language changes
@@ -132,7 +134,7 @@ function App() {
   if (loading) {
     return (
       <div style={{ padding: '20px', textAlign: 'center' }}>
-        Loading code block...
+        {t('view.codeBlock.loading')}
       </div>
     );
   }
@@ -140,7 +142,7 @@ function App() {
   if (error) {
     return (
       <div style={{ padding: '20px', color: 'red' }}>
-        Error: {error}
+        {t('view.codeBlock.error', { error })}
       </div>
     );
   }
@@ -190,9 +192,9 @@ function App() {
               cursor: 'pointer',
               zIndex: 1
             }}
-            title="Copy to clipboard"
+            title={t('view.codeBlock.copyTooltip')}
           >
-            📋 Copy
+            📋 {t('view.codeBlock.copy')}
           </button>
 
           <pre className="hljs" style={{

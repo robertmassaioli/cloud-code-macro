@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { view } from '@forge/bridge';
 import styled from 'styled-components';
+import { useTranslate } from '../useTranslate';
 
 const Container = styled.div`
   background-color: white;
@@ -47,6 +48,7 @@ const LinkButton = styled.a`
 `;
 
 function App() {
+  const { t } = useTranslate();
   const [context, setContext] = useState(null);
 
   useEffect(() => {
@@ -60,16 +62,12 @@ function App() {
   return (
     <Container>
       <DeprecationNotice>
-        <DeprecationTitle>Bitbucket Snippet Macro No Longer Supported</DeprecationTitle>
-        <DeprecationMessage>
-          This macro has been deprecated and will no longer display snippet content.
-        </DeprecationMessage>
-        <DeprecationMessage>
-          To view your snippet content, please visit the original Bitbucket page directly:
-        </DeprecationMessage>
+        <DeprecationTitle>{t('view.bitbucketSnippet.title')}</DeprecationTitle>
+        <DeprecationMessage>{t('view.bitbucketSnippet.deprecated')}</DeprecationMessage>
+        <DeprecationMessage>{t('view.bitbucketSnippet.visit')}</DeprecationMessage>
         {url && (
           <LinkButton href={url} target="_blank" rel="noopener noreferrer">
-            View Snippet on Bitbucket
+            {t('view.bitbucketSnippet.link')}
           </LinkButton>
         )}
       </DeprecationNotice>

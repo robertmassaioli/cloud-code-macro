@@ -1,0 +1,78 @@
+{
+  "macro": {
+    "codeEditor": {
+      "title": "Code-Editor",
+      "description": "Code direkt in Ihrer Confluence-Seite bearbeiten"
+    },
+    "bitbucketSnippet": {
+      "title": "Bitbucket-Snippet",
+      "description": "VERALTET: Das Makro „Bitbucket-Snippet“ wird aufgrund technischer Einschränkungen nicht mehr unterstützt"
+    },
+    "gist": {
+      "title": "GitHub-Gist",
+      "description": "GitHub-Gists in Confluence anzeigen"
+    },
+    "codeBlock": {
+      "title": "Besserer Codeblock",
+      "description": "Blöcke aus Quellcode oder Markup formatieren"
+    }
+  },
+  "config": {
+    "language": {
+      "label": "Sprache"
+    },
+    "codeBlock": {
+      "codeContent": {
+        "label": "Codeinhalt",
+        "placeholder": "Fügen Sie Ihren Code hier ein ..."
+      },
+      "title": {
+        "label": "Titel",
+        "placeholder": "Optionaler Titel für Ihren Codeblock"
+      },
+      "theme": {
+        "label": "Design"
+      }
+    },
+    "gist": {
+      "url": {
+        "label": "Gist-URL"
+      }
+    },
+    "bitbucketSnippet": {
+      "url": {
+        "label": "Snippet-URL"
+      }
+    }
+  },
+  "view": {
+    "codeBlock": {
+      "loading": "Codeblock wird geladen ...",
+      "noContent": "// Kein Codeinhalt angegeben\n// Bitte fügen Sie Code in der Makrokonfiguration hinzu",
+      "loadFailed": "Makrodaten konnten nicht geladen werden",
+      "error": "Fehler: {error}",
+      "copy": "Kopieren",
+      "copyTooltip": "In die Zwischenablage kopieren"
+    },
+    "codeEditor": {
+      "loadingContext": "Kontext wird geladen ...",
+      "loadingData": "Daten werden geladen ...",
+      "refresh": "Aktualisieren",
+      "outOfSync": {
+        "title": "Daten nicht synchron",
+        "intro": "Fortschritte können derzeit nicht gespeichert werden, da die Version der Daten in diesem Makro nicht synchron ist. Mögliche Gründe:",
+        "reasonSomebodyElse": "Jemand anderes ändert den Inhalt dieses Makros.",
+        "reasonAnotherTab": "Sie ändern dieses Makro in einem anderen Browser-Tab."
+      }
+    },
+    "gist": {
+      "loadError": "Fehler beim Laden des Gists"
+    },
+    "bitbucketSnippet": {
+      "title": "Das Makro „Bitbucket-Snippet“ wird nicht mehr unterstützt",
+      "deprecated": "Dieses Makro ist veraltet und zeigt keine Snippet-Inhalte mehr an.",
+      "visit": "Um den Inhalt Ihres Snippets anzusehen, rufen Sie bitte direkt die ursprüngliche Bitbucket-Seite auf:",
+      "link": "Snippet auf Bitbucket ansehen"
+    }
+  }
+}

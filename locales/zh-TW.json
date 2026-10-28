@@ -1,0 +1,78 @@
+{
+  "macro": {
+    "codeEditor": {
+      "title": "程式碼編輯器",
+      "description": "直接在 Confluence 頁面中編輯程式碼"
+    },
+    "bitbucketSnippet": {
+      "title": "Bitbucket 程式碼片段",
+      "description": "已淘汰：由於技術限制，不再支援 Bitbucket 程式碼片段巨集"
+    },
+    "gist": {
+      "title": "GitHub Gist",
+      "description": "在 Confluence 中顯示 GitHub Gist"
+    },
+    "codeBlock": {
+      "title": "更好的程式碼區塊",
+      "description": "設定原始碼或標記語言區塊的格式"
+    }
+  },
+  "config": {
+    "language": {
+      "label": "語言"
+    },
+    "codeBlock": {
+      "codeContent": {
+        "label": "程式碼內容",
+        "placeholder": "在此貼上您的程式碼..."
+      },
+      "title": {
+        "label": "標題",
+        "placeholder": "程式碼區塊的標題（選填）"
+      },
+      "theme": {
+        "label": "主題"
+      }
+    },
+    "gist": {
+      "url": {
+        "label": "Gist URL"
+      }
+    },
+    "bitbucketSnippet": {
+      "url": {
+        "label": "程式碼片段 URL"
+      }
+    }
+  },
+  "view": {
+    "codeBlock": {
+      "loading": "正在載入程式碼區塊...",
+      "noContent": "// 未提供程式碼內容\n// 請在巨集設定中新增程式碼",
+      "loadFailed": "無法載入巨集資料",
+      "error": "錯誤：{error}",
+      "copy": "複製",
+      "copyTooltip": "複製到剪貼簿"
+    },
+    "codeEditor": {
+      "loadingContext": "正在載入內容...",
+      "loadingData": "正在載入資料...",
+      "refresh": "重新整理",
+      "outOfSync": {
+        "title": "資料不同步",
+        "intro": "由於此巨集中的資料版本不同步，我們目前無法儲存您的進度。可能的原因如下：",
+        "reasonSomebodyElse": "其他人正在修改此巨集的內容。",
+        "reasonAnotherTab": "您正在另一個瀏覽器分頁中修改此巨集。"
+      }
+    },
+    "gist": {
+      "loadError": "載入 Gist 時發生錯誤"
+    },
+    "bitbucketSnippet": {
+      "title": "不再支援 Bitbucket 程式碼片段巨集",
+      "deprecated": "此巨集已淘汰，將不再顯示程式碼片段內容。",
+      "visit": "若要檢視程式碼片段內容，請直接前往原始的 Bitbucket 頁面：",
+      "link": "在 Bitbucket 中檢視程式碼片段"
+    }
+  }
+}

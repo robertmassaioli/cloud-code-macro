@@ -12,12 +12,16 @@ import GistCodeMacroConfig from './gist-code-macro/Config';
 import InPageEditorConfig from './in-page-editor/Config';
 import PasteCodeMacroConfig from './paste-code-macro/Config';
 
+import { ViewIntlProvider } from './ViewIntlProvider';
+import { ConfigIntlProvider } from './ConfigIntlProvider';
+
 // in-page-editor is lazy-loaded because @monaco-editor/react is large.
 // This causes webpack to split Monaco into a separate chunk that is only
 // downloaded when the in-page-editor module is active.
 const InPageEditorApp = React.lazy(() => import('./in-page-editor/App'));
 
 // ── Custom UI (DOM renderer) ──────────────────────────────────────────────────
+// The "Loading..." fallbacks below stay in English on purpose: they show before the viewer's locale is known.
 // forge-module-router reads view.getContext() to determine which macro module
 // is active and renders only the matching <ContextRoute> branch.
 ReactDOM.render(
@@ -30,20 +34,22 @@ ReactDOM.render(
       'paste-code-macro',
     ]}
   >
-    <ContextRoute moduleKey="in-page-editor">
-      <React.Suspense fallback={<div>Loading editor...</div>}>
-        <InPageEditorApp />
-      </React.Suspense>
-    </ContextRoute>
-    <ContextRoute moduleKey="bitbucket-snippet-code-macro">
-      <BitbucketSnippetApp />
-    </ContextRoute>
-    <ContextRoute moduleKey="gist-code-macro">
-      <GistCodeMacroApp />
-    </ContextRoute>
-    <ContextRoute moduleKey="paste-code-macro">
-      <PasteCodeMacroApp />
-    </ContextRoute>
+    <ViewIntlProvider>
+      <ContextRoute moduleKey="in-page-editor">
+        <React.Suspense fallback={<div>Loading editor...</div>}>
+          <InPageEditorApp />
+        </React.Suspense>
+      </ContextRoute>
+      <ContextRoute moduleKey="bitbucket-snippet-code-macro">
+        <BitbucketSnippetApp />
+      </ContextRoute>
+      <ContextRoute moduleKey="gist-code-macro">
+        <GistCodeMacroApp />
+      </ContextRoute>
+      <ContextRoute moduleKey="paste-code-macro">
+        <PasteCodeMacroApp />
+      </ContextRoute>
+    </ViewIntlProvider>
   </ForgeContextProvider>,
   document.getElementById('root')
 );
@@ -66,7 +72,7 @@ const { UIKitContextRoute } = createUIKitContextRoute(useProductContext, {
 });
 
 const UnifiedConfig = () => (
-  <>
+  <ConfigIntlProvider>
     <UIKitContextRoute moduleKey="in-page-editor">
       <InPageEditorConfig />
     </UIKitContextRoute>
@@ -79,7 +85,7 @@ const UnifiedConfig = () => (
     <UIKitContextRoute moduleKey="paste-code-macro">
       <PasteCodeMacroConfig />
     </UIKitContextRoute>
-  </>
+  </ConfigIntlProvider>
 );
 
 ForgeReconciler.addConfig(<UnifiedConfig />);

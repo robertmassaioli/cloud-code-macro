@@ -1,5 +1,17 @@
 let default = https://prelude.dhall-lang.org/Optional/default
 
+let map = https://prelude.dhall-lang.org/List/map
+
+-- Titles and descriptions are translation keys, resolved from locales/<code>.json
+let i18n = \(key : Text) -> { i18n = key }
+
+-- The 26 locales Forge supports, https://developer.atlassian.com/platform/forge/manifest-reference/forge-supported-locale-codes/
+-- Keep in step with SUPPORTED_LOCALES in static/app/src/i18n.js (a test checks this).
+let localeCodes : List Text =
+  [ "zh-CN", "zh-TW", "cs-CZ", "da-DK", "nl-NL", "en-US", "en-GB", "et-EE", "fi-FI", "fr-FR", "de-DE", "hu-HU", "is-IS"
+  , "it-IT", "ja-JP", "ko-KR", "no-NO", "pl-PL", "pt-BR", "pt-PT", "ro-RO", "ru-RU", "sk-SK", "tr-TR", "es-ES", "sv-SE"
+  ]
+
 let Config : Type =
   { connectKey: Text
   , baseUrl: Text
@@ -20,9 +32,9 @@ in \(config: Config) -> { app =
     ]
   , macro =
     [ { key = "in-page-editor" ++ (default Text "" config.macroKeySuffix)
-      , description = Some "Edit code within your Confluence page"
+      , description = Some (i18n "macro.codeEditor.description")
       , resource = "app"
-      , title = "Code editor"
+      , title = i18n "macro.codeEditor.title"
       , config = True
       , categories = Some [ "development", "formatting" ]
       , featured = Some False
@@ -31,8 +43,8 @@ in \(config: Config) -> { app =
       , autoConvert = None { matchers : List { pattern : Text } }
       }
     , { key = "bitbucket-snippet-code-macro" ++ (default Text "" config.macroKeySuffix)
-      , title = "Bitbucket Snippet"
-      , description = Some "DEPRECATED: Bitbucket Snippet macro is no longer supported due to technical limitations"
+      , title = i18n "macro.bitbucketSnippet.title"
+      , description = Some (i18n "macro.bitbucketSnippet.description")
       , resource = "app"
       , config = True
       , categories = Some [ "external-content", "development" ]
@@ -42,8 +54,8 @@ in \(config: Config) -> { app =
       , autoConvert = None { matchers : List { pattern : Text } }
       }
     , { key = "gist-code-macro" ++ (default Text "" config.macroKeySuffix)
-      , title = "GitHub Gist"
-      , description = Some "Display GitHub gists in Confluence"
+      , title = i18n "macro.gist.title"
+      , description = Some (i18n "macro.gist.description")
       , resource = "app"
       , config = True
       , categories = Some [ "external-content", "development" ]
@@ -57,8 +69,8 @@ in \(config: Config) -> { app =
         }
       }
     , { key = "paste-code-macro" ++ (default Text "" config.macroKeySuffix)
-      , title = "Better code block"
-      , description = Some "Format blocks of source code or markup"
+      , title = i18n "macro.codeBlock.title"
+      , description = Some (i18n "macro.codeBlock.description")
       , resource = "app"
       , config = True
       , categories = Some [ "formatting", "development" ]
@@ -87,4 +99,13 @@ in \(config: Config) -> { app =
 , resources =
   [ { key = "app", path = "static/app/build", tunnel.port = 3001 }
   ]
+, translations =
+  { fallback.default = "en-GB"
+  , resources =
+      map
+        Text
+        { key : Text, path : Text }
+        (\(code : Text) -> { key = code, path = "locales/${code}.json" })
+        localeCodes
+  }
 }

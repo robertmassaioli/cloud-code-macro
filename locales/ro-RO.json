@@ -1,0 +1,78 @@
+{
+  "macro": {
+    "codeEditor": {
+      "title": "Editor de cod",
+      "description": "Editați codul direct în pagina Confluence"
+    },
+    "bitbucketSnippet": {
+      "title": "Fragment Bitbucket",
+      "description": "ÎNVECHIT: Macroul Fragment Bitbucket nu mai este acceptat din cauza unor limitări tehnice"
+    },
+    "gist": {
+      "title": "GitHub Gist",
+      "description": "Afișați gisturi GitHub în Confluence"
+    },
+    "codeBlock": {
+      "title": "Bloc de cod îmbunătățit",
+      "description": "Formatați blocuri de cod sursă sau de marcaj"
+    }
+  },
+  "config": {
+    "language": {
+      "label": "Limbă"
+    },
+    "codeBlock": {
+      "codeContent": {
+        "label": "Conținutul codului",
+        "placeholder": "Lipiți codul aici..."
+      },
+      "title": {
+        "label": "Titlu",
+        "placeholder": "Titlu opțional pentru blocul de cod"
+      },
+      "theme": {
+        "label": "Temă"
+      }
+    },
+    "gist": {
+      "url": {
+        "label": "URL-ul gistului"
+      }
+    },
+    "bitbucketSnippet": {
+      "url": {
+        "label": "URL-ul fragmentului"
+      }
+    }
+  },
+  "view": {
+    "codeBlock": {
+      "loading": "Se încarcă blocul de cod...",
+      "noContent": "// Nu a fost furnizat niciun conținut de cod\n// Adăugați cod în configurarea macroului",
+      "loadFailed": "Nu s-au putut încărca datele macroului",
+      "error": "Eroare: {error}",
+      "copy": "Copiați",
+      "copyTooltip": "Copiați în clipboard"
+    },
+    "codeEditor": {
+      "loadingContext": "Se încarcă contextul...",
+      "loadingData": "Se încarcă datele...",
+      "refresh": "Reîmprospătați",
+      "outOfSync": {
+        "title": "Date nesincronizate",
+        "intro": "Momentan nu vă putem salva progresul, deoarece versiunea datelor din acest macro nu este sincronizată. Cele mai probabile motive sunt:",
+        "reasonSomebodyElse": "Altcineva modifică conținutul acestui macro.",
+        "reasonAnotherTab": "Modificați acest macro într-o altă filă a browserului."
+      }
+    },
+    "gist": {
+      "loadError": "Eroare la încărcarea gistului"
+    },
+    "bitbucketSnippet": {
+      "title": "Macroul Fragment Bitbucket nu mai este acceptat",
+      "deprecated": "Acest macro este învechit și nu va mai afișa conținutul fragmentului.",
+      "visit": "Pentru a vedea conținutul fragmentului, accesați direct pagina Bitbucket originală:",
+      "link": "Vedeți fragmentul în Bitbucket"
+    }
+  }
+}

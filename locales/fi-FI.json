@@ -1,0 +1,78 @@
+{
+  "macro": {
+    "codeEditor": {
+      "title": "Koodieditori",
+      "description": "Muokkaa koodia suoraan Confluence-sivullasi"
+    },
+    "bitbucketSnippet": {
+      "title": "Bitbucket-katkelma",
+      "description": "VANHENTUNUT: Bitbucket-katkelma-makroa ei enää tueta teknisten rajoitusten vuoksi"
+    },
+    "gist": {
+      "title": "GitHub Gist",
+      "description": "Näytä GitHub-gistit Confluencessa"
+    },
+    "codeBlock": {
+      "title": "Parempi koodilohko",
+      "description": "Muotoile lähdekoodi- tai merkintäkielilohkoja"
+    }
+  },
+  "config": {
+    "language": {
+      "label": "Kieli"
+    },
+    "codeBlock": {
+      "codeContent": {
+        "label": "Koodin sisältö",
+        "placeholder": "Liitä koodisi tähän..."
+      },
+      "title": {
+        "label": "Otsikko",
+        "placeholder": "Koodilohkon valinnainen otsikko"
+      },
+      "theme": {
+        "label": "Teema"
+      }
+    },
+    "gist": {
+      "url": {
+        "label": "Gistin URL-osoite"
+      }
+    },
+    "bitbucketSnippet": {
+      "url": {
+        "label": "Katkelman URL-osoite"
+      }
+    }
+  },
+  "view": {
+    "codeBlock": {
+      "loading": "Ladataan koodilohkoa...",
+      "noContent": "// Koodin sisältöä ei annettu\n// Lisää koodi makron asetuksissa",
+      "loadFailed": "Makron tietojen lataus epäonnistui",
+      "error": "Virhe: {error}",
+      "copy": "Kopioi",
+      "copyTooltip": "Kopioi leikepöydälle"
+    },
+    "codeEditor": {
+      "loadingContext": "Ladataan kontekstia...",
+      "loadingData": "Ladataan tietoja...",
+      "refresh": "Päivitä",
+      "outOfSync": {
+        "title": "Tiedot eivät ole synkronoituina",
+        "intro": "Edistymistäsi ei voi tallentaa juuri nyt, koska tämän makron tietojen versio ei ole synkronoitu. Todennäköisimmät syyt ovat:",
+        "reasonSomebodyElse": "Joku toinen muokkaa tämän makron sisältöä.",
+        "reasonAnotherTab": "Muokkaat tätä makroa toisessa selainvälilehdessä."
+      }
+    },
+    "gist": {
+      "loadError": "Gistin lataus epäonnistui"
+    },
+    "bitbucketSnippet": {
+      "title": "Bitbucket-katkelma-makroa ei enää tueta",
+      "deprecated": "Tämä makro on vanhentunut, eikä se enää näytä katkelman sisältöä.",
+      "visit": "Voit katsoa katkelman sisällön siirtymällä suoraan alkuperäiselle Bitbucket-sivulle:",
+      "link": "Näytä katkelma Bitbucketissa"
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "macro": {
+    "codeEditor": {
+      "title": "Code-editor",
+      "description": "Bewerk code direct in je Confluence-pagina"
+    },
+    "bitbucketSnippet": {
+      "title": "Bitbucket-snippet",
+      "description": "VEROUDERD: de macro Bitbucket-snippet wordt vanwege technische beperkingen niet meer ondersteund"
+    },
+    "gist": {
+      "title": "GitHub Gist",
+      "description": "Toon GitHub-gists in Confluence"
+    },
+    "codeBlock": {
+      "title": "Beter codeblok",
+      "description": "Formatteer blokken broncode of opmaaktaal"
+    }
+  },
+  "config": {
+    "language": {
+      "label": "Taal"
+    },
+    "codeBlock": {
+      "codeContent": {
+        "label": "Code-inhoud",
+        "placeholder": "Plak hier je code..."
+      },
+      "title": {
+        "label": "Titel",
+        "placeholder": "Optionele titel voor je codeblok"
+      },
+      "theme": {
+        "label": "Thema"
+      }
+    },
+    "gist": {
+      "url": {
+        "label": "Gist-URL"
+      }
+    },
+    "bitbucketSnippet": {
+      "url": {
+        "label": "Snippet-URL"
+      }
+    }
+  },
+  "view": {
+    "codeBlock": {
+      "loading": "Codeblok laden...",
+      "noContent": "// Geen code-inhoud opgegeven\n// Voeg code toe in de macroconfiguratie",
+      "loadFailed": "Kan de macrogegevens niet laden",
+      "error": "Fout: {error}",
+      "copy": "Kopiëren",
+      "copyTooltip": "Kopiëren naar klembord"
+    },
+    "codeEditor": {
+      "loadingContext": "Context laden...",
+      "loadingData": "Gegevens laden...",
+      "refresh": "Vernieuwen",
+      "outOfSync": {
+        "title": "Gegevens niet gesynchroniseerd",
+        "intro": "We kunnen je voortgang momenteel niet opslaan omdat de versie van de gegevens in deze macro niet gesynchroniseerd is. De meest waarschijnlijke oorzaken zijn:",
+        "reasonSomebodyElse": "Iemand anders wijzigt de inhoud van deze macro.",
+        "reasonAnotherTab": "Je wijzigt deze macro in een ander browsertabblad."
+      }
+    },
+    "gist": {
+      "loadError": "Fout bij het laden van de gist"
+    },
+    "bitbucketSnippet": {
+      "title": "De macro Bitbucket-snippet wordt niet meer ondersteund",
+      "deprecated": "Deze macro is verouderd en toont de inhoud van de snippet niet meer.",
+      "visit": "Ga rechtstreeks naar de oorspronkelijke Bitbucket-pagina om de inhoud van je snippet te bekijken:",
+      "link": "Snippet bekijken op Bitbucket"
+    }
+  }
+}

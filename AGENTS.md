@@ -34,9 +34,11 @@ in prod) via `macroKeySuffix`.
 | `manifest.yml` | **Generated and gitignored.** Never edit or commit it. |
 | `src/` | Forge backend: function module `resolver` (handler `index.handler`). `index.js` is the main resolver; `bitbucket-snippet-resolver.js` fetches snippets from the Bitbucket API. |
 | `static/app/` | The single unified Custom UI frontend (React 18, webpack 5, babel). Build output `static/app/build` is the manifest resource path. |
-| `static/app/src/index.js` | Frontend entry; picks the macro by module key. |
+| `static/app/src/index.js` | Frontend entry; picks the macro by module key and mounts `ViewIntlProvider` (views) and `ConfigIntlProvider` (config panels). |
+| `static/app/src/{i18n,translations,useTranslate}.js`, `ViewIntlProvider.js`, `ConfigIntlProvider.js` | Internationalisation: locale resolution, the loader, the two react-intl providers and the `useTranslate()` hook. See Internationalisation. |
+| `locales/<code>.json` | One translation file per Forge locale (26), registered in `manifest.dhall`. `en-GB` is the default and source of truth. |
 | `static/app/src/<macro>/{App,Config}.js` | Per-macro view (`App`) and config panel (`Config`) for `bitbucket-snippet`, `gist-code-macro`, `in-page-editor`, `paste-code-macro`. |
-| `ai-planning/` | Numbered design proposals (rules below). Currently `001-unified-frontend-proposal.md`. |
+| `ai-planning/` | Numbered design proposals (rules below). Currently `001` to `003`. |
 | `scripts/check-ai-planning.js` | Validates `ai-planning/` numbering; run by `npm test`. |
 | `.husky/prepare-commit-msg` | Runs `npx jira-prepare-commit-msg` on commit messages. |
 | `.bitbucket/` | `CODEOWNERS` and `teams.yml` (legacy Bitbucket-era ownership). |
@@ -108,9 +110,13 @@ Root `package.json`:
 - `npm run start:all` / `start:app`: webpack dev server on port 3001 (matches
   `tunnel.port`); pair with `manifest:local` and `forge tunnel -e local`
   (user-run only).
-- `npm test` -> `test:ai-planning` -> `node scripts/check-ai-planning.js`. **This
-  is the only automated test.** `npm test` in `static/app` is a no-op ("No tests
-  specified"), so a green run says nothing about app behavior.
+- `npm test` runs `test:ai-planning` (`node scripts/check-ai-planning.js`) and then
+  `test:app` (`cd static/app && npm test`, Jest). The app tests cover the
+  internationalisation code and every locale file (keys, placeholders, ICU syntax,
+  manifest list, size limit). They do not cover the macro views, the editor save
+  logic or the manifest beyond its locale list, so a green run says little about
+  other app behaviour. Node needs a real shell here, not a sandboxed one, because
+  of an OpenSSL config read.
 - `npm run ai-planning:next` prints the next proposal number.
 - `eslint` and `eslint-plugin-react-hooks` are root devDependencies, but there
   is no lint script; do not assume lint runs anywhere.
@@ -127,6 +133,45 @@ Root `package.json`:
   After pulling or switching branches, **run `npm install` in the root and in
   `static/app`** before debugging import errors.
 - Renovate (`renovate.json`) may open dependency PRs.
+
+## Internationalisation
+
+Design and rationale: `ai-planning/003-internationalisation.md`. Modelled on the
+sibling `localised-date-time` app.
+
+- **No hard-coded English** in `static/app/src` or in the manifest. User-visible
+  text lives in `locales/<code>.json` (nested keys, ICU MessageFormat). Components
+  call `const { t } = useTranslate()` and `t('view.codeBlock.error', { error })`.
+- **Adding or changing a string:** add the key to **every** one of the 26 files in
+  `locales/`, `en-GB` first. `static/app/src/__tests__/locales.test.js` fails if a
+  file is missing a key, renames a `{placeholder}`, has invalid ICU syntax, or if a
+  key is unused or used but undefined. Do not translate proper nouns (GitHub,
+  Bitbucket, Gist, language and theme names) or code the user typed.
+- **Macro titles and descriptions** are `i18n "macro.<name>.title"` keys in
+  `manifest.dhall`, never plain strings. The `translations` block is generated from
+  the `localeCodes` list there. Keep that list, `SUPPORTED_LOCALES` in
+  `static/app/src/i18n.js` and the Forge list of supported codes identical (the test
+  checks it). The schema needs `translations.fallback.default`, not `default`.
+- **Two providers, one hook.** Macro views (Custom UI, DOM) use `ViewIntlProvider`,
+  with the locale from `view.getContext()`. Config panels (UI Kit,
+  `ForgeReconciler`) use `ConfigIntlProvider`, with the locale from
+  `useProductContext()`. Both load only the viewer's file with
+  `i18n.getTranslations`.
+- **Always `resolveLocale()` first** (`loadMessages` does it). Forge passes locales
+  it cannot map (`en-AU`, `de-AT`, `fr-CA`) through unchanged and then serves the
+  default English file instead of the same language.
+- **Macro config allows only a restricted set of UI Kit components** (`Stack`
+  fails with "not supported in macro config"). Stay with `Label`, `Textfield`,
+  `Select`, `TextArea` and similar form components in `Config.js` files and in
+  `ConfigIntlProvider`.
+- **The config tree also runs in the view iframe on page load** (one bundle runs
+  both `ReactDOM.render` and `ForgeReconciler.addConfig`), so keep the providers
+  cheap.
+- **Intentionally English:** the "Loading..." fallbacks in `index.js`,
+  `ViewIntlProvider` and `ConfigIntlProvider`, because they show before the locale
+  is known. URL placeholders (`https://gist.github.com/...`) stay literal.
+- The 25 non-English files are model-written (formal-neutral register) and have
+  not been reviewed by native speakers.
 
 ## Known quirks
 
@@ -168,6 +213,7 @@ Do:
 - Keep changes small and scoped; run `npm test` after touching `ai-planning/`.
 - Change `manifest.dhall`, never `manifest.yml`, and keep module keys in sync
   with `static/app/src/index.js`.
+- Put every user-visible string in `locales/` (all 26 files) and use `t()`.
 - Ask before anything that deploys, installs, tunnels, or changes scopes/egress.
 
 Don't:
@@ -175,6 +221,7 @@ Don't:
   `forge login` without explicit approval.
 - Commit `manifest.yml`, `static/app/build`, `.forge`, `.env*` or `node_modules`.
 - Hand-edit lockfiles or do major dependency upgrades unprompted.
+- Hard-code English in components or the manifest, or add a key to only some locales.
 - Re-enable or promote the deprecated Bitbucket Snippet macro.
 - Renumber, reuse numbers, or leave gaps in `ai-planning/`.
 

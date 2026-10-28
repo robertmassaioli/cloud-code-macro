@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { view } from "@forge/bridge";
 import { useConfig } from '@forge/react';
+import { useTranslate } from '../useTranslate';
 
 function App() {
+  const { t } = useTranslate();
   const [context, setContext] = useState(null);
 
   useEffect(() => {
@@ -52,13 +54,16 @@ function App() {
           // Restore original document.write methods on error
           document.write = originalWrite;
           document.writeln = originalWriteln;
-          container.innerHTML = '<div style="color: red; padding: 10px;">Error loading gist</div>';
+          const message = document.createElement('div');
+          message.style.cssText = 'color: red; padding: 10px;';
+          message.textContent = t('view.gist.loadError');
+          container.replaceChildren(message);
         };
 
         document.head.appendChild(script);
       }
     }
-  }, [url]);
+  }, [url, t]);
 
   return (
     <div style={{ padding: '10px' }}>

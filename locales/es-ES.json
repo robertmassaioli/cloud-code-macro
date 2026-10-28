@@ -1,0 +1,78 @@
+{
+  "macro": {
+    "codeEditor": {
+      "title": "Editor de código",
+      "description": "Edita código directamente en tu página de Confluence"
+    },
+    "bitbucketSnippet": {
+      "title": "Fragmento de Bitbucket",
+      "description": "OBSOLETO: la macro Fragmento de Bitbucket ya no es compatible debido a limitaciones técnicas"
+    },
+    "gist": {
+      "title": "GitHub Gist",
+      "description": "Muestra gists de GitHub en Confluence"
+    },
+    "codeBlock": {
+      "title": "Mejor bloque de código",
+      "description": "Da formato a bloques de código fuente o de marcado"
+    }
+  },
+  "config": {
+    "language": {
+      "label": "Idioma"
+    },
+    "codeBlock": {
+      "codeContent": {
+        "label": "Contenido del código",
+        "placeholder": "Pega tu código aquí..."
+      },
+      "title": {
+        "label": "Título",
+        "placeholder": "Título opcional para tu bloque de código"
+      },
+      "theme": {
+        "label": "Tema"
+      }
+    },
+    "gist": {
+      "url": {
+        "label": "URL del gist"
+      }
+    },
+    "bitbucketSnippet": {
+      "url": {
+        "label": "URL del fragmento"
+      }
+    }
+  },
+  "view": {
+    "codeBlock": {
+      "loading": "Cargando el bloque de código...",
+      "noContent": "// No se ha proporcionado contenido de código\n// Añade código en la configuración de la macro",
+      "loadFailed": "No se pudieron cargar los datos de la macro",
+      "error": "Error: {error}",
+      "copy": "Copiar",
+      "copyTooltip": "Copiar en el portapapeles"
+    },
+    "codeEditor": {
+      "loadingContext": "Cargando el contexto...",
+      "loadingData": "Cargando los datos...",
+      "refresh": "Actualizar",
+      "outOfSync": {
+        "title": "Datos desincronizados",
+        "intro": "No podemos guardar tu progreso en este momento porque la versión de los datos de esta macro está desincronizada. Los motivos más probables son:",
+        "reasonSomebodyElse": "Otra persona está modificando el contenido de esta macro.",
+        "reasonAnotherTab": "Estás modificando esta macro en otra pestaña del navegador."
+      }
+    },
+    "gist": {
+      "loadError": "Error al cargar el gist"
+    },
+    "bitbucketSnippet": {
+      "title": "La macro Fragmento de Bitbucket ya no es compatible",
+      "deprecated": "Esta macro está obsoleta y ya no mostrará el contenido del fragmento.",
+      "visit": "Para ver el contenido de tu fragmento, visita directamente la página original de Bitbucket:",
+      "link": "Ver el fragmento en Bitbucket"
+    }
+  }
+}

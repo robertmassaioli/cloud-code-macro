@@ -181,6 +181,26 @@ Once installed, subsequent `forge deploy` runs are picked up automatically — n
 
 ---
 
+## Translations
+
+User-visible text is translated into the 26 locales Forge supports. Each locale has
+one file, `locales/<code>.json` (for example `locales/fr-FR.json`), with nested keys
+and ICU MessageFormat messages such as `Error: {error}`. `en-GB` is the default and
+the source of truth. The 25 other files were written by a model and would benefit
+from review by native speakers.
+
+- **Change or add a string:** edit `locales/en-GB.json`, add the same key to every
+  other file, and use it in code with `t('the.key')` from `useTranslate()`.
+- **Check your work:** `npm test` fails if any file is missing a key, changes a
+  `{placeholder}`, or has invalid syntax.
+- **Macro names in the macro browser** come from `macro.<name>.title` and
+  `.description`, referenced from `manifest.dhall`.
+- **Try it:** deploy to development and change your Confluence profile language.
+  Locales Forge has no file for (such as `en-AU` or `de-AT`) get the nearest
+  supported language.
+
+See `ai-planning/003-internationalisation.md` for the design.
+
 ## Support
 
 See [Get help](https://developer.atlassian.com/platform/forge/get-help/) for how to get help with Forge development, or refer to the [Forge documentation](https://developer.atlassian.com/platform/forge/) for full reference material.

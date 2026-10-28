@@ -35,8 +35,9 @@
     "deploy:dev": "run-s build:all manifest:dev deploy-only:dev",
     "deploy:prod": "run-s build:all manifest:prod deploy-only:prod",
     "deploy": "run-s deploy:local",
-    "test": "npm run test:ai-planning",
+    "test": "run-s test:ai-planning test:app",
     "test:ai-planning": "node scripts/check-ai-planning.js",
+    "test:app": "cd static/app && npm test",
     "ai-planning:next": "node scripts/check-ai-planning.js --next"
   }
 }

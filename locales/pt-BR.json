@@ -1,0 +1,78 @@
+{
+  "macro": {
+    "codeEditor": {
+      "title": "Editor de código",
+      "description": "Edite código diretamente na sua página do Confluence"
+    },
+    "bitbucketSnippet": {
+      "title": "Snippet do Bitbucket",
+      "description": "OBSOLETO: a macro Snippet do Bitbucket não é mais compatível devido a limitações técnicas"
+    },
+    "gist": {
+      "title": "GitHub Gist",
+      "description": "Exiba gists do GitHub no Confluence"
+    },
+    "codeBlock": {
+      "title": "Bloco de código melhor",
+      "description": "Formate blocos de código-fonte ou marcação"
+    }
+  },
+  "config": {
+    "language": {
+      "label": "Idioma"
+    },
+    "codeBlock": {
+      "codeContent": {
+        "label": "Conteúdo do código",
+        "placeholder": "Cole seu código aqui..."
+      },
+      "title": {
+        "label": "Título",
+        "placeholder": "Título opcional para o seu bloco de código"
+      },
+      "theme": {
+        "label": "Tema"
+      }
+    },
+    "gist": {
+      "url": {
+        "label": "URL do gist"
+      }
+    },
+    "bitbucketSnippet": {
+      "url": {
+        "label": "URL do snippet"
+      }
+    }
+  },
+  "view": {
+    "codeBlock": {
+      "loading": "Carregando o bloco de código...",
+      "noContent": "// Nenhum conteúdo de código fornecido\n// Adicione código na configuração da macro",
+      "loadFailed": "Falha ao carregar os dados da macro",
+      "error": "Erro: {error}",
+      "copy": "Copiar",
+      "copyTooltip": "Copiar para a área de transferência"
+    },
+    "codeEditor": {
+      "loadingContext": "Carregando o contexto...",
+      "loadingData": "Carregando os dados...",
+      "refresh": "Atualizar",
+      "outOfSync": {
+        "title": "Dados fora de sincronia",
+        "intro": "Não foi possível salvar seu progresso agora porque a versão dos dados desta macro está fora de sincronia. Os motivos mais prováveis são:",
+        "reasonSomebodyElse": "Outra pessoa está modificando o conteúdo desta macro.",
+        "reasonAnotherTab": "Você está modificando esta macro em outra guia do navegador."
+      }
+    },
+    "gist": {
+      "loadError": "Erro ao carregar o gist"
+    },
+    "bitbucketSnippet": {
+      "title": "A macro Snippet do Bitbucket não é mais compatível",
+      "deprecated": "Esta macro está obsoleta e não exibirá mais o conteúdo do snippet.",
+      "visit": "Para ver o conteúdo do seu snippet, acesse diretamente a página original do Bitbucket:",
+      "link": "Ver o snippet no Bitbucket"
+    }
+  }
+}

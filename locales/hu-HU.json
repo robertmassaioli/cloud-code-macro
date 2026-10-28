@@ -1,0 +1,78 @@
+{
+  "macro": {
+    "codeEditor": {
+      "title": "Kódszerkesztő",
+      "description": "Szerkessze a kódot közvetlenül a Confluence-oldalán"
+    },
+    "bitbucketSnippet": {
+      "title": "Bitbucket-részlet",
+      "description": "ELAVULT: A Bitbucket-részlet makró technikai korlátozások miatt már nem támogatott"
+    },
+    "gist": {
+      "title": "GitHub Gist",
+      "description": "GitHub-gistek megjelenítése a Confluence-ben"
+    },
+    "codeBlock": {
+      "title": "Jobb kódblokk",
+      "description": "Forráskód- vagy jelölőnyelv-blokkok formázása"
+    }
+  },
+  "config": {
+    "language": {
+      "label": "Nyelv"
+    },
+    "codeBlock": {
+      "codeContent": {
+        "label": "Kód tartalma",
+        "placeholder": "Illessze be ide a kódját..."
+      },
+      "title": {
+        "label": "Cím",
+        "placeholder": "A kódblokk opcionális címe"
+      },
+      "theme": {
+        "label": "Téma"
+      }
+    },
+    "gist": {
+      "url": {
+        "label": "Gist URL-címe"
+      }
+    },
+    "bitbucketSnippet": {
+      "url": {
+        "label": "Részlet URL-címe"
+      }
+    }
+  },
+  "view": {
+    "codeBlock": {
+      "loading": "Kódblokk betöltése...",
+      "noContent": "// Nincs megadva kódtartalom\n// Adjon hozzá kódot a makró konfigurációjában",
+      "loadFailed": "A makró adatainak betöltése sikertelen",
+      "error": "Hiba: {error}",
+      "copy": "Másolás",
+      "copyTooltip": "Másolás a vágólapra"
+    },
+    "codeEditor": {
+      "loadingContext": "Környezet betöltése...",
+      "loadingData": "Adatok betöltése...",
+      "refresh": "Frissítés",
+      "outOfSync": {
+        "title": "Az adatok nincsenek szinkronban",
+        "intro": "Jelenleg nem tudjuk menteni a munkáját, mert a makró adatainak verziója nincs szinkronban. A legvalószínűbb okok:",
+        "reasonSomebodyElse": "Valaki más módosítja a makró tartalmát.",
+        "reasonAnotherTab": "Egy másik böngészőlapon módosítja ezt a makrót."
+      }
+    },
+    "gist": {
+      "loadError": "Hiba a gist betöltésekor"
+    },
+    "bitbucketSnippet": {
+      "title": "A Bitbucket-részlet makró már nem támogatott",
+      "deprecated": "Ez a makró elavult, és többé nem jeleníti meg a részlet tartalmát.",
+      "visit": "A részlet tartalmának megtekintéséhez keresse fel közvetlenül az eredeti Bitbucket-oldalt:",
+      "link": "Részlet megtekintése a Bitbucketben"
+    }
+  }
+}
